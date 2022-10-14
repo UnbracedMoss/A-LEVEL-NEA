@@ -1,6 +1,7 @@
 from tkinter import *
 import os
-#current screen 9
+import time
+#current screen 10
 #make a clock
 
 global productName
@@ -35,8 +36,11 @@ def buying():
 
 
 def log_out():
-    screen = Toplevel(screen)
-
+    
+    screen6.destroy()
+  
+    
+    
     
     
 
@@ -80,7 +84,7 @@ def register_user():
     username_info = username.get()
     password_info = password.get()
 
-    file=open(username_info)
+    file=open(username_info, "w")
     file.write(username_info+"\n")
     file.write(password_info)
     file.close()
