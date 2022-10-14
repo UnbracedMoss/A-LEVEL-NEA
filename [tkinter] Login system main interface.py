@@ -1,6 +1,7 @@
 from tkinter import *
 import os
 #current screen 9
+#make a clock
 
 global productName
 global product_entry
@@ -55,6 +56,7 @@ def session():
 
 
 def login_success():
+    screen2.destroy()
     session()
     
 def password_not_recognised():
@@ -78,7 +80,7 @@ def register_user():
     username_info = username.get()
     password_info = password.get()
 
-    file=open(username_info,  "w")
+    file=open(username_info)
     file.write(username_info+"\n")
     file.write(password_info)
     file.close()
@@ -167,35 +169,45 @@ def login():
 def selling():
     global screen9
     global product_entry
-    global product
     global price_entry
-    global price
-
-    product_entry = str(product_entry)
-    product = str(product)
-    price_entry = str(price_entry)
-    price = str(price)
-    
 
     screen9 = Toplevel(screen)
     screen9.title("Generate a post")
     screen9.geometry("500x500")
-    
 
-    product_entry = Entry(screen9, textvariable = product)
+    product_entry = StringVar()
+    price_entry = IntVar()
+    
+    Label(screen9, text = "Product name*").pack()
+    product_entry = Entry(screen9)
     product_entry.pack()
+    Label(screen9, text = "").pack()
     Label(screen9, text = "Price * ").pack()
-    price_entry = Entry(screen9, textvariable = price)
+    price_entry = Entry(screen9)
     price_entry.pack()
     Label(screen9, text = "").pack()
-    Button(screen9, text = "Register", width = 10, height = 1, command = store_products).pack()
+    Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
 
 
 
 def store_products():
     print("Works")
-    print(product)
-    print(price)
+    product1 = product_entry.get()
+    price1 = price_entry.get()
+    print(product1)
+    print(price1)
+
+    file=open(product1,  "w")
+    file.write(product1+"\n")
+    file.write(price1)
+    file.close()
+
+    product_entry.delete(0, END)
+    price_entry.delete(0, END)
+
+    Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+    screen9.destroy()
+    
 
 
 
