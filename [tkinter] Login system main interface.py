@@ -1,6 +1,6 @@
 from tkinter import *
 import os
-import time
+from tkinter import filedialog
 #current screen 10
 #make a clock
 
@@ -21,6 +21,11 @@ def account_management():
     screen7.title("Account Management")
     screen7.geometry("500x500")
     Label(screen7, text="Welcome to account management").pack()
+    label47=Label(screen7, text = "Username:")
+    label47.pack(side=LEFT)
+    label48=Label(screen7, text=username1)
+    label48.pack(side=LEFT, pady=0)
+
     print(username1)
     print(password1)
     
@@ -47,6 +52,7 @@ def log_out():
 
 def session():
     global screen6
+    
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
@@ -84,6 +90,9 @@ def register_user():
     username_info = username.get()
     password_info = password.get()
 
+
+    curr_directory = os.getcwd()
+    print(curr_directory)
     file=open(username_info, "w")
     file.write(username_info+"\n")
     file.write(password_info)
@@ -209,9 +218,12 @@ def store_products():
     product_entry.delete(0, END)
     price_entry.delete(0, END)
 
-    Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
-    screen9.destroy()
     
+    screen9.destroy()
+    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+    variable_1 = label.after(1000, Label.destroy())
+     
+    #label.after(1000, label.master.destroy)
 
 
 
