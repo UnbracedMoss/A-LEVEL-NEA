@@ -90,9 +90,9 @@ def register_user():
     username_info = username.get()
     password_info = password.get()
 
-
-    curr_directory = os.getcwd()
-    print(curr_directory)
+    user_dir = filedialog.askdirectory()
+    os.chdir(user_dir)
+    print(user_dir)
     file=open(username_info, "w")
     file.write(username_info+"\n")
     file.write(password_info)
