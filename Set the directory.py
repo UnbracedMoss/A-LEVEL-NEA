@@ -21,16 +21,13 @@ def account_management():
     screen7.title("Account Management")
     screen7.geometry("500x500")
     Label(screen7, text="Welcome to account management").pack()
-    label47=Label(screen7, text = "Username:")
-    label47.pack(side=LEFT)
-    label48=Label(screen7, text=username1)
-    label48.pack(side=LEFT, pady=0)
-
-    label49=Label(screen7, text = "Password:")
-    label49.pack(side=LEFT)
-    label50=Label(screen7, text=password1)
-    label50.pack(side=LEFT, pady=0)
-
+    Label(screen7, text = "Username:").pack()
+    Label(screen7, text=username1).pack()
+    Label(screen7, text="").pack()
+    Label(screen7, text="").pack()
+    Label(screen7, text = "Password:").pack()
+    Label(screen7, text =password1).pack()
+    
     
     print(username1)
     print(password1)
