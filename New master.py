@@ -232,7 +232,8 @@ def login():
     Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
     
     
-def selected(event):
+
+def selected_searching_selling(event):
     myLabel = Label(screen9, text=clicked.get()).pack()
 
 def selling():
@@ -274,7 +275,7 @@ def selling():
     clicked = StringVar()
     clicked.set(options[0])
 
-    drop = OptionMenu(screen9, clicked, *options, command=selected)
+    drop = OptionMenu(screen9, clicked, *options, command=selected_searching_selling)
     drop.pack(pady=20)
 
     #special_button = Button(screen9, text = "Select from list", command=selected)
@@ -303,14 +304,17 @@ def store_products():
     print("Works")
     product1 = product_entry.get()
     price1 = price_entry.get()
+    category1 = clicked.get()
     print(product1)
     print(price1)
+    print(category1)
 
     global product_dir
     product_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Products")
     os.chdir(product_dir)
     file=open(product1,  "w")
     file.write(product1+"\n")
+    file.write(category1+"\n")
     file.write(price1)
     file.close()
 
