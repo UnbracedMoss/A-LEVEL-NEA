@@ -13,6 +13,8 @@ def delete3():
     screen4.destroy()
 def delete4():
     screen5.destroy()
+def delete5():
+    screen1.destroy()
 
 
 def account_management():
@@ -106,31 +108,49 @@ def user_not_found():
 
 
 def register_user():
+    global user_dir
+    taken_username = False
     username_info = username.get()
     password_info = password.get()
     address_1_info = address_line_1.get()
     address_2_info = address_line_2.get()
     postcode_info = postcode.get()
 
-    global user_dir
     user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Users")
     os.chdir(user_dir)
-    print(user_dir)
-    file=open(username_info, "w")
-    file.write(username_info+"\n")
-    file.write(password_info+"\n")
-    file.write(address_1_info+"\n")
-    file.write(address_2_info+"\n")
-    file.write(postcode_info+"\n")
-    file.close()
+    list_of_files = os.listdir()
+    if username_info in list_of_files:
+        taken_username = True
+        
 
-    username_entry.delete(0, END)
-    password_entry.delete(0, END)
-    postcode_entry.delete(0, END)
-    address_line_1_entry.delete(0, END)
-    address_line_2_entry.delete(0, END)
+    if taken_username == False:
+        
+        user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Users")
+        os.chdir(user_dir)
+        print(user_dir)
+        file=open(username_info, "w")
+        file.write(username_info+"\n")
+        file.write(password_info+"\n")
+        file.write(address_1_info+"\n")
+        file.write(address_2_info+"\n")
+        file.write(postcode_info+"\n")
+        file.close()
 
-    Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+
+        Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
+    else:
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+
+        Label(screen1, text = "Another user already has that username", fg = "green", font = ("Calibri", 11)).pack()
 
 
 def login_verify():
@@ -241,6 +261,9 @@ def selling():
     global product_entry
     global price_entry
     global clicked
+    global keyword1_entry
+    global keyword2_entry
+    global keyword3_entry
 
     screen9 = Toplevel(screen)
     screen9.title("Generate a post")
@@ -257,6 +280,17 @@ def selling():
     price_entry = Entry(screen9)
     price_entry.pack()
     Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 1:").pack()
+    keyword1_entry = Entry(screen9)
+    keyword1_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 2:").pack()
+    keyword2_entry = Entry(screen9)
+    keyword2_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 3:").pack()
+    keyword3_entry = Entry(screen9)
+    keyword3_entry.pack()
 
     options = [
         "Books" ,
@@ -282,18 +316,6 @@ def selling():
     #special_button.pack()
 
 
-
-
-
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "").pack()
     Label(screen9, text = "").pack()
     Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
@@ -305,17 +327,27 @@ def store_products():
     product1 = product_entry.get()
     price1 = price_entry.get()
     category1 = clicked.get()
+    keyword1 = keyword1_entry.get()
+    keyword2 = keyword2_entry.get()
+    keyword3 = keyword3_entry.get()
     print(product1)
-    print(price1)
     print(category1)
+    print(price1)
+    print(keyword1)
+    print(keyword2)
+    print(keyword3)
+
 
     global product_dir
     product_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Products")
     os.chdir(product_dir)
     file=open(product1,  "w")
     file.write(product1+"\n")
+    file.write(price1+"\n")
     file.write(category1+"\n")
-    file.write(price1)
+    file.write(keyword1+"\n")
+    file.write(keyword2+"\n")
+    file.write(keyword3+"\n")
     file.close()
 
     product_entry.delete(0, END)
