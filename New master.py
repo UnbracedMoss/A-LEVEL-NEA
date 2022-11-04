@@ -1,8 +1,7 @@
 from tkinter import *
 import os
 from tkinter import filedialog
-#current screen 10
-#make a clock
+#Next unused screen: 11
 
 global productName
 global product_entry
@@ -45,6 +44,42 @@ def account_management():
     Label(screen7, text="").pack()
     Label(screen7, text = "Postcode", font=('Helvetica', 18, 'bold')).pack()
     Label(screen7, text = content[4]).pack()
+
+    Label(screen7, text = "").pack()
+    Label(screen7, text = "").pack()
+
+    Label(screen7, text = "Do you wish to change your personal details").pack()
+    Button(screen7, text="Change me", command=personal_detail_changes).pack()
+
+def random12(event):
+    Label(screen10, text=clicked_details.get()).pack()
+    
+    
+
+def personal_detail_changes():
+    global screen10
+    global clicked_details
+    screen10 = Toplevel(screen)
+    screen10.title("Changing personal details")
+    screen10.geometry("900x900")
+    Label(screen10, text = "Select which personal detail to change:").pack()
+
+    user_info_selection = [
+        "Username",
+        "Password",
+        "1st Line of Address",
+        "2nd Line of Address",
+        "Postcode" 
+    ]
+
+    clicked_details = StringVar(screen10)
+    clicked_details.set(user_info_selection[0])
+
+    w = OptionMenu(screen10, clicked_details, *user_info_selection, command = random12)
+    w.pack()
+
+    
+    
     
 
 
@@ -146,11 +181,8 @@ def register_user():
     else:
         username_entry.delete(0, END)
         password_entry.delete(0, END)
-        postcode_entry.delete(0, END)
-        address_line_1_entry.delete(0, END)
-        address_line_2_entry.delete(0, END)
 
-        Label(screen1, text = "Another user already has that username", fg = "green", font = ("Calibri", 11)).pack()
+        Label(screen1, text = "Username taken", fg = "green", font = ("Calibri", 11)).pack()
 
 
 def login_verify():
@@ -311,6 +343,7 @@ def selling():
 
     drop = OptionMenu(screen9, clicked, *options, command=selected_searching_selling)
     drop.pack(pady=20)
+    print(clicked)
 
     #special_button = Button(screen9, text = "Select from list", command=selected)
     #special_button.pack()
