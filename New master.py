@@ -48,35 +48,34 @@ def account_management():
     Label(screen7, text = "").pack()
     Label(screen7, text = "").pack()
 
-    Label(screen7, text = "Do you wish to change your personal details").pack()
     Button(screen7, text="Change me", command=personal_detail_changes).pack()
 
-def random12(event):
-    Label(screen10, text=clicked_details.get()).pack()
+#def random12(event):
+    #Label(screen10, text=clicked_details.get()).pack()
     
     
 
-def personal_detail_changes():
-    global screen10
-    global clicked_details
-    screen10 = Toplevel(screen)
-    screen10.title("Changing personal details")
-    screen10.geometry("900x900")
-    Label(screen10, text = "Select which personal detail to change:").pack()
+#def personal_detail_changes():
+#    global screen10
+    #global clicked_details
+    #screen10 = Toplevel(screen)
+    #screen10.title("Changing personal details")
+    #screen10.geometry("900x900")
+    #Label(screen10, text = "Select which personal detail to change:").pack()
 
-    user_info_selection = [
-        "Username",
-        "Password",
-        "1st Line of Address",
-        "2nd Line of Address",
-        "Postcode" 
-    ]
+    #user_info_selection = [
+       # "Username",
+       # "Password",
+       # "1st Line of Address",
+       # "2nd Line of Address",
+       # "Postcode" 
+    #]
 
-    clicked_details = StringVar(screen10)
-    clicked_details.set(user_info_selection[0])
+    #clicked_details = StringVar(screen10)
+    #clicked_details.set(user_info_selection[0])
 
-    w = OptionMenu(screen10, clicked_details, *user_info_selection, command = random12)
-    w.pack()
+    #w = OptionMenu(screen10, clicked_details, *user_info_selection, command = random12)
+   # w.pack()
 
     
     
