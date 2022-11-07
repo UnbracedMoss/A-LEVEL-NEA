@@ -320,6 +320,8 @@ def login_verify():
     global password1
     username1 = username_verify.get()
     password1 = password_verify.get()
+    password1 = str(password1)
+    username1 = str(username1)
     username_entry1.delete(0, END)
     password_entry1.delete(0, END)
 
@@ -329,7 +331,11 @@ def login_verify():
     if username1 in list_of_files:
         file1 = open(username1, "r")
         verify = file1.read().splitlines()
-        if password1 in verify:
+        their_password = verify[1]
+        print(their_password)
+        print(password1)
+        print(password1 == verify[1])
+        if (password1 in verify[1]):
             login_success()
         else:
             password_not_recognised()
