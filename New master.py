@@ -15,6 +15,37 @@ def delete4():
 def delete5():
     screen1.destroy()
 
+def screen_deletion():
+    global detail_identifier
+    if detail_identifier == 0:
+         screen10.destroy()
+         screen7.destroy()
+    
+        
+        
+        
+        
+    elif detail_identifier == 1:
+        screen11.destroy()
+        screen7.destroy()
+        
+        
+    elif detail_identifier == 2:
+        screen12.destroy()
+        screen7.destroy()
+        
+
+    elif detail_identifier == 3:
+        screen13.destroy()
+        screen7.destroy()
+        
+
+    elif detail_identifier == 4:
+        screen14.destroy()
+        screen7.destroy()
+    
+
+
 
 def account_management():
     global screen7
@@ -22,115 +53,164 @@ def account_management():
     screen7.title("Account Management")
     screen7.geometry("500x500")
     Label(screen7, text="Welcome to account management").pack()
-    Label(screen7, text = "Username:", font= ('Helvetica', 18, 'bold')).pack()
+    Label(screen7, text = "Username:", font= ('Helvetica', 13, 'bold')).pack()
     Label(screen7, text=username1).pack()
-    Label(screen7, text="").pack()
+    Label(screen7, text="").pack()    
     Button(screen7, text="Change me", command=username_changes).pack()
-    Label(screen7, text="").pack()
-    Label(screen7, text = "Password:", font=('Helvetica', 18, 'bold')).pack()
+    Label(screen7, text = "Password:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text =password1).pack()
     Label(screen7, text="").pack()
     Button(screen7, text="Change me", command=password_changes).pack()
-    Label(screen7, text="").pack()
    
-
-
     f= open(username1)
     content = f.readlines()
 
-    Label(screen7, text = "Address Line 1:", font=('Helvetica', 18, 'bold')).pack()
+    Label(screen7, text = "Address Line 1:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[2]).pack()
-    Label(screen7, text="").pack()
     Button(screen7, text="Change me", command=address1_changes).pack()
 
-    Label(screen7, text = "Address Line 2:", font=('Helvetica', 18, 'bold')).pack()
+    Label(screen7, text = "Address Line 2:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[3]).pack()
-    Label(screen7, text="").pack()
     Button(screen7, text="Change me", command=address2_changes).pack()
 
-    Label(screen7, text = "Postcode", font=('Helvetica', 18, 'bold')).pack()
+    Label(screen7, text = "Postcode", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[4]).pack()
     Button(screen7, text="Change me", command=postcode_changes).pack()
-
-    Label(screen7, text = "").pack()
-    Label(screen7, text = "").pack()
 
 def username_changes():
     global screen10
     global new_username_entry
-    global data_identifier
+    global detail_identifier
     screen10 = Toplevel(screen)
     screen10.title("Changing Username")
     screen10.geometry("500x500")
 
-    data_identifier = 0
-    Label(screen10, text="Please input the new username").pack()
-    Label(screen10, text = "").pack()
-    new_username_entry = Entry(screen10)
-    new_username_entry.pack()
-    data_identifier = 0
-    Button(screen10, command = actually_changing).pack()
+    Label(screen10, text = "Currently unable to change the username")
 
-
-def actually_changing():
-    global username1
-    username_detail = new_username_entry.get()
-    print(username_detail)
-    username_file_read = open(username1, "r")
-    data = username_file_read.readlines()
-    print(data)
-    if data_identifier == 0:
-        data[0] = (username_detail + "\n")
-        print(data)
-        username1 = username_detail
-        username_file_write = open(username1, "w")
-        username_file_write.writelines(data)
-        
-        
-        
-        
-    elif data_identifier == 1:
-        print("hello")
-    elif data_identifier == 2:
-        print("2")
-    
-    
-    
+    #data_identifier = 0
+    #Label(screen10, text="Please input the new username").pack()
+    #Label(screen10, text = "").pack()
+    #new_username_entry = Entry(screen10)
+    #new_username_entry.pack()
+    #data_identifier = 0
+    #Button(screen10, command = actually_changing).pack()
 
 def password_changes():
     global screen11
+    global new_password_entry
+    global detail_identifier
     screen11 = Toplevel(screen)
     screen11.title("Changing Password")
     screen11.geometry("500x500")
 
-    data_identifier = 0
-    Label(screen10, text="Please input the new username").pack()
-    Label(screen10, text = "").pack()
-    new_username_entry = Entry(screen10)
-    new_username_entry.pack()
-    data_identifier = 0
-    Button(screen10, command = actually_changing).pack()
+    detail_identifier = 1
+    Label(screen11, text="Please input the new password").pack()
+    Label(screen11, text = "").pack()
+    new_password_entry = Entry(screen11)
+    new_password_entry.pack()
+    Button(screen11, text = "Change password", command = actually_changing).pack()
 
 def address1_changes():
     global screen12
+    global detail_identifier
+    global new_address1_entry
     screen12 = Toplevel(screen)
     screen12.title("Changing 1st line of Address")
     screen12.geometry("500x500")
+
+    detail_identifier = 2
+    Label(screen12, text = "Please enter updated 1st line of address").pack()
+    Label(screen12, text = "").pack()
+    new_address1_entry = Entry(screen12)
+    new_address1_entry.pack()
+    Button(screen12, text = "Update first line of address", command = actually_changing).pack()
     
 
 def address2_changes():
     global screen13
+    global detail_identifier
+    global new_address2_entry
     screen13 = Toplevel(screen)
     screen13.title("Changing 2nd line of Address")
     screen13.geometry("500x500")
 
+    detail_identifier = 3
+    Label(screen13, text = "Please enter updated second line of address").pack()
+    Label(screen13, text = "").pack()
+    new_address2_entry = Entry(screen13)
+    new_address2_entry.pack()
+    Button(screen13, text = "Update second line of address", command = actually_changing).pack()
+
 def postcode_changes():
     global screen14
+    global detail_identifier
+    global new_postcode_entry
     screen14 = Toplevel(screen)
     screen14.title("Changing Postcode")
     screen14.geometry("500x500")
+
+    detail_identifier = 4
+    Label(screen14, text = "Please enter new postcode:").pack()
+    Label(screen14, text = "").pack()
+    new_postcode_entry = Entry(screen14)
+    new_postcode_entry.pack()
+    Button(screen14, text = "Update postcode", command = actually_changing).pack()
     
     
+
+
+
+
+def actually_changing():
+    global username1
+    global username_detail
+    username_file_read = open(username1, "r")
+    data = username_file_read.readlines()
+    print(data)
+    if detail_identifier == 0:
+        username_detail = new_username_entry.get()
+        print(username_detail)
+        data[0] = (username_detail + "\n")
+        print(data)
+        username_file_write = open(username1, "w")
+        username_file_write.writelines(data)
+        screen_deletion()
+        
+        
+        
+        
+    elif detail_identifier == 1:
+        password_detail = new_password_entry.get()
+        data[1] = (password_detail + "\n")
+        print(data)
+        password_file_write = open(username1, "w")
+        password_file_write.writelines(data)
+        screen_deletion()
+        
+    elif detail_identifier == 2:
+        address1_detail = new_address1_entry.get()
+        data[2] = (address1_detail + "\n")
+        print(data)
+        address1_file_write = open(username1, "w")
+        address1_file_write.writelines(data)
+
+    elif detail_identifier == 3:
+        address2_detail = new_address2_entry.get()
+        data[3] = (address2_detail + "\n")
+        print(data)
+        address2_file_write = open(username1, "w")
+        address2_file_write.writelines(data)
+
+
+    elif detail_identifier == 4:
+        postcode_detail = new_postcode_entry.get()
+        data[4] = (postcode_detail + "\n")
+        print(data)
+        postcode_file_write = open(username1, "w")
+        postcode_file_wrie.writelines(data)
+    
+    
+
 
 
     
