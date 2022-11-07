@@ -1,7 +1,7 @@
 from tkinter import *
 import os
 from tkinter import filedialog
-#Next unused screen: 11
+#Next unused screen: 15
 
 global productName
 global product_entry
@@ -25,10 +25,12 @@ def account_management():
     Label(screen7, text = "Username:", font= ('Helvetica', 18, 'bold')).pack()
     Label(screen7, text=username1).pack()
     Label(screen7, text="").pack()
+    Button(screen7, text="Change me", command=username_changes).pack()
     Label(screen7, text="").pack()
     Label(screen7, text = "Password:", font=('Helvetica', 18, 'bold')).pack()
     Label(screen7, text =password1).pack()
     Label(screen7, text="").pack()
+    Button(screen7, text="Change me", command=password_changes).pack()
     Label(screen7, text="").pack()
    
 
@@ -39,45 +41,94 @@ def account_management():
     Label(screen7, text = "Address Line 1:", font=('Helvetica', 18, 'bold')).pack()
     Label(screen7, text = content[2]).pack()
     Label(screen7, text="").pack()
+    Button(screen7, text="Change me", command=address1_changes).pack()
+
     Label(screen7, text = "Address Line 2:", font=('Helvetica', 18, 'bold')).pack()
     Label(screen7, text = content[3]).pack()
     Label(screen7, text="").pack()
+    Button(screen7, text="Change me", command=address2_changes).pack()
+
     Label(screen7, text = "Postcode", font=('Helvetica', 18, 'bold')).pack()
     Label(screen7, text = content[4]).pack()
+    Button(screen7, text="Change me", command=postcode_changes).pack()
 
     Label(screen7, text = "").pack()
     Label(screen7, text = "").pack()
 
-    Button(screen7, text="Change me", command=personal_detail_changes).pack()
+def username_changes():
+    global screen10
+    global new_username_entry
+    global data_identifier
+    screen10 = Toplevel(screen)
+    screen10.title("Changing Username")
+    screen10.geometry("500x500")
 
-#def random12(event):
-    #Label(screen10, text=clicked_details.get()).pack()
+    data_identifier = 0
+    Label(screen10, text="Please input the new username").pack()
+    Label(screen10, text = "").pack()
+    new_username_entry = Entry(screen10)
+    new_username_entry.pack()
+    data_identifier = 0
+    Button(screen10, command = actually_changing).pack()
+
+
+def actually_changing():
+    global username1
+    username_detail = new_username_entry.get()
+    print(username_detail)
+    username_file_read = open(username1, "r")
+    data = username_file_read.readlines()
+    print(data)
+    if data_identifier == 0:
+        data[0] = (username_detail + "\n")
+        print(data)
+        username1 = username_detail
+        username_file_write = open(username1, "w")
+        username_file_write.writelines(data)
+        
+        
+        
+        
+    elif data_identifier == 1:
+        print("hello")
+    elif data_identifier == 2:
+        print("2")
     
     
-
-#def personal_detail_changes():
-#    global screen10
-    #global clicked_details
-    #screen10 = Toplevel(screen)
-    #screen10.title("Changing personal details")
-    #screen10.geometry("900x900")
-    #Label(screen10, text = "Select which personal detail to change:").pack()
-
-    #user_info_selection = [
-       # "Username",
-       # "Password",
-       # "1st Line of Address",
-       # "2nd Line of Address",
-       # "Postcode" 
-    #]
-
-    #clicked_details = StringVar(screen10)
-    #clicked_details.set(user_info_selection[0])
-
-    #w = OptionMenu(screen10, clicked_details, *user_info_selection, command = random12)
-   # w.pack()
-
     
+
+def password_changes():
+    global screen11
+    screen11 = Toplevel(screen)
+    screen11.title("Changing Password")
+    screen11.geometry("500x500")
+
+    data_identifier = 0
+    Label(screen10, text="Please input the new username").pack()
+    Label(screen10, text = "").pack()
+    new_username_entry = Entry(screen10)
+    new_username_entry.pack()
+    data_identifier = 0
+    Button(screen10, command = actually_changing).pack()
+
+def address1_changes():
+    global screen12
+    screen12 = Toplevel(screen)
+    screen12.title("Changing 1st line of Address")
+    screen12.geometry("500x500")
+    
+
+def address2_changes():
+    global screen13
+    screen13 = Toplevel(screen)
+    screen13.title("Changing 2nd line of Address")
+    screen13.geometry("500x500")
+
+def postcode_changes():
+    global screen14
+    screen14 = Toplevel(screen)
+    screen14.title("Changing Postcode")
+    screen14.geometry("500x500")
     
     
 
