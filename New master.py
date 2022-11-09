@@ -335,7 +335,9 @@ def login_verify():
         print(their_password)
         print(password1)
         print(password1 == verify[1])
-        if (password1 in verify[1]):
+        boolean_login = (password1 == verify[1])
+        print(boolean_login)
+        if boolean_login == True:
             login_success()
         else:
             password_not_recognised()
