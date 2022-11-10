@@ -55,7 +55,8 @@ def account_management():
     Label(screen7, text="Welcome to account management").pack()
     Label(screen7, text = "Username:", font= ('Helvetica', 13, 'bold')).pack()
     Label(screen7, text=username1).pack()
-    Label(screen7, text="").pack()    
+    Label(screen7, text="").pack()
+    Label(screen7, text = "Usernames cannot be changed").pack()
     Button(screen7, text="Change me", command=username_changes).pack()
     Label(screen7, text = "Password:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text =password1).pack()
@@ -422,10 +423,6 @@ def login():
     Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
     
     
-
-def selected_searching_selling(event):
-    myLabel = Label(screen9, text=clicked.get()).pack()
-
 def selling():
     global screen9
     global product_entry
@@ -434,6 +431,8 @@ def selling():
     global keyword1_entry
     global keyword2_entry
     global keyword3_entry
+    global str_out
+    global options
 
     screen9 = Toplevel(screen)
     screen9.title("Generate a post")
@@ -479,17 +478,28 @@ def selling():
     clicked = StringVar()
     clicked.set(options[0])
 
-    drop = OptionMenu(screen9, clicked, *options, command=selected_searching_selling)
+    str_out = StringVar()
+    str_out.set("Output")
+
+    drop = OptionMenu(screen9, clicked, *options)
     drop.pack(pady=20)
-    print(clicked)
+    b1 = Button(screen9, text = "Select category", command=lambda: my_show())
+    b1.pack()
+    Label(screen9, textvariable=str_out).pack()
+
+
+    
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "").pack()
+    Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
+
+def my_show():
+    str_out.set(clicked.get())
 
     #special_button = Button(screen9, text = "Select from list", command=selected)
     #special_button.pack()
 
 
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
-    Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
 
 
 
