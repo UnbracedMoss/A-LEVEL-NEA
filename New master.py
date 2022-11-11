@@ -223,6 +223,91 @@ def buying():
     screen8.title("Buying Homepage")
     screen8.geometry("500x500")
     Label(screen8, text = "Welcome to the Online Marketplace").pack()
+
+    books_button = Button(screen8, text = "Search through all available books", command = books)
+    books_button.pack()
+
+    games_button = Button(screen8, text = "Games", command = games)
+    games_button.pack()
+
+    electronics_button = Button(screen8, text = "Electronics", command = electronics)
+    electronics_button.pack()
+
+    home_garden_button = Button(screen8, text = "Home & Garden", command = home_garden)
+    home_garden_button.pack()
+
+    toys_button = Button(screen8, text = "Toys", command = toys)
+    toys_button.pack()
+
+    clothes_jewellery_button = Button(screen8, text = "Clothes & Jewellery", command = clothes_jewellery)
+    clothes_jewellery_button.pack()
+
+    sports_outdoors_button = Button(screen8, text = "Sports & Outdoors", command = sports_outdoors)
+    sports_outdoors_button.pack()
+
+    food_button = Button(screen8, text = "Food", command = food)
+    food_button.pack()
+
+    health_button = Button(screen8, text = "Health", command = health)
+    health_button.pack()
+
+    motor_vehicles_button = Button(screen8, text = "Motor Vehicles", command = motor_vehicles)
+    motor_vehicles_button.pack()
+
+    education_button = Button(screen8, text = "Education", command = education)
+    education_button.pack()
+    
+    
+
+
+
+
+def books():
+    print("Books works")
+def games():
+    print("Games works")
+
+
+def electronics():
+    print("electronics works")
+
+def home_garden():
+    print("Home & Garden works")
+
+
+def toys():
+    print("Toys works")
+
+
+def clothes_jewellery():
+    print("Clothes and Jewellery works")
+
+
+def sports_outdoors():
+    print("Sports & Outdoors works")
+
+
+def food():
+    print("Food works")
+
+
+
+def health():
+    print("Health works")
+
+
+
+def motor_vehicles():
+    print("Motor vehicles works")
+
+
+
+def education():
+    print("Education works")
+
+
+
+    
     
 
 
