@@ -1,7 +1,7 @@
 from tkinter import *
 import os
 from tkinter import filedialog
-from pathlib import path
+import pathlib
 
 #Next unused screen: 16
 
@@ -378,8 +378,12 @@ def register_user():
     postcode_info = postcode.get()
 
 
-    current_dir = pathlib.Path(__file__).parent.resolve()
-    user_dir = os.path.join(current_dir, people_name)
+
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_users = ("Users")
+    user_dir = os.path.join(cwd, directory_for_users)
+    print(user_dir)
 
     os.chdir(user_dir)
     list_of_files = os.listdir()
@@ -416,6 +420,9 @@ def register_user():
 def login_verify():
     global username1
     global password1
+    global ORIGINAL_ROOT_DIR
+    global username_info
+    print(ORIGINAL_ROOT_DIR)
     username1 = username_verify.get()
     password1 = password_verify.get()
     password1 = str(password1)
@@ -424,11 +431,11 @@ def login_verify():
     password_entry1.delete(0, END)
 
 
-    login_verify_path = Path(__file__)
-    print(login_verify_path)
     
+    directory_for_users = ("Users")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
+    print(user_dir)
 
-    user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/people_name")
     os.chdir(user_dir)
     list_of_files = os.listdir()
     if username1 in list_of_files:
@@ -606,6 +613,8 @@ def my_show():
 
 
 def store_products():
+    global ORIGINAL_ROOT_DIR
+    print(ORIGINAL_ROOT_DIR)
     print("Works")
     product1 = product_entry.get()
     price1 = price_entry.get()
@@ -621,10 +630,28 @@ def store_products():
     print(keyword2)
     print(keyword3)
 
+    os.chdir(ORIGINAL_ROOT_DIR)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_products = ("Products")
+    path_for_products = os.path.join(cwd, directory_for_products)
+    is_existing_products = os.path.exists(path_for_products)
+    print(is_existing_products)
 
-    global product_dir
-    product_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Products")
-    os.chdir(product_dir)
+    if is_existing_products == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_products)
+        print("Made new directory")
+        print
+        
+
+
+
+
+
+    os.chdir(path_for_products)
     file=open(product1,  "w")
     file.write(product1+"\n")
     file.write(price1+"\n")
@@ -650,6 +677,7 @@ def store_products():
 
 def main_screen():
     global screen
+    global ORIGINAL_ROOT_DIR
     screen=Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
@@ -658,6 +686,25 @@ def main_screen():
     Button(text = "Login", width = "30", height = "2", command = login).pack()
     Label(text = " ").pack()
     Button(text = "Register", height = "2", width = "30", command = register).pack()
+
+
+    ORIGINAL_ROOT_DIR = StringVar()
+    ORIGINAL_ROOT_DIR = os.getcwd()
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_users = ("Users")
+    path_for_users = os.path.join(cwd, directory_for_users)
+    is_existing_users = os.path.exists(path_for_users)
+    print(is_existing_users)
+
+    if is_existing_users == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_users)
+        print("Made new directory")
+        
+    
 
     screen.mainloop()
 
