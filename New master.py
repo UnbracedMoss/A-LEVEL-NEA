@@ -1,7 +1,9 @@
 from tkinter import *
 import os
 from tkinter import filedialog
-#Next unused screen: 15
+from pathlib import path
+
+#Next unused screen: 16
 
 global productName
 global product_entry
@@ -25,7 +27,7 @@ def screen_deletion():
         
         
         
-    elif detail_identifier == 1:
+    elif detail_ridentifier == 1:
         screen11.destroy()
         screen7.destroy()
         
@@ -263,7 +265,14 @@ def buying():
 
 
 def books():
-    print("Books works")
+    global screen15
+    screen15 = Toplevel(screen)
+    screen15.title("Books")
+    screen15.geometry("500x500")
+
+    Label(screen15, text = "BOOKS").pack()
+    
+    
 def games():
     print("Games works")
 
@@ -360,6 +369,7 @@ def user_not_found():
 
 def register_user():
     global user_dir
+    global people_name
     taken_username = False
     username_info = username.get()
     password_info = password.get()
@@ -367,7 +377,10 @@ def register_user():
     address_2_info = address_line_2.get()
     postcode_info = postcode.get()
 
-    user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Users")
+
+    current_dir = pathlib.Path(__file__).parent.resolve()
+    user_dir = os.path.join(current_dir, people_name)
+
     os.chdir(user_dir)
     list_of_files = os.listdir()
     if username_info in list_of_files:
@@ -376,7 +389,6 @@ def register_user():
 
     if taken_username == False:
         
-        user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Users")
         os.chdir(user_dir)
         print(user_dir)
         file=open(username_info, "w")
@@ -411,7 +423,12 @@ def login_verify():
     username_entry1.delete(0, END)
     password_entry1.delete(0, END)
 
-    user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/Users")
+
+    login_verify_path = Path(__file__)
+    print(login_verify_path)
+    
+
+    user_dir = ("C:/Users/achug/Desktop/Files/A Level NEA/tkinter code/people_name")
     os.chdir(user_dir)
     list_of_files = os.listdir()
     if username1 in list_of_files:
