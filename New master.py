@@ -27,7 +27,7 @@ def screen_deletion():
         
         
         
-    elif detail_ridentifier == 1:
+    elif detail_identifier == 1:
         screen11.destroy()
         screen7.destroy()
         
@@ -266,11 +266,26 @@ def buying():
 
 def books():
     global screen15
+    global ORIGINAL_ROOT_DIR
+    print(ORIGINAL_ROOT_DIR)
     screen15 = Toplevel(screen)
     screen15.title("Books")
     screen15.geometry("500x500")
 
     Label(screen15, text = "BOOKS").pack()
+
+
+    directory_for_books = ("Users")
+    path_for_users = os.path.join(cwd, directory_for_users)
+    is_existing_users = os.path.exists(path_for_users)
+    print(is_existing_users)
+
+    if is_existing_users == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_users)
+        print("Made new directory")
     
     
 def games():
@@ -369,6 +384,7 @@ def user_not_found():
 
 def register_user():
     global user_dir
+    global ORIGINAL_ROOT_DIR
     global people_name
     taken_username = False
     username_info = username.get()
@@ -379,10 +395,9 @@ def register_user():
 
 
 
-    cwd = os.getcwd()
-    print(cwd)
+    os.chdir(ORIGINAL_ROOT_DIR)
     directory_for_users = ("Users")
-    user_dir = os.path.join(cwd, directory_for_users)
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
     print(user_dir)
 
     os.chdir(user_dir)
@@ -635,16 +650,109 @@ def store_products():
     print(cwd)
     directory_for_products = ("Products")
     path_for_products = os.path.join(cwd, directory_for_products)
+
     is_existing_products = os.path.exists(path_for_products)
     print(is_existing_products)
-
     if is_existing_products == True:
         print("Doing nothing")
     else:
         print("Creating the new directory")
         os.mkdir(path_for_products)
+
+    
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_books = ("Books")
+    path_for_books = os.path.join(cwd, directory_for_books)
+    print(path_for_books)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_games = ("Games")
+    path_for_games = os.path.join(cwd, directory_for_games)
+    print(path_for_games)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_electronics = ("Electronics")
+    path_for_electronics = os.path.join(cwd, directory_for_electronics)
+    print(path_for_electronics)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_homegarden = ("Home")
+    path_for_homegarden = os.path.join(cwd, directory_for_homegarden)
+    print(path_for_homegarden)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_toys = ("Toys")
+    path_for_toys = os.path.join(cwd, directory_for_toys)
+    print(path_for_toys)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_clothesjewellery = ("Clothes")
+    path_for_clothesjewellery = os.path.join(cwd, directory_for_clothesjewellery)
+    print(path_for_clothesjewellery)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_sportsoutdoors = ("Sports")
+    path_for_sportsoutdoors = os.path.join(cwd, directory_for_sportsoutdoors)
+    print(path_for_sportsoutdoors)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_food = ("Food")
+    path_for_food = os.path.join(cwd, directory_for_food)
+    print(path_for_food)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_health = ("Health")
+    path_for_health = os.path.join(cwd, directory_for_health)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_motorvehicles = ("MotorVehicles")
+    path_for_motorvehicles = os.path.join(cwd, directory_for_motorvehicles)
+    print(path_for_motorvehicles)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_education = ("Education")
+    path_for_education = os.path.join(cwd, directory_for_education)
+    print(path_for_education)
+    
+    
+    is_existing_education = os.path.exists(path_for_education)
+    print(is_existing_education)
+    
+
+    if is_existing_education == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_games)
+        os.mkdir(path_for_electronics)
+        os.mkdir(path_for_homegarden)
+        os.mkdir(path_for_toys)
+        os.mkdir(path_for_clothesjewellery)
+        os.mkdir(path_for_sportsoutdoors)
+        os.mkdir(path_for_food)
+        os.mkdir(path_for_health)
+        os.mkdir(path_for_motorvehicles)
+        os.mkdir(path_for_education)
         print("Made new directory")
-        print
         
 
 
