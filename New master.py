@@ -645,6 +645,66 @@ def store_products():
     print(keyword2)
     print(keyword3)
 
+    
+
+
+
+
+
+    os.chdir(path_for_products)
+    file=open(product1,  "w")
+    file.write(product1+"\n")
+    file.write(price1+"\n")
+    file.write(username1+"\n")
+    file.write(category1+"\n")
+    file.write(keyword1+"\n")
+    file.write(keyword2+"\n")
+    file.write(keyword3+"\n")
+    file.close()
+
+    product_entry.delete(0, END)
+    price_entry.delete(0, END)
+
+    
+    screen9.destroy()
+    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+     
+    #label.after(1000, label.master.destroy)
+
+
+
+
+
+def main_screen():
+    global screen
+    global ORIGINAL_ROOT_DIR
+    screen=Tk()
+    screen.geometry("300x250")
+    screen.title("Online Marketplace")
+    Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
+    Label(text = " ").pack()
+    Button(text = "Login", width = "30", height = "2", command = login).pack()
+    Label(text = " ").pack()
+    Button(text = "Register", height = "2", width = "30", command = register).pack()
+
+
+    ORIGINAL_ROOT_DIR = StringVar()
+    ORIGINAL_ROOT_DIR = os.getcwd()
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_users = ("Users")
+    path_for_users = os.path.join(cwd, directory_for_users)
+    is_existing_users = os.path.exists(path_for_users)
+    print(is_existing_users)
+
+    if is_existing_users == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_users)
+        print("Made new directory")
+
+
     os.chdir(ORIGINAL_ROOT_DIR)
     cwd = os.getcwd()
     print(cwd)
@@ -754,63 +814,6 @@ def store_products():
         os.mkdir(path_for_education)
         print("Made new directory")
         
-
-
-
-
-
-    os.chdir(path_for_products)
-    file=open(product1,  "w")
-    file.write(product1+"\n")
-    file.write(price1+"\n")
-    file.write(username1+"\n")
-    file.write(category1+"\n")
-    file.write(keyword1+"\n")
-    file.write(keyword2+"\n")
-    file.write(keyword3+"\n")
-    file.close()
-
-    product_entry.delete(0, END)
-    price_entry.delete(0, END)
-
-    
-    screen9.destroy()
-    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
-     
-    #label.after(1000, label.master.destroy)
-
-
-
-
-
-def main_screen():
-    global screen
-    global ORIGINAL_ROOT_DIR
-    screen=Tk()
-    screen.geometry("300x250")
-    screen.title("Online Marketplace")
-    Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
-    Label(text = " ").pack()
-    Button(text = "Login", width = "30", height = "2", command = login).pack()
-    Label(text = " ").pack()
-    Button(text = "Register", height = "2", width = "30", command = register).pack()
-
-
-    ORIGINAL_ROOT_DIR = StringVar()
-    ORIGINAL_ROOT_DIR = os.getcwd()
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_users = ("Users")
-    path_for_users = os.path.join(cwd, directory_for_users)
-    is_existing_users = os.path.exists(path_for_users)
-    print(is_existing_users)
-
-    if is_existing_users == True:
-        print("Doing nothing")
-    else:
-        print("Creating the new directory")
-        os.mkdir(path_for_users)
-        print("Made new directory")
         
     
 
