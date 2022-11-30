@@ -262,31 +262,70 @@ def buying():
     
 
 
+def update_book(book_list_data):
+    global book_list
+    #Clear the listbox
+    book_list.delete(0, END)
 
+    #Add data to listbox
+    for item in book_list_data:
+        book_list.insert(END, item)
+
+
+#Update entry box with listbox clicked
+def fillout(event):
+    global book_entry
+    #Delete whatever is in the entry box
+    book_entry.delete(0, END)
+
+    #Add clicked list item to entry box
+    book_entry.insert(0, book_list.get(ACTIVE))
+
+def check(event):
+    #Grab what was typed
+    global book_entry
+    global book_list_data
+    typed_book = book_entry.get()
+
+    if typed_book == " ":
+        data = book_list_data
+    else:
+        data = []
+        for item in book_list_data:
+            if typed_book.lower() in item.lower():
+                data.append(item)
+    update_book(data)
+    
 
 def books():
     global screen15
-    global ORIGINAL_ROOT_DIR
-    print(ORIGINAL_ROOT_DIR)
+    global book_list
+    global book_entry
+    global book_list_data
     screen15 = Toplevel(screen)
     screen15.title("Books")
     screen15.geometry("500x500")
 
     Label(screen15, text = "BOOKS").pack()
 
+    book_entry = Entry(screen15,)
+    book_entry.pack()
 
-    directory_for_books = ("Users")
-    path_for_users = os.path.join(cwd, directory_for_users)
-    is_existing_users = os.path.exists(path_for_users)
-    print(is_existing_users)
+    #create a list box
+    book_list = Listbox(screen15)
+    book_list.pack()
 
-    if is_existing_users == True:
-        print("Doing nothing")
-    else:
-        print("Creating the new directory")
-        os.mkdir(path_for_users)
-        print("Made new directory")
-    
+    #create a list
+    book_list_data = ["A", "b", "c", "d", "e"]
+
+    #Add the data to the list
+    update_book(book_list_data)
+
+    #Create a binding on the listbox onclick
+    book_list.bind("<<ListboxSelect>>", fillout)
+
+    #Create a binding on the entry box
+    book_entry.bind("<KeyRelease>", check)
     
 def games():
     print("Games works")
@@ -463,11 +502,13 @@ def login_verify():
         boolean_login = (password1 == verify[1])
         print(boolean_login)
         if boolean_login == True:
+            os.listdir()
             login_success()
         else:
             password_not_recognised()
     else:
         user_not_found()
+        
 
 
     
@@ -629,6 +670,7 @@ def my_show():
 
 def store_products():
     global ORIGINAL_ROOT_DIR
+    global path_for_products
     print(ORIGINAL_ROOT_DIR)
     print("Works")
     product1 = product_entry.get()
@@ -678,6 +720,7 @@ def store_products():
 def main_screen():
     global screen
     global ORIGINAL_ROOT_DIR
+    global path_for_products
     screen=Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
@@ -686,6 +729,7 @@ def main_screen():
     Button(text = "Login", width = "30", height = "2", command = login).pack()
     Label(text = " ").pack()
     Button(text = "Register", height = "2", width = "30", command = register).pack()
+    os.listdir()
 
 
     ORIGINAL_ROOT_DIR = StringVar()
