@@ -633,7 +633,7 @@ def selling():
         "Home & Garden" ,
         "Toys" ,
         "Clothes & Jewellery" ,
-        "Sports & Outdoors ",
+        "Sports & Outdoors",
         "Food",
         "Health",
         "Motor Vehicles",
@@ -671,6 +671,17 @@ def my_show():
 def store_products():
     global ORIGINAL_ROOT_DIR
     global path_for_products
+    global path_for_books
+    global path_for_games
+    global path_for_electronics
+    global path_for_homegarden
+    global path_for_toys
+    global path_for_clothesjewellery
+    global path_for_sportsoutdoors
+    global path_for_food
+    global path_for_health
+    global path_for_motorvehicles
+    global path_for_education
     print(ORIGINAL_ROOT_DIR)
     print("Works")
     product1 = product_entry.get()
@@ -687,13 +698,39 @@ def store_products():
     print(keyword2)
     print(keyword3)
 
+    if category1 == "Books":
+        print(path_for_books)
+        os.chdir(path_for_books)
+    elif category1 == "Games":
+        os.chdir(path_for_games)
+    elif category1 == "Electronics":
+        os.chdir(path_for_electronics)
+    elif category1 == "Home & Garden":
+        os.chdir(path_for_homegarden)
+    elif category1 == "Toys":
+        os.chdir(path_for_toys)
+    elif category1 == "Clothes & Jewellery":
+        print(path_for_clothesjewellery)
+        os.chdir(path_for_clothesjewellery)
+    elif category1 == "Sports & Outdoors":
+        print(path_for_sportsoutdoors)
+        os.chdir(path_for_sportsoutdoors)
+    elif category1 == "Food":
+        os.chdir(path_for_food)
+    elif category1 == "Health":
+        os.chdir(path_for_health)
+    elif category1 == "Motor Vehicles":
+        os.chdir(path_for_motorvehicles)
+    elif category1 == "Education":
+        os.chdir(path_for_education)
+    
+
     
 
 
 
 
 
-    os.chdir(path_for_products)
     file=open(product1,  "w")
     file.write(product1+"\n")
     file.write(price1+"\n")
@@ -721,6 +758,17 @@ def main_screen():
     global screen
     global ORIGINAL_ROOT_DIR
     global path_for_products
+    global path_for_books
+    global path_for_games
+    global path_for_electronics
+    global path_for_homegarden
+    global path_for_toys
+    global path_for_clothesjewellery
+    global path_for_sportsoutdoors
+    global path_for_food
+    global path_for_health
+    global path_for_motorvehicles
+    global path_for_education
     screen=Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
