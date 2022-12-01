@@ -846,6 +846,7 @@ def main_screen():
         print("Doing nothing")
     else:
         print("Creating the new directory")
+        os.mkdir(path_for_books)
         os.mkdir(path_for_games)
         os.mkdir(path_for_electronics)
         os.mkdir(path_for_homegarden)
