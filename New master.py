@@ -3,7 +3,7 @@ import os
 from tkinter import filedialog
 import pathlib
 
-#Next unused screen: 26
+#Next unused screen: 27
 
 global productName
 global product_entry
@@ -259,6 +259,7 @@ def buying():
     education_button = Button(screen8, text = "Education", command = education)
     education_button.pack()
     
+
     
 
 
@@ -296,6 +297,30 @@ def check_book(event):
                 data.append(item)
     update_book(data)
     
+def book_select():
+    global screen26
+    global selected_book
+    global ORIGINAL_ROOT_DIR
+    selected_book = book_entry.get()
+    print(selected_book)
+    screen26 = Toplevel(screen)
+    screen26.title(selected_book)
+    screen26.geometry("500x500")
+
+
+
+    directory_for_products = ("Products")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_products)
+    
+
+    os.chdir(user_dir)
+    list_of_files = os.listdir()
+    if selected_book in list_of_files:
+        file2 = open(selected_book, "r")
+        selected_book_data = file2.read().splitlines()
+        Label(screen26, text = selected_book_data[5]).pack()
+ 
+
 
 def books():
     global screen15
@@ -329,6 +354,10 @@ def books():
 
     #Create a binding on the entry box
     book_entry.bind("<KeyRelease>", check_book)
+
+    #Button to select
+    book_button = Button(screen15, text = "Select", command = book_select)
+    book_button.pack()
     
 def update_game(game_list_data):
     global game_list
