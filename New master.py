@@ -3,6 +3,7 @@ import os
 from tkinter import filedialog
 import pathlib
 
+
 #Next unused screen: 27
 
 global productName
@@ -301,6 +302,7 @@ def book_select():
     global screen26
     global selected_book
     global ORIGINAL_ROOT_DIR
+    global path_for_books
     selected_book = book_entry.get()
     print(selected_book)
     screen26 = Toplevel(screen)
@@ -308,18 +310,18 @@ def book_select():
     screen26.geometry("500x500")
 
 
-
-    directory_for_products = ("Products")
-    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_products)
+    os.chdir(path_for_books)
     
 
-    os.chdir(user_dir)
-    list_of_files = os.listdir()
-    if selected_book in list_of_files:
-        file2 = open(selected_book, "r")
-        selected_book_data = file2.read().splitlines()
-        Label(screen26, text = selected_book_data[5]).pack()
- 
+    f= open(selected_book)
+    book_info = f.readlines()
+    print(book_info)
+
+
+
+    
+
+
 
 
 def books():
@@ -1344,12 +1346,13 @@ def selling():
     global keyword1_entry
     global keyword2_entry
     global keyword3_entry
+    global description_entry
     global str_out
     global options
 
     screen9 = Toplevel(screen)
     screen9.title("Generate a post")
-    screen9.geometry("500x500")
+    screen9.geometry("1000x1000")
 
     product_entry = StringVar()
     price_entry = IntVar()
@@ -1373,6 +1376,10 @@ def selling():
     Label(screen9, text = "Keyword 3:").pack()
     keyword3_entry = Entry(screen9)
     keyword3_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Description:").pack()
+    description_entry = Text(screen9, height = 8, width = 60)
+    description_entry.pack()
 
     options = [
         "Books" ,
@@ -1401,9 +1408,6 @@ def selling():
     Label(screen9, textvariable=str_out).pack()
 
 
-    
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "").pack()
     Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
 
 def my_show():
@@ -1438,6 +1442,7 @@ def store_products():
     keyword1 = keyword1_entry.get()
     keyword2 = keyword2_entry.get()
     keyword3 = keyword3_entry.get()
+    description = description_entry.get(1.0 , END)
     print(username1)
     print(product1)
     print(category1)
@@ -1445,6 +1450,7 @@ def store_products():
     print(keyword1)
     print(keyword2)
     print(keyword3)
+    print(description)
 
     if category1 == "Books":
         print(path_for_books)
@@ -1488,6 +1494,7 @@ def store_products():
     file.write(keyword1+"\n")
     file.write(keyword2+"\n")
     file.write(keyword3+"\n")
+    file.write(description+"\n")
     file.close()
 
     product_entry.delete(0, END)
