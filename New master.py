@@ -4,7 +4,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 27
+#Next unused screen: 37
 
 global productName
 global product_entry
@@ -303,12 +303,12 @@ def book_select():
     global selected_book
     global ORIGINAL_ROOT_DIR
     global path_for_books
+    global book_info
     selected_book = book_entry.get()
     print(selected_book)
     screen26 = Toplevel(screen)
     screen26.title(selected_book)
     screen26.geometry("500x500")
-
 
     os.chdir(path_for_books)
     
@@ -316,6 +316,18 @@ def book_select():
     f= open(selected_book)
     book_info = f.readlines()
     print(book_info)
+
+    Label(screen26, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen26, text = book_info[0]).pack()
+
+    Label(screen26, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen26, text = book_info[1]).pack()
+
+    Label(screen26, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen26, text = book_info[5]).pack()
+
+    Label(screen26, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen26, text = book_info[2]).pack()
 
 
 
@@ -398,6 +410,40 @@ def check_game(event):
     update_game(data)
 
 
+def game_select():
+    global screen27
+    global selected_game
+    global ORIGINAL_ROOT_DIR
+    global path_for_games
+    global game_info
+    selected_game = game_entry.get()
+    print(selected_game)
+    screen27 = Toplevel(screen)
+    screen27.title(selected_game)
+    screen27.geometry("500x500")
+
+    os.chdir(path_for_games)
+    
+
+    f= open(selected_game)
+    game_info = f.readlines()
+    print(game_info)
+
+    Label(screen27, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen27, text = game_info[0]).pack()
+
+    Label(screen27, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen27, text = game_info[1]).pack()
+
+    Label(screen27, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen27, text = game_info[5]).pack()
+
+    Label(screen27, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen27, text = game_info[2]).pack()
+
+
+
+
 
 def games():
     global screen16
@@ -431,6 +477,10 @@ def games():
 
     #Create a binding on the entry box
     game_entry.bind("<KeyRelease>", check_game)
+
+    #Button to select
+    game_button = Button(screen16, text = "Select", command = game_select)
+    game_button.pack()
     
 def update_electronics(electronics_list_data):
     global electronics_list
@@ -471,6 +521,42 @@ def check_electronics(event):
 
 
 
+def electronics_select():
+    global screen28
+    global selected_electronic
+    global ORIGINAL_ROOT_DIR
+    global path_for_electronics
+    global electronic_info
+    selected_electronic = electronics_entry.get()
+    print(selected_electronic)
+    screen28 = Toplevel(screen)
+    screen28.title(selected_electronic)
+    screen28.geometry("500x500")
+
+    os.chdir(path_for_electronics)
+    
+
+    f= open(selected_electronic)
+    electronic_info = f.readlines()
+    print(electronic_info)
+
+    Label(screen28, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen28, text = electronic_info[0]).pack()
+
+    Label(screen28, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen28, text = electronic_info[1]).pack()
+
+    Label(screen28, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen28, text = electronic_info[8]).pack()
+
+    Label(screen28, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen28, text = electronic_info[2]).pack()
+
+
+
+
+
+
 
 
 def electronics():
@@ -505,6 +591,10 @@ def electronics():
 
     #Create a binding on the entry box
     electronics_entry.bind("<KeyRelease>", check_electronics)
+
+    #Button to select
+    electronics_button = Button(screen17, text = "Select", command = electronics_select)
+    electronics_button.pack()
 
 
 def update_home_garden(home_garden_list_data):
@@ -543,6 +633,37 @@ def check_home_garden(event):
                 data.append(item)
     update_home_garden(data)    
 
+
+def home_garden_select():
+    global screen29
+    global selected_home_garden
+    global ORIGINAL_ROOT_DIR
+    global path_for_homegarden
+    global home_garden_info
+    selected_home_garden = home_garden_entry.get()
+    print(selected_home_garden)
+    screen29 = Toplevel(screen)
+    screen29.title(selected_home_garden)
+    screen29.geometry("500x500")
+
+    os.chdir(path_for_homegarden)
+    
+
+    f= open(selected_home_garden)
+    home_garden_info = f.readlines()
+    print(home_garden_info)
+
+    Label(screen29, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen29, text = home_garden_info[0]).pack()
+
+    Label(screen29, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen29, text = home_garden_info[1]).pack()
+
+    Label(screen29, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen29, text = home_garden_info[8]).pack()
+
+    Label(screen29, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen29, text = home_garden_info[2]).pack()
 
 
 
@@ -583,6 +704,14 @@ def home_garden():
     home_garden_entry.bind("<KeyRelease>", check_home_garden)
 
 
+
+
+    #Button to select
+    home_garden_button = Button(screen18, text = "Select", command = home_garden_select)
+    home_garden_button.pack()
+
+
+
 def update_toys(toys_list_data):
     global toys_list
     #Clear the listbox
@@ -621,6 +750,37 @@ def check_toys(event):
 
 
 
+def toys_select():
+    global screen30
+    global selected_toys
+    global ORIGINAL_ROOT_DIR
+    global path_for_toys
+    global toys_info
+    selected_toys = toys_entry.get()
+    print(selected_toys)
+    screen30 = Toplevel(screen)
+    screen30.title(selected_toys)
+    screen30.geometry("500x500")
+
+    os.chdir(path_for_toys)
+    
+
+    f= open(selected_toys)
+    toys_info = f.readlines()
+    print(toys_info)
+
+    Label(screen30, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen30, text = toys_info[0]).pack()
+
+    Label(screen30, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen30, text = toys_info[1]).pack()
+
+    Label(screen30, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen30, text = toys_info[8]).pack()
+
+    Label(screen30, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen30, text = toys_info[2]).pack()
+
 
 
 
@@ -656,6 +816,13 @@ def toys():
 
     #Create a binding on the entry box
     toys_entry.bind("<KeyRelease>", check_toys)
+
+
+
+    #Button to select
+    toys_button = Button(screen19, text = "Select", command = toys_select)
+    toys_button.pack()
+
 
 def update_clothes_jewellery(clothes_jewellery_list_data):
     global clothes_jewellery_list
@@ -694,6 +861,36 @@ def check_clothes_jewellery(event):
     update_clothes_jewellery(data)    
 
 
+def clothes_jewellery_select():
+    global screen31
+    global selected_clothes_jewellery
+    global ORIGINAL_ROOT_DIR
+    global path_for_clothesjewellery
+    global clothes_jewellery_info
+    selected_clothes_jewellery = clothes_jewellery_entry.get()
+    print(selected_clothes_jewellery)
+    screen31 = Toplevel(screen)
+    screen31.title(selected_clothes_jewellery)
+    screen31.geometry("500x500")
+
+    os.chdir(path_for_clothesjewellery)
+    
+
+    f= open(selected_clothes_jewellery)
+    clothes_jewellery_info = f.readlines()
+    print(clothes_jewellery_info)
+
+    Label(screen31, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen31, text = clothes_jewellery_info[0]).pack()
+
+    Label(screen31, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen31, text = clothes_jewellery_info[1]).pack()
+
+    Label(screen31, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen31, text = clothes_jewellery_info[8]).pack()
+
+    Label(screen31, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen31, text = clothes_jewellery_info[2]).pack()
 
 
 def clothes_jewellery():
@@ -728,6 +925,13 @@ def clothes_jewellery():
 
     #Create a binding on the entry box
     clothes_jewellery_entry.bind("<KeyRelease>", check_clothes_jewellery)
+
+
+
+    #Button to select
+    clothes_jewellery_button = Button(screen20, text = "Select", command = clothes_jewellery_select)
+    clothes_jewellery_button.pack()
+
 
 
 def update_sports_outdoors(sports_outdoors_list_data):
@@ -770,6 +974,36 @@ def check_sports_outdoors(event):
 
 
 
+def sports_outdoors_select():
+    global screen32
+    global selected_sports_outdoors
+    global ORIGINAL_ROOT_DIR
+    global path_for_sportsoutdoors
+    global sports_outdoors_info
+    selected_sports_outdoors = sports_outdoors_entry.get()
+    print(selected_sports_outdoors)
+    screen32 = Toplevel(screen)
+    screen32.title(selected_sports_outdoors)
+    screen32.geometry("500x500")
+
+    os.chdir(path_for_sportsoutdoors)
+    
+
+    f= open(selected_sports_outdoors)
+    sports_outdoors_info = f.readlines()
+    print(sports_outdoors_info)
+
+    Label(screen32, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen32, text = sports_outdoors_info[0]).pack()
+
+    Label(screen32, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen32, text = sports_outdoors_info[1]).pack()
+
+    Label(screen32, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen32, text = sports_outdoors_info[8]).pack()
+
+    Label(screen32, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen32, text = sports_outdoors_info[2]).pack()
 
 
 
@@ -806,6 +1040,12 @@ def sports_outdoors():
 
     #Create a binding on the entry box
     sports_outdoors_entry.bind("<KeyRelease>", check_sports_outdoors)
+
+
+    #Button to select
+    sports_outdoors_button = Button(screen21, text = "Select", command = sports_outdoors_select)
+    sports_outdoors_button.pack()
+
     
 
 
@@ -848,6 +1088,37 @@ def check_food(event):
 
 
 
+def food_select():
+    global screen33
+    global selected_food
+    global ORIGINAL_ROOT_DIR
+    global path_for_food
+    global food_info
+    selected_food = food_entry.get()
+    print(selected_food)
+    screen33 = Toplevel(screen)
+    screen33.title(selected_food)
+    screen33.geometry("500x500")
+
+    os.chdir(path_for_food)
+    
+
+    f= open(selected_food)
+    food_info = f.readlines()
+    print(food_info)
+
+    Label(screen33, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen33, text = food_info[0]).pack()
+
+    Label(screen33, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen33, text = food_info[1]).pack()
+
+    Label(screen33, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen33, text = food_info[8]).pack()
+
+    Label(screen33, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen33, text = food_info[2]).pack()
+
 
 
 
@@ -887,6 +1158,9 @@ def food():
     
 
 
+    #Button to select
+    food_button = Button(screen22, text = "Select", command = food_select)
+    food_button.pack()
 
 
 def update_health(health_list_data):
@@ -927,6 +1201,37 @@ def check_health(event):
 
 
 
+def health_select():
+    global screen34
+    global selected_health
+    global ORIGINAL_ROOT_DIR
+    global path_for_health
+    global health_info
+    selected_health = health_entry.get()
+    print(selected_health)
+    screen34 = Toplevel(screen)
+    screen34.title(selected_health)
+    screen34.geometry("500x500")
+
+    os.chdir(path_for_health)
+    
+
+    f= open(selected_health)
+    health_info = f.readlines()
+    print(health_info)
+
+    Label(screen34, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen34, text = health_info[0]).pack()
+
+    Label(screen34, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen34, text = health_info[1]).pack()
+
+    Label(screen34, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen34, text = health_info[8]).pack()
+
+    Label(screen34, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen34, text = health_info[2]).pack()
+
 
 
 
@@ -962,6 +1267,13 @@ def health():
 
     #Create a binding on the entry box
     health_entry.bind("<KeyRelease>", check_health)
+
+
+
+    #Button to select
+    health_button = Button(screen23, text = "Select", command = health_select)
+    health_button.pack()
+
     
 
 
@@ -1004,6 +1316,36 @@ def check_motor_vehicles(event):
     update_motor_vehicles(data)    
 
 
+def motor_vehicles_select():
+    global screen35
+    global selected_motor_vehicles
+    global ORIGINAL_ROOT_DIR
+    global path_for_motorvehicles
+    global motor_vehicles_info
+    selected_motor_vehicles = motor_vehicles_entry.get()
+    print(selected_motor_vehicles)
+    screen35 = Toplevel(screen)
+    screen35.title(selected_motor_vehicles)
+    screen35.geometry("500x500")
+
+    os.chdir(path_for_motorvehicles)
+    
+
+    f= open(selected_motor_vehicles)
+    motor_vehicles_info = f.readlines()
+    print(motor_vehicles_info)
+
+    Label(screen35, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen35, text = motor_vehicles_info[0]).pack()
+
+    Label(screen35, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen35, text = motor_vehicles_info[1]).pack()
+
+    Label(screen35, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen35, text = motor_vehicles_info[8]).pack()
+
+    Label(screen35, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen35, text = motor_vehicles_info[2]).pack()
 
 
 
@@ -1039,6 +1381,13 @@ def motor_vehicles():
 
     #Create a binding on the entry box
     motor_vehicles_entry.bind("<KeyRelease>", check_motor_vehicles)
+
+
+    #Button to select
+    motor_vehicles_button = Button(screen24, text = "Select", command = motor_vehicles_select)
+    motor_vehicles_button.pack()
+
+    
 
 
 
@@ -1085,6 +1434,42 @@ def check_education(event):
     update_education(data)    
 
 
+
+def education_select():
+    global screen36
+    global selected_education
+    global ORIGINAL_ROOT_DIR
+    global path_for_education
+    global education_info
+    selected_education = education_entry.get()
+    print(selected_education)
+    screen36 = Toplevel(screen)
+    screen36.title(selected_education)
+    screen36.geometry("500x500")
+
+    os.chdir(path_for_education)
+    
+
+    f= open(selected_education)
+    education_info = f.readlines()
+    print(education_info)
+
+    Label(screen36, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen36, text = education_info[0]).pack()
+
+    Label(screen36, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen36, text = education_info[1]).pack()
+
+    Label(screen36, text = "Description;", font=("Helvetica", 13, "bold")).pack()
+    Label(screen36, text = education_info[8]).pack()
+
+    Label(screen36, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen36, text = education_info[2]).pack()
+
+
+
+
+
 def education():
     global screen25
     global education_list
@@ -1117,6 +1502,15 @@ def education():
 
     #Create a binding on the entry box
     education_entry.bind("<KeyRelease>", check_education)
+
+
+
+
+
+    #Button to select
+    education_button = Button(screen25, text = "Select", command = education_select)
+    education_button.pack()
+
     
 
 
