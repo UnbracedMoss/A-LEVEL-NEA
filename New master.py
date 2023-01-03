@@ -4,7 +4,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 37
+#Next unused screen: 38
 
 global productName
 global product_entry
@@ -304,6 +304,10 @@ def book_select():
     global ORIGINAL_ROOT_DIR
     global path_for_books
     global book_info
+    global purchasing_choice
+    purchasing_choice = 1
+    print(purchasing_choice)
+    selected_book = StringVar()
     selected_book = book_entry.get()
     print(selected_book)
     screen26 = Toplevel(screen)
@@ -416,6 +420,9 @@ def game_select():
     global ORIGINAL_ROOT_DIR
     global path_for_games
     global game_info
+    global purchasing_choice
+    purchasing_choice = 2
+    selected_game = StringVar()
     selected_game = game_entry.get()
     print(selected_game)
     screen27 = Toplevel(screen)
@@ -527,6 +534,9 @@ def electronics_select():
     global ORIGINAL_ROOT_DIR
     global path_for_electronics
     global electronic_info
+    global purchasing_choice
+    purchasing_choice = 3
+    selected_electronic = StringVar()
     selected_electronic = electronics_entry.get()
     print(selected_electronic)
     screen28 = Toplevel(screen)
@@ -552,7 +562,8 @@ def electronics_select():
     Label(screen28, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen28, text = electronic_info[2]).pack()
 
-
+    purchase = Button(screen28, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 
@@ -640,6 +651,9 @@ def home_garden_select():
     global ORIGINAL_ROOT_DIR
     global path_for_homegarden
     global home_garden_info
+    global purchasing_choice
+    purchasing_choice = 4
+    selected_home_garden = StringVar()
     selected_home_garden = home_garden_entry.get()
     print(selected_home_garden)
     screen29 = Toplevel(screen)
@@ -756,6 +770,9 @@ def toys_select():
     global ORIGINAL_ROOT_DIR
     global path_for_toys
     global toys_info
+    global purchasing_choice
+    purchasing_choice = 5
+    selected_toys = StringVar()
     selected_toys = toys_entry.get()
     print(selected_toys)
     screen30 = Toplevel(screen)
@@ -867,6 +884,9 @@ def clothes_jewellery_select():
     global ORIGINAL_ROOT_DIR
     global path_for_clothesjewellery
     global clothes_jewellery_info
+    global purchasing_choice
+    purchasing_choice = 6
+    selected_clothes_jewellery = StringVar()
     selected_clothes_jewellery = clothes_jewellery_entry.get()
     print(selected_clothes_jewellery)
     screen31 = Toplevel(screen)
@@ -980,6 +1000,9 @@ def sports_outdoors_select():
     global ORIGINAL_ROOT_DIR
     global path_for_sportsoutdoors
     global sports_outdoors_info
+    global purchasing_choice
+    purchasing_choice = 7
+    selected_sports_outdoors = StringVar()
     selected_sports_outdoors = sports_outdoors_entry.get()
     print(selected_sports_outdoors)
     screen32 = Toplevel(screen)
@@ -1094,6 +1117,9 @@ def food_select():
     global ORIGINAL_ROOT_DIR
     global path_for_food
     global food_info
+    global purchasing_choice
+    purchasing_choice = 8
+    selected_food = StringVar()
     selected_food = food_entry.get()
     print(selected_food)
     screen33 = Toplevel(screen)
@@ -1207,6 +1233,9 @@ def health_select():
     global ORIGINAL_ROOT_DIR
     global path_for_health
     global health_info
+    global purchasing_choice
+    purchasing_choice = 9
+    selected_health = StringVar()
     selected_health = health_entry.get()
     print(selected_health)
     screen34 = Toplevel(screen)
@@ -1322,6 +1351,9 @@ def motor_vehicles_select():
     global ORIGINAL_ROOT_DIR
     global path_for_motorvehicles
     global motor_vehicles_info
+    global purchasing_choice
+    purchasing_choice = 10
+    selected_motor_vehicles = StringVar()
     selected_motor_vehicles = motor_vehicles_entry.get()
     print(selected_motor_vehicles)
     screen35 = Toplevel(screen)
@@ -1334,6 +1366,7 @@ def motor_vehicles_select():
     f= open(selected_motor_vehicles)
     motor_vehicles_info = f.readlines()
     print(motor_vehicles_info)
+    
 
     Label(screen35, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen35, text = motor_vehicles_info[0]).pack()
@@ -1441,6 +1474,9 @@ def education_select():
     global ORIGINAL_ROOT_DIR
     global path_for_education
     global education_info
+    global purchasing_choice
+    purchasing_choice = 11
+    selected_education = StringVar()
     selected_education = education_entry.get()
     print(selected_education)
     screen36 = Toplevel(screen)
@@ -1465,6 +1501,11 @@ def education_select():
 
     Label(screen36, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen36, text = education_info[2]).pack()
+
+    education_select_button = Button(screen36, text = "Purchase", command = purchase_screen)
+    education_select_button.pack()
+
+    
 
 
 
@@ -1513,7 +1554,109 @@ def education():
 
     
 
+def purchase_screen():
+    global screen37
+    global ORIGINAL_ROOT_DIR
+    global purchasing_directory
+    global purchasing_choice
+    global purchasing_product
+    global selected_book
+    global selected_game
+    global selected_electronic
+    global selected_home_garden
+    global selected_toys
+    global selected_clothes_jewellery
+    global selected_sports_outdoors
+    global selected_food
+    global selected_health
+    global selected_motor_vehicles
+    global selected_education
+    global path_for_products
+    global path_for_books
+    global path_for_games
+    global path_for_electronics
+    global path_for_homegarden
+    global path_for_toys
+    global path_for_clothesjewellery
+    global path_for_sportsoutdoors
+    global path_for_food
+    global path_for_health
+    global path_for_motorvehicles
+    global path_for_education
 
+    purchasing_product = StringVar()
+    purchasing_directory = StringVar()
+    elected_book = StringVar()
+    selected_game = StringVar()
+    selected_electronic = StringVar()
+    selected_home_garden = StringVar()
+    selected_toys = StringVar()
+    selected_clothes_jewellery = StringVar()
+    selected_sports_outdoors = StringVar()
+    selected_food = StringVar()
+    selected_health = StringVar()
+    selected_motor_vehicles = StringVar()
+    selected_education = StringVar()
+    path_for_products = StringVar()
+    path_for_books = StringVar()
+    path_for_games = StringVar()
+    path_for_electronics = StringVar()
+    path_for_homegarden = StringVar()
+    path_for_toys = StringVar()
+    path_for_clothesjewellery = StringVar()
+    path_for_sportsoutdoors = StringVar()
+    path_for_food = StringVar()
+    path_for_health = StringVar()
+    path_for_motorvehicles = StringVar()
+    path_for_education = StringVar()
+
+
+
+    
+    if purchasing_choice == 1:
+        purchasing_product = selected_book.get()
+        purchasing_directory = path_for_books.get()
+    elif purchasing_choice == 2:
+        purchasing_product = selected_game.get()
+        purchasing_directory = path_for_games.get()
+    elif purchasing_choice == 3:
+        purchasing_product = selected_electronic.get()
+        purchasing_directory = path_for_electronics.get()
+    elif purchasing_choice == 4:
+        purchasing_product = selected_home_garden.get()
+        purchasing_directory = path_for_homegarden.get()
+    elif purchasing_choice == 5:
+        purchasing_product = selected_toys.get()
+        purchasing_directory = path_for_toys.get()
+    elif purchasing_choice == 6:
+        purchasing_product = selected_clothes_jewellery.get()
+        purchasing_directory = path_for_clothesjewellery.get()
+    elif purchasing_choice == 7:
+        purchasing_product = selected_sports_outdoors.get()
+        purchasing_directory = path_for_sportsoutdoors.get()
+    elif purchasing_choice == 8:
+        purchasing_product = selected_food.get()
+        purchasing_directory = path_for_food.get()
+    elif purchasing_choice == 9:
+        purchasing_product = selected_health.get()
+        purchasing_directory = path_for_health.get()
+    elif purchasing_choice == 10:
+        purchasing_product = selected_motor_vehicles.get()
+        purchasing_directory = path_for_motorvehicles.get()
+    elif purchasing_choice == 11:
+        purchasing_product = selected_education.get()
+        purchasing_directory = path_for_education.get()
+    else:
+        print("I really can't be asked to fix this issue")
+
+
+
+    screen37 = Toplevel(screen)
+    screen37.title("Purchasing Screen")
+    screen37.geometry("500x500")
+
+    Label(screen37, text = "Item:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen37, text = (purchasing_product)).pack()
     
     
 
@@ -1846,6 +1989,16 @@ def store_products():
     print(keyword3)
     print(description)
 
+    path_for_books = StringVar()
+    path_for_games = StringVar()
+    path_for_electronics = StringVar()
+    path_for_homegarden = StringVar()
+    path_for_toys = StringVar()
+    path_for_clothesjewellery = StringVar()
+    path_for_sportsoutdoors = StringVar()
+    path_for_food = StringVar()
+    path_for_health = StringVar()
+    path_for_education = StringVar()
     if category1 == "Books":
         print(path_for_books)
         os.chdir(path_for_books)
