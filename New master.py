@@ -1989,16 +1989,6 @@ def store_products():
     print(keyword3)
     print(description)
 
-    path_for_books = StringVar()
-    path_for_games = StringVar()
-    path_for_electronics = StringVar()
-    path_for_homegarden = StringVar()
-    path_for_toys = StringVar()
-    path_for_clothesjewellery = StringVar()
-    path_for_sportsoutdoors = StringVar()
-    path_for_food = StringVar()
-    path_for_health = StringVar()
-    path_for_education = StringVar()
     if category1 == "Books":
         print(path_for_books)
         os.chdir(path_for_books)
