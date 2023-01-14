@@ -4,7 +4,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 38
+#Next unused screen: 39
 
 global productName
 global product_entry
@@ -333,6 +333,8 @@ def book_select():
     Label(screen26, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen26, text = book_info[2]).pack()
 
+    Button(screen26, text = "Purchase", command = purchase_screen).pack()
+
 
 
     
@@ -449,6 +451,9 @@ def game_select():
     Label(screen27, text = game_info[2]).pack()
 
 
+    purchase = Button(screen27, text = "Purchase", command = purchase_screen)
+    purchase.pack()
+
 
 
 
@@ -564,6 +569,7 @@ def electronics_select():
 
     purchase = Button(screen28, text = "Purchase", command = purchase_screen)
     purchase.pack()
+    purchasing_choice = selected_electronic
 
 
 
@@ -678,6 +684,9 @@ def home_garden_select():
 
     Label(screen29, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen29, text = home_garden_info[2]).pack()
+
+    purchase = Button(screen29, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 
@@ -798,6 +807,9 @@ def toys_select():
     Label(screen30, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen30, text = toys_info[2]).pack()
 
+    purchase = Button(screen30, text = "Purchase", command = purchase_screen)
+    purchase.pack()
+
 
 
 
@@ -911,6 +923,9 @@ def clothes_jewellery_select():
 
     Label(screen31, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen31, text = clothes_jewellery_info[2]).pack()
+
+    purchase = Button(screen31, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 def clothes_jewellery():
@@ -1028,7 +1043,8 @@ def sports_outdoors_select():
     Label(screen32, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen32, text = sports_outdoors_info[2]).pack()
 
-
+    purchase = Button(screen32, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 def sports_outdoors():
@@ -1145,6 +1161,8 @@ def food_select():
     Label(screen33, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen33, text = food_info[2]).pack()
 
+    purchase = Button(screen33, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 
@@ -1260,6 +1278,9 @@ def health_select():
 
     Label(screen34, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen34, text = health_info[2]).pack()
+
+    purchase = Button(screen35, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 
@@ -1379,6 +1400,9 @@ def motor_vehicles_select():
 
     Label(screen35, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen35, text = motor_vehicles_info[2]).pack()
+
+    purchase = Button(screen35, text = "Purchase", command = purchase_screen)
+    purchase.pack()
 
 
 
@@ -1583,66 +1607,43 @@ def purchase_screen():
     global path_for_health
     global path_for_motorvehicles
     global path_for_education
-
-    purchasing_product = StringVar()
-    purchasing_directory = StringVar()
-    elected_book = StringVar()
-    selected_game = StringVar()
-    selected_electronic = StringVar()
-    selected_home_garden = StringVar()
-    selected_toys = StringVar()
-    selected_clothes_jewellery = StringVar()
-    selected_sports_outdoors = StringVar()
-    selected_food = StringVar()
-    selected_health = StringVar()
-    selected_motor_vehicles = StringVar()
-    selected_education = StringVar()
-    path_for_products = StringVar()
-    path_for_books = StringVar()
-    path_for_games = StringVar()
-    path_for_electronics = StringVar()
-    path_for_homegarden = StringVar()
-    path_for_toys = StringVar()
-    path_for_clothesjewellery = StringVar()
-    path_for_sportsoutdoors = StringVar()
-    path_for_food = StringVar()
-    path_for_health = StringVar()
-    path_for_motorvehicles = StringVar()
-    path_for_education = StringVar()
+    global user_dir
 
 
+
+    print(path_for_health)
 
     
     if purchasing_choice == 1:
-        purchasing_product = selected_book.get()
-        purchasing_directory = path_for_books.get()
+        purchasing_product = selected_book
+        purchasing_directory = path_for_books
     elif purchasing_choice == 2:
-        purchasing_product = selected_game.get()
-        purchasing_directory = path_for_games.get()
+        purchasing_product = selected_game
+        purchasing_directory = path_for_games
     elif purchasing_choice == 3:
-        purchasing_product = selected_electronic.get()
-        purchasing_directory = path_for_electronics.get()
+        purchasing_product = selected_electronic
+        purchasing_directory = path_for_electronics
     elif purchasing_choice == 4:
-        purchasing_product = selected_home_garden.get()
-        purchasing_directory = path_for_homegarden.get()
+        purchasing_product = selected_home_garden
+        purchasing_directory = path_for_homegarden
     elif purchasing_choice == 5:
-        purchasing_product = selected_toys.get()
-        purchasing_directory = path_for_toys.get()
+        purchasing_product = selected_toys
+        purchasing_directory = path_for_toys
     elif purchasing_choice == 6:
-        purchasing_product = selected_clothes_jewellery.get()
-        purchasing_directory = path_for_clothesjewellery.get()
+        purchasing_product = selected_clothes_jewellery
+        purchasing_directory = path_for_clothesjewellery
     elif purchasing_choice == 7:
-        purchasing_product = selected_sports_outdoors.get()
-        purchasing_directory = path_for_sportsoutdoors.get()
+        purchasing_product = selected_sports_outdoors
+        purchasing_directory = path_for_sportsoutdoors
     elif purchasing_choice == 8:
-        purchasing_product = selected_food.get()
-        purchasing_directory = path_for_food.get()
+        purchasing_product = selected_food
+        purchasing_directory = path_for_food
     elif purchasing_choice == 9:
-        purchasing_product = selected_health.get()
-        purchasing_directory = path_for_health.get()
+        purchasing_product = selected_health
+        purchasing_directory = path_for_health
     elif purchasing_choice == 10:
-        purchasing_product = selected_motor_vehicles.get()
-        purchasing_directory = path_for_motorvehicles.get()
+        purchasing_product = selected_motor_vehicles
+        purchasing_directory = path_for_motorvehicles
     elif purchasing_choice == 11:
         purchasing_product = selected_education.get()
         purchasing_directory = path_for_education.get()
@@ -1656,7 +1657,90 @@ def purchase_screen():
     screen37.geometry("500x500")
 
     Label(screen37, text = "Item:", font=('Helvetica', 13, 'bold')).pack()
-    Label(screen37, text = (purchasing_product)).pack()
+    print(purchasing_product)
+    print(purchasing_directory)
+    os.chdir(purchasing_directory)
+    f= open(purchasing_product)
+    purchasing_info = f.readlines()
+    print(purchasing_info)
+    print(username1)
+
+    Label(screen37, text = "Product name:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen37, text = purchasing_info[0]).pack()
+
+    Label(screen37, text = "Price:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen37, text = purchasing_info[1]).pack()
+
+
+    os.chdir(user_dir)
+    f= open(username1)
+    content = f.readlines()
+
+    Label(screen37, text = "Address Line 2:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen37, text = content[3]).pack()
+
+
+    Button(screen37, text = "Purchase", command = final_screen).pack()
+
+    
+    
+def final_screen():
+    global screen38
+    global screen8
+    global purchasing_choice
+    
+    screen38 = Toplevel(screen)
+    screen38.title("Congratualtions")
+    screen38.geometry("500x500")
+
+    Label(screen38, text = "Can't even spell congratulations").pack()
+    Label(screen38, text = "Product purchased").pack()
+    screen37.destroy()
+    screen8.destroy()
+
+
+    if purchasing_choice == 1:
+        screen26.destroy()
+        screen15.destroy()
+    elif purchasing_choice == 2:
+        screen27.destroy()
+        screen16.destroy()
+    elif purchasing_choice == 3:
+        screen28.destroy()
+        screen17.destroy()
+    elif purchasing_choice == 4:
+        screen29.destroy()
+        screen18.destroy()
+    elif purchasing_choice == 5:
+        screen30.destroy()
+        screen19.destroy()
+    elif purchasing_choice == 6:
+        screen31.destroy()
+        screen20.destroy()
+    elif purchasing_choice == 7:
+        screen32.destroy()
+        screen21.destroy()
+    elif purchasing_choice == 8:
+        screen33.destroy()
+        screen22.destroy()
+    elif purchasing_choice == 9:
+        screen34.destroy()
+        screen23.destroy()
+    elif purchasing_choice == 10:
+        screen35.destroy()
+        screen24.destroy()
+    elif purchasing_choice == 11:
+        screen36.destroy()
+        screen25.destroy()
+    
+
+    
+
+    
+    
+
+
+    
     
     
 
@@ -1763,6 +1847,7 @@ def login_verify():
     global password1
     global ORIGINAL_ROOT_DIR
     global username_info
+    global user_dir
     print(ORIGINAL_ROOT_DIR)
     username1 = username_verify.get()
     password1 = password_verify.get()
