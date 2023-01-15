@@ -4,7 +4,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 39
+#Next unused screen: 45
 
 global productName
 global product_entry
@@ -1750,15 +1750,250 @@ def log_out():
     
     screen6.destroy()
   
+
     
+ 
+def review_mainmenu():
+    global screen39
+    screen39 = Toplevel(screen)
+    screen39.title("Reviews")
+    screen39.geometry("350x500")
+    Label(screen39, text = "Review Main Menu").pack()
+
+    Button(screen39, text = "Leave a review", command=review_write_select_user).pack()
+    Button(screen39, text = "Look at seller's rating", command = review_read_select_user).pack()
+
+
+def update_user_list_read(user_list_data_read):
+    global user_list_read
+    #Clear the listbox
+    user_list_read.delete(0, END)
+
+    #Add data to listbox
+    for item in user_list_data_read:
+        user_list_read.insert(END, item)
+
+
+#Update entry box with listbox clicked
+def fillout_user_list_read(event):
+    global review_read_user_entry
+    #Delete whatever is in the entry box
+    review_read_user_entry.delete(0, END)
+
+    #Add clicked list item to entry box
+    review_read_user_entry.insert(0, user_list_read.get(ACTIVE))
+
+def check_user_list_read(event):
+    #Grab what was typed
+    global review_read_user_entry
+    global user_list_data_read
+    typed_user_read = review_read_user_entry.get()
     
+
+    if typed_user_read == " ":
+        data = user_list_data_read
+    else:
+        data = []
+        for item in user_list_data_read:
+            if typed_user_read.lower() in item.lower():
+                data.append(item)
+    update_user_list_read(data)
+
+
+
+
+def review_read_select_user():
+    global screen43
+    global review_read_user_entry
+    global user_list_read
+    global path_for_users
+    global user_list_data_read
+    screen43 = Toplevel(screen)
+    screen43.title("Selecting the User")
+    screen43.geometry("350x500")
+
+    review_read_user_entry = Entry(screen43,)
+    review_read_user_entry.pack()
+
+    #create a list box
+    user_list_read = Listbox(screen43)
+    user_list_read.pack()
+
+    #create a list
+    user_list_data_read = os.listdir(path_for_users)
+
+    #Add the data to the list
+    update_user_list_read(user_list_data_read)
+
+    #Create a binding on the listbox onclick
+    user_list_read.bind("<<ListboxSelect>>", fillout_user_list_read)
+
+    #Create a binding on the entry box
+    review_read_user_entry.bind("<KeyRelease>", check_user_list_read)
+
+    #Button to select
+    review_read_button = Button(screen43, text = "Select", command = review_read)
+    review_read_button.pack()  
+    
+
+
+    #use this to separate the users name and the review header, use this to search through the reviews
+    #user would input a name, the function would implement this to the data
+    #x = filename.split(selected_user)
+    #print(x)
+
+def review_read():
+    global screen44
+    global path_for_reviews
+    global selected_user
+    global review_read_user_entry
+
+    screen44 = Toplevel(screen)
+    screen44.title("Select review")
+    screen44.geometry("350x500")
+    Label(screen44, text = "Select a review").pack()
+
+def review_write():
+    global screen41
+    global path_for_reviews
+    global header_entry
+    global review_entry
+    global selected_user
+    global review_write_user_entry
+    screen41 = Toplevel(screen)
+    screen41.title("Leave a review")
+    screen41.geometry("350x500")
+    Label(screen40, text = "Leaving a review").pack()
+
+    review_entry = StringVar()
+    header_entry = StringVar()
+
+
+    os.chdir(path_for_reviews)
+    Label(screen41, text = "Header").pack()
+    header_entry= Entry(screen41)
+    header_entry.pack()
+
+    Label(screen41, text = "Description of review").pack()
+    review_entry = Text(screen41, height = 8, width = 60)
+    review_entry.pack()
+
+    selected_user = StringVar()
+    selected_user = review_write_user_entry.get()
+    print(selected_user)
+
+    Button(screen41, text = "Store values", command=review_write_store).pack()
+
+ 
+
+
+
+
+def review_write_store():
+    global screen42
+    global header
+    global review
+    global selected_user
+    header = header_entry.get()
+    review = review_entry.get(1.0 , END)
+    print(header)
+    print(review)
+    print(selected_user)
+    filename = selected_user + header
+    print(filename)
+
+
+
+
+    
+    os.chdir(path_for_reviews)
+    file=open(filename, "w")
+    file.write(header+"\n")
+    file.write(review+"\n")
+    file.close()
+
+
+    Label(screen41, text = "Review submitted").pack()
+    screen41.destroy()
+    
+
+ 
+def update_user_list_write(user_list_data_write):
+    global user_list_write
+    #Clear the listbox
+    user_list_write.delete(0, END)
+
+    #Add data to listbox
+    for item in user_list_data_write:
+        user_list_write.insert(END, item)
+
+
+#Update entry box with listbox clicked
+def fillout_user_list_write(event):
+    global review_write_user_entry
+    #Delete whatever is in the entry box
+    review_write_user_entry.delete(0, END)
+
+    #Add clicked list item to entry box
+    review_write_user_entry.insert(0, user_list_write.get(ACTIVE))
+
+def check_user_list_write(event):
+    #Grab what was typed
+    global review_write_user_entry
+    global user_list_data_write
+    typed_user_write = review_write_user_entry.get()
+    
+
+    if typed_user_write == " ":
+        data = user_list_data_write
+    else:
+        data = []
+        for item in user_list_data_write:
+            if typed_user_write.lower() in item.lower():
+                data.append(item)
+    update_user_list_write(data)
+
+
+
+
+def review_write_select_user():
+    global screen40
+    global review_write_user_entry
+    global user_list_write
+    global path_for_users
+    global user_list_data_write
+    screen40 = Toplevel(screen)
+    screen40.title("Selecting the User")
+    screen40.geometry("350x500")
+
+    review_write_user_entry = Entry(screen40,)
+    review_write_user_entry.pack()
+
+    #create a list box
+    user_list_write = Listbox(screen40)
+    user_list_write.pack()
+
+    #create a list
+    user_list_data_write = os.listdir(path_for_users)
+
+    #Add the data to the list
+    update_user_list_write(user_list_data_write)
+
+    #Create a binding on the listbox onclick
+    user_list_write.bind("<<ListboxSelect>>", fillout_user_list_write)
+
+    #Create a binding on the entry box
+    review_write_user_entry.bind("<KeyRelease>", check_user_list_write)
+
+    #Button to select
+    review_write_button = Button(screen40, text = "Select", command = review_write)
+    review_write_button.pack()  
     
     
 
 
 def session():
     global screen6
-    
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
@@ -1767,6 +2002,7 @@ def session():
     Button(screen6, text= " Buying", command=buying).pack()
     Button(screen6, text="Selling", command=selling).pack()
     Button(screen6, text="Logout", command=log_out).pack()
+    Button(screen6, text="Reviews", command=review_mainmenu).pack()
 
     
 
@@ -2135,6 +2371,7 @@ def store_products():
 def main_screen():
     global screen
     global ORIGINAL_ROOT_DIR
+    global path_for_reviews
     global path_for_products
     global path_for_books
     global path_for_games
@@ -2147,6 +2384,7 @@ def main_screen():
     global path_for_health
     global path_for_motorvehicles
     global path_for_education
+    global path_for_users
     screen=Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
@@ -2163,7 +2401,9 @@ def main_screen():
     cwd = os.getcwd()
     print(cwd)
     directory_for_users = ("Users")
+    directory_for_reviews = ("Reviews")
     path_for_users = os.path.join(cwd, directory_for_users)
+    path_for_reviews = os.path.join(cwd, directory_for_reviews)
     is_existing_users = os.path.exists(path_for_users)
     print(is_existing_users)
 
@@ -2172,6 +2412,7 @@ def main_screen():
     else:
         print("Creating the new directory")
         os.mkdir(path_for_users)
+        os.mkdir(path_for_reviews)
         print("Made new directory")
 
 
