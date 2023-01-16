@@ -1733,25 +1733,6 @@ def final_screen():
         screen36.destroy()
         screen25.destroy()
     
-
-    
-
-    
-    
-
-
-    
-    
-    
-
-
-
-def log_out():
-    
-    screen6.destroy()
-  
-
-    
  
 def review_mainmenu():
     global screen39
@@ -2144,8 +2125,9 @@ def session():
     Button(screen6, text="Account Management", command=account_management).pack()
     Button(screen6, text= " Buying", command=buying).pack()
     Button(screen6, text="Selling", command=selling).pack()
-    Button(screen6, text="Logout", command=log_out).pack()
     Button(screen6, text="Reviews", command=review_mainmenu).pack()
+    Button(screen6, text="Logout", command=log_out).pack()
+
 
     
 
@@ -2508,6 +2490,13 @@ def store_products():
     #label.after(1000, label.master.destroy)
 
 
+
+
+
+def log_out():
+    
+    screen6.destroy()
+  
 
 
 
