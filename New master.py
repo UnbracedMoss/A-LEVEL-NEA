@@ -4,7 +4,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 45
+#Next unused screen: 46
 
 global productName
 global product_entry
@@ -1945,7 +1945,55 @@ def review_read_selection():
     
 
 def review_read():
-    pass
+    global screen45
+    global actual_review_header
+    global review_read_selection_entry
+    global path_for_reviews
+    global selected_user
+    global review_header
+    global review_description
+    screen45 = Toplevel(screen)
+    screen45.title("Reviews")
+    screen45.geometry("350x500")
+    Label(screen45, text = "Review").pack()
+
+    actual_review_header = StringVar()
+    actual_review_header = review_read_selection_entry.get()
+    print(actual_review_header)
+    print(path_for_reviews)
+
+    review_file = StringVar()
+    review_file = " "
+
+
+    os.chdir(path_for_reviews)
+    list_of_files = os.listdir()
+    for review_file in os.listdir(path_for_reviews):
+        if review_file.endswith(actual_review_header):
+            print(review_file)
+        else:
+            pass
+
+    
+    os.chdir(path_for_reviews)
+    list_of_files = os.listdir()
+    if review_file in list_of_files:
+        review_file1 = open(review_file, "r")
+        review_file = review_file1.read().splitlines()
+        print(review_file[1])
+    else:
+        pass
+
+    review_header = StringVar()
+    review_description = StringVar()
+    review_header = review_file[0]
+    review_description = review_file[1:-1]
+
+    Label(screen45, text = "Header:").pack()
+    Label(screen45, text = review_header).pack()
+    Label(screen45, text = "").pack()
+    Label(screen45, text = "Description:").pack()
+    Label(screen45, text = review_description).pack()
 
 
 def review_write():
