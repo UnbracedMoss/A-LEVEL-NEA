@@ -1832,7 +1832,7 @@ def review_read_select_user():
     review_read_user_entry.bind("<KeyRelease>", check_user_list_read)
 
     #Button to select
-    review_read_button = Button(screen43, text = "Select", command = review_read)
+    review_read_button = Button(screen43, text = "Select", command = review_read_selection)
     review_read_button.pack()  
     
 
@@ -1842,16 +1842,111 @@ def review_read_select_user():
     #x = filename.split(selected_user)
     #print(x)
 
-def review_read():
+
+def update_review_list_read(review_list_data_read):
+    global review_list_read
+    #Clear the listbox
+    review_list_read.delete(0, END)
+
+    #Add data to listbox
+    for item in review_list_data_read:
+        review_list_read.insert(END, item)
+
+
+#Update entry box with listbox clicked
+def fillout_review_list_read(event):
+    global review_read_selection_entry
+    #Delete whatever is in the entry box
+    review_read_selection_entry.delete(0, END)
+
+    #Add clicked list item to entry box
+    review_read_selection_entry.insert(0, review_list_read.get(ACTIVE))
+
+def check_review_list_read(event):
+    #Grab what was typed
+    global review_read_selection_entry
+    global review_list_data_read
+    typed_review_read = review_read_selection_entry.get()
+    
+
+    if typed_review_read == " ":
+        data = review_list_data_read
+    else:
+        data = []
+        for item in review_list_data_read:
+            if typed_review_read.lower() in item.lower():
+                data.append(item)
+    update_review_list_read(data)
+
+
+
+
+
+
+
+
+
+def review_read_selection():
     global screen44
     global path_for_reviews
     global selected_user
     global review_read_user_entry
+    global review_read_selection_entry
+    global review_list
+    global review_list_read
 
     screen44 = Toplevel(screen)
     screen44.title("Select review")
     screen44.geometry("350x500")
     Label(screen44, text = "Select a review").pack()
+    selected_user = StringVar()
+    selected_user = review_read_user_entry.get()
+    print(selected_user)
+
+    review_data_structure = []
+
+    for file in os.listdir(path_for_reviews):
+        if file.startswith(selected_user):
+            file = file.replace(selected_user, '')
+            print(file)
+            review_data_structure.append(file)
+            print(review_data_structure)
+        else:
+            print("It doesn't work")
+
+
+
+    review_read_selection_entry = Entry(screen44,)
+    review_read_selection_entry.pack()
+
+    #create a list box
+    review_list_read = Listbox(screen44)
+    review_list_read.pack()
+
+    #create a list
+    review_list_data_read = review_data_structure
+
+    #Add the data to the list
+    update_review_list_read(review_list_data_read)
+
+    #Create a binding on the listbox onclick
+    review_list_read.bind("<<ListboxSelect>>", fillout_review_list_read)
+
+    #Create a binding on the entry box
+    review_read_selection_entry.bind("<KeyRelease>", check_review_list_read)
+
+    #Button to select
+    review_read_button = Button(screen44, text = "Select", command = review_read)
+    review_read_button.pack()  
+    
+    
+
+      
+    
+
+def review_read():
+    pass
+
 
 def review_write():
     global screen41
