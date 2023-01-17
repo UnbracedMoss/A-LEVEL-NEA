@@ -2200,6 +2200,26 @@ def presence_checker():
         Label(screen46, text = "Username is taken").pack()
         Label(screen46, text = "Please register again with a different username").pack()
         screen1.destroy()
+    elif presence_counter == 9:
+        print("Username has not been inputted")
+        Label(screen46, text = "Username has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting username")
+        screen2.destroy()
+    elif presence_counter == 10:
+        print("Password has not been inputted")
+        Label(screen46, text = "Password has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting password").pack()
+        screen2.destroy()
+    elif presence_counter == 11:
+        print("Memorable word has not been inputted")
+        Label(screen46, text = "Memorable word has not been inputted").pack()
+        Label(screen46, text = " Please login again, inputting your memorable word").pack()
+        screen2.destroy()
+    elif presence_counter == 12:
+        print("Memorable question has not been inputted")
+        Label(screen46, text = "Memorable question has not been answered").pack()
+        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
+        screen2.destroy()
 
     
 
@@ -2318,6 +2338,7 @@ def login_verify():
     global username_info
     global user_dir
     global counter
+    global presence_counter
     print(ORIGINAL_ROOT_DIR)
     username1 = username_verify.get()
     password1 = password_verify.get()
@@ -2331,6 +2352,24 @@ def login_verify():
     password_entry1.delete(0, END)
     memorable_word_entry1.delete(0, END)
     memorable_question_entry1.delete(0, END)
+
+    username1_length = len(username1)
+    password1_length = len(password1)
+    memorable_word1_length = len(memorable_word1)
+    memorable_question1_length = len(memorable_question1)
+
+    if username1_length == 0:
+        presence_counter = 9
+        presence_checker()
+    elif password1_length == 0:
+        presence_counter = 10
+        presence_checker()
+    elif memorable_word1_length == 0:
+        presence_counter = 11
+        presence_checker()
+    elif memorable_question1_length == 0:
+        presence_counter = 12
+        presence_checker()
 
 
     
@@ -2378,7 +2417,7 @@ def login_verify():
             password_not_recognised()
         #their_memorable_question = verify[6]
 
-        if counter == 3:
+        if counter == 3 and presence_counter != 0:
             os.listdir()
             login_success()
         else:
