@@ -2163,6 +2163,8 @@ def register_user():
     address_1_info = address_line_1.get()
     address_2_info = address_line_2.get()
     postcode_info = postcode.get()
+    memorable_word_info = memorable_word.get()
+    memorable_question_info = memorable_question.get()
 
 
 
@@ -2187,6 +2189,8 @@ def register_user():
         file.write(address_1_info+"\n")
         file.write(address_2_info+"\n")
         file.write(postcode_info+"\n")
+        file.write(memorable_word_info+"\n")
+        file.write(memorable_question_info+"\n")
         file.close()
 
         username_entry.delete(0, END)
@@ -2194,6 +2198,8 @@ def register_user():
         postcode_entry.delete(0, END)
         address_line_1_entry.delete(0, END)
         address_line_2_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
 
         Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
     else:
@@ -2206,16 +2212,25 @@ def register_user():
 def login_verify():
     global username1
     global password1
+    global memorable_word1
+    global memorable_question1
     global ORIGINAL_ROOT_DIR
     global username_info
     global user_dir
+    global counter
     print(ORIGINAL_ROOT_DIR)
     username1 = username_verify.get()
     password1 = password_verify.get()
+    memorable_word1 = memorable_word_verify.get()
+    memorable_question1 = memorable_question_verify.get()
     password1 = str(password1)
     username1 = str(username1)
+    memorable_word1 = str(memorable_word1)
+    memorable_question1 = str(memorable_question1)
     username_entry1.delete(0, END)
     password_entry1.delete(0, END)
+    memorable_word_entry1.delete(0, END)
+    memorable_question_entry1.delete(0, END)
 
 
     
@@ -2223,6 +2238,9 @@ def login_verify():
     user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
     print(user_dir)
 
+    counter = 0
+    counter = int(counter)
+    
     os.chdir(user_dir)
     list_of_files = os.listdir()
     if username1 in list_of_files:
@@ -2234,13 +2252,45 @@ def login_verify():
         print(password1 == verify[1])
         boolean_login = (password1 == verify[1])
         print(boolean_login)
+        #YOU ARE HERE, YOU NEED TO SEPARATELY VERIFY THE PASSWORD AND MEMORABLE
+        #WORD AND MEMORABLE QUESTION
         if boolean_login == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            password_not_recognised()
+
+        #their_memorable_word = verify[5]
+        boolean_logic2 = (memorable_word1 == verify[5])
+        print(boolean_logic2)
+        if boolean_logic2 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            password_not_recognised()
+
+        boolean_logic3 = (memorable_question1 == verify[6])
+        print(boolean_logic3)
+        if boolean_logic3 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            password_not_recognised()
+        #their_memorable_question = verify[6]
+
+        if counter == 3:
             os.listdir()
             login_success()
         else:
             password_not_recognised()
+
     else:
         user_not_found()
+
+
+
+
+
         
 
 
@@ -2263,12 +2313,18 @@ def register():
     global address_line_1_entry
     global address_line_2_entry
     global postcode_entry
+    global memorable_word_entry
+    global memorable_question_entry
+    global memorable_word
+    global memorable_question
     
     username = StringVar()
     password = StringVar()
     postcode = StringVar()
     address_line_1 = StringVar()
     address_line_2 = StringVar()
+    memorable_word = StringVar()
+    memorable_question = StringVar()
 
     Label(screen1, text = "Please enter details below").pack()
     Label(screen1, text = " ").pack()
@@ -2289,6 +2345,12 @@ def register():
     Label(screen1, text = "Postcode*").pack()
     postcode_entry = Entry(screen1, textvariable = postcode)
     postcode_entry.pack()
+    Label(screen1, text = "Please enter your memorable word").pack()
+    memorable_word_entry = Entry(screen1, textvariable = memorable_word)
+    memorable_word_entry.pack()
+    Label(screen1, text = "What is your mother's maiden name (Security question)").pack()
+    memorable_question_entry = Entry(screen1, textvariable = memorable_question)
+    memorable_question_entry.pack()
     Button(screen1, text = "Register", width = 10, height = 1, command = register_user).pack()
 
 
@@ -2303,12 +2365,18 @@ def login():
 
     global username_verify
     global password_verify
+    global memorable_word_verify
+    global memorable_question_verify
 
     username_verify = StringVar()
     password_verify = StringVar()
+    memorable_word_verify = StringVar()
+    memorable_question_verify = StringVar()
 
     global username_entry1
     global password_entry1
+    global memorable_word_entry1
+    global memorable_question_entry1
 
     Label(screen2, text = "Username * ").pack()
     username_entry1 = Entry(screen2, textvariable = username_verify)
@@ -2318,6 +2386,12 @@ def login():
     password_entry1 = Entry(screen2, textvariable = password_verify)
     password_entry1.pack()
     Label(screen2, text=" ").pack()
+    Label(screen2, text = "Memorable word").pack()
+    memorable_word_entry1 = Entry(screen2, textvariable = memorable_word_verify)
+    memorable_word_entry1.pack()
+    Label(screen2, text = "What is your mother's maiden name").pack()
+    memorable_question_entry1 = Entry(screen2, textvariable = memorable_question_verify)
+    memorable_question_entry1.pack()
     Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
     
     
