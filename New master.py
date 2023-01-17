@@ -1,10 +1,11 @@
 from tkinter import *
 import os
+import time
 from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 46
+#Next unused screen: 47
 
 global productName
 global product_entry
@@ -2152,20 +2153,112 @@ def user_not_found():
     Label(screen5, text = "User not found").pack()
     Button(screen5, text = "Ok", command = delete4).pack()
 
+def presence_checker():
+    global screen46
+    global presence_counter
+    screen46 = Toplevel(screen)
+    screen46.title("Presence check")
+    screen46.geometry("350x500")
+
+    if presence_counter == 1:
+        print("No username detected")
+        Label(screen46, text = "No username was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again")
+        screen1.destroy()
+    elif presence_counter == 2:
+        print("No password detected")
+        Label(screen46, text = "No password was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again")
+        screen1.destroy()
+    elif presence_counter == 3:
+        print("No address1 detected")
+        Label(screen46, text = "The 1st line of address was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 4:
+        print("No address2 detected")
+        Label(screen46, text = "The 2nd line of address was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 5:
+        print("No postcode detected")
+        Label(screen46, text = "Postcode was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 6:
+        print("No memorable word detected")
+        Label(screen46, text = "Memorable word was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 7:
+        print("No memorable question detected")
+        Label(screen46, text = "No response to memorable question was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 8:
+        print("Username already taken")
+        Label(screen46, text = "Username is taken").pack()
+        Label(screen46, text = "Please register again with a different username").pack()
+        screen1.destroy()
+
+    
+
 
 def register_user():
     global user_dir
     global ORIGINAL_ROOT_DIR
     global people_name
+    global presence_counter
+
+    presence_counter = 0
     taken_username = False
+    missing_entity = False
     username_info = username.get()
     password_info = password.get()
+    
     address_1_info = address_line_1.get()
     address_2_info = address_line_2.get()
     postcode_info = postcode.get()
     memorable_word_info = memorable_word.get()
     memorable_question_info = memorable_question.get()
 
+
+    username_length = len(username_info)
+    password_length = len(password_info)
+    address1_length = len(address_1_info)
+    address2_length = len(address_2_info)
+    postcode_length = len(postcode_info)
+    memorable_word_length = len(memorable_word_info)
+    memorable_question_length = len(memorable_question_info)
+    
+    if username_length == 0:
+        presence_counter = 1
+        presence_checker()
+    elif password_length == 0:
+        presence_counter = 2
+        presence_checker()
+    elif address1_length == 0:
+        presence_counter = 3
+        presence_checker()
+    elif address2_length == 0:
+        presence_counter = 4
+        presence_checker()
+    elif postcode_length == 0:
+        presence_counter = 5
+        presence_checker()
+    elif memorable_word_length == 0:
+        presence_counter = 6
+        presence_checker()
+    elif memorable_question_length == 0:
+        presence_counter = 7
+        presence_checker()
+
+    if presence_counter > 0:
+        missing_entity = True
+
+    print(missing_entity)
+        
+        
 
 
     os.chdir(ORIGINAL_ROOT_DIR)
@@ -2179,7 +2272,7 @@ def register_user():
         taken_username = True
         
 
-    if taken_username == False:
+    if taken_username == False and missing_entity == False:
         
         os.chdir(user_dir)
         print(user_dir)
@@ -2205,8 +2298,15 @@ def register_user():
     else:
         username_entry.delete(0, END)
         password_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
 
-        Label(screen1, text = "Username taken", fg = "green", font = ("Calibri", 11)).pack()
+        Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11)).pack()
+        presence_counter = 8
+        presence_checker()
 
 
 def login_verify():
@@ -2329,7 +2429,6 @@ def register():
     Label(screen1, text = "Please enter details below").pack()
     Label(screen1, text = " ").pack()
     Label(screen1, text= "Username * ").pack()
-
     username_entry = Entry(screen1, textvariable = username)
     username_entry.pack()
     Label(screen1, text = "Password * ").pack()
