@@ -2420,7 +2420,7 @@ def login_verify():
         #their_memorable_question = verify[6]
         counter = int(counter)
         presence_counter = int(presence_counter)
-        if counter == 3 and presence_counter != 0:
+        if counter == 3 and presence_counter == 0:
             os.listdir()
             login_success()
             print(presence_counter)
@@ -2502,7 +2502,7 @@ def login():
     global screen2
     screen2 = Toplevel(screen)
     screen2.title("Login")
-    screen2.geometry("300x250")
+    screen2.geometry("300x500")
     Label(screen2, text = "Please enter details below to login").pack()
     Label(screen2, text = " ").pack()
 
