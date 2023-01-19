@@ -2339,7 +2339,6 @@ def login_verify():
     global user_dir
     global counter
     global presence_counter
-    print(ORIGINAL_ROOT_DIR)
     username1 = username_verify.get()
     password1 = password_verify.get()
     memorable_word1 = memorable_word_verify.get()
@@ -2360,6 +2359,7 @@ def login_verify():
 
     if username1_length == 0:
         presence_counter = 9
+        print(presence_counter)
         presence_checker()
     elif password1_length == 0:
         presence_counter = 10
@@ -2370,6 +2370,8 @@ def login_verify():
     elif memorable_question1_length == 0:
         presence_counter = 12
         presence_checker()
+    else:
+        pass
 
 
     
@@ -2416,11 +2418,14 @@ def login_verify():
         else:
             password_not_recognised()
         #their_memorable_question = verify[6]
-
+        counter = int(counter)
+        presence_counter = int(presence_counter)
         if counter == 3 and presence_counter != 0:
             os.listdir()
             login_success()
+            print(presence_counter)
         else:
+            print(presence_counter)
             password_not_recognised()
 
     else:
@@ -2729,6 +2734,9 @@ def main_screen():
     global path_for_motorvehicles
     global path_for_education
     global path_for_users
+    global presence_counter
+
+    presence_counter = 0
     screen=Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
