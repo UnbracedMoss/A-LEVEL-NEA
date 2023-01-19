@@ -2371,7 +2371,7 @@ def login_verify():
         presence_counter = 12
         presence_checker()
     else:
-        pass
+        presence_counter = 0
 
 
     
