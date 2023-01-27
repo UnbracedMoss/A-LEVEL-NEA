@@ -5,7 +5,7 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 47
+#Next unused screen: 48
 
 global productName
 global product_entry
@@ -2328,7 +2328,6 @@ def register_user():
         presence_counter = 8
         presence_checker()
 
-
 def login_verify():
     global username1
     global password1
@@ -2372,6 +2371,8 @@ def login_verify():
         presence_checker()
     else:
         presence_counter = 0
+
+    
 
 
     
@@ -2497,6 +2498,103 @@ def register():
     Button(screen1, text = "Register", width = 10, height = 1, command = register_user).pack()
 
 
+
+def forgotten_password():
+    global screen47
+    screen47 = Toplevel(screen)
+    screen47.title("Sapenzia/Isle of Sgail")
+    screen47.geometry("300x500")
+    Label(screen47, text = "Please enter the details below").pack()
+    Label(screen47, text = "If login successful, to view password, go into account management")
+    global forgotten_username_entry
+    global forgotten_memorable_word_entry
+    global forgotten_memorable_question_entry
+    forgotten_username_entry = StringVar()
+    forgotten_memorable_word_entry = StringVar()
+    forgotten_memorable_question_entry = StringVar()
+
+    Label(screen47, text = "Username*").pack()
+    Entry(screen47, textvariable = forgotten_username_entry).pack()
+    Label(screen47, text = "Memorable word").pack()
+    Entry(screen47, textvariable = forgotten_memorable_word_entry).pack()
+    Label(screen47, text = "Memorable question").pack()
+    Entry(screen47, textvariable = forgotten_memorable_question_entry).pack()
+
+    Button(screen47, text = "Login", command = forgotten_password_verify).pack()
+
+
+def forgotten_password_verify():
+    global forgotten_username_verify
+    global forgotten_memorable_word_verify
+    global forgotten_memorable_question_verify
+    global ORIGINAL_ROOT_DIR
+
+    
+    forgotten_username_verify = forgotten_username_entry.get()
+    forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
+    forgotten_memorable_question_verify = forgotten_memorable_question_entry.get()
+    # I'm having to use the get function as without using it, when calling the entry variables, it just stages PY_VAR5
+    print(forgotten_username_verify)
+    print(forgotten_memorable_word_verify)
+    print(forgotten_memorable_question_verify)
+
+
+
+
+        
+    directory_for_users = ("Users")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
+    print(user_dir)
+
+    counter = 0
+    counter = int(counter)
+    
+    os.chdir(user_dir)
+    list_of_files = os.listdir()
+    if forgotten_username_verify in list_of_files:
+        file1 = open(forgotten_username_verify, "r")
+        verify = file1.read().splitlines()
+        
+        #their_memorable_word = verify[5]
+        boolean_logic2 = (forgotten_memorable_word_verify == verify[5])
+        print(boolean_logic2)
+        if boolean_logic2 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            print("Incorrect memorable word")
+
+        boolean_logic3 = (forgotten_memorable_question_verify == verify[6])
+        print(boolean_logic3)
+        if boolean_logic3 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            print("Incorrect memorable question")
+        #their_memorable_question = verify[6]
+        counter = int(counter)
+        if counter == 2:
+            os.listdir()
+            login_success()
+        else:
+            forgotten_password()
+    else:
+        user_not_found()
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+
+
 def login():
     print("Login session started")
     global screen2
@@ -2520,7 +2618,9 @@ def login():
     global password_entry1
     global memorable_word_entry1
     global memorable_question_entry1
+    
 
+    Label(screen2, text = "If forgotten password, enter all other field then press forgotten password").pack()
     Label(screen2, text = "Username * ").pack()
     username_entry1 = Entry(screen2, textvariable = username_verify)
     username_entry1.pack()
@@ -2536,6 +2636,8 @@ def login():
     memorable_question_entry1 = Entry(screen2, textvariable = memorable_question_verify)
     memorable_question_entry1.pack()
     Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
+    Button (screen2, text = "Forgotten password", width = 20, height = 1, command = forgotten_password).pack()
+   
     
     
 def selling():
