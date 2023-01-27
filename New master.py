@@ -5,10 +5,19 @@ from tkinter import filedialog
 import pathlib
 
 
-#Next unused screen: 48
+#Next unused screen: 50
 
 global productName
 global product_entry
+
+
+
+
+
+
+
+
+
 
 def delete2():
     screen3.destroy()
@@ -19,35 +28,6 @@ def delete4():
 def delete5():
     screen1.destroy()
 
-def screen_deletion():
-    global detail_identifier
-    if detail_identifier == 0:
-         screen10.destroy()
-         screen7.destroy()
-    
-        
-        
-        
-        
-    elif detail_identifier == 1:
-        screen11.destroy()
-        screen7.destroy()
-        
-        
-    elif detail_identifier == 2:
-        screen12.destroy()
-        screen7.destroy()
-        
-
-    elif detail_identifier == 3:
-        screen13.destroy()
-        screen7.destroy()
-        
-
-    elif detail_identifier == 4:
-        screen14.destroy()
-        screen7.destroy()
-    
 
 
 
@@ -91,14 +71,6 @@ def username_changes():
     screen10.geometry("500x500")
 
     Label(screen10, text = "Currently unable to change the username")
-
-    #data_identifier = 0
-    #Label(screen10, text="Please input the new username").pack()
-    #Label(screen10, text = "").pack()
-    #new_username_entry = Entry(screen10)
-    #new_username_entry.pack()
-    #data_identifier = 0
-    #Button(screen10, command = actually_changing).pack()
 
 def password_changes():
     global screen11
@@ -179,18 +151,17 @@ def actually_changing():
         print(data)
         username_file_write = open(username1, "w")
         username_file_write.writelines(data)
-        screen_deletion()
-        
-        
-        
-        
+        screen10.destroy()
+        screen7.destroy()
+               
     elif detail_identifier == 1:
         password_detail = new_password_entry.get()
         data[1] = (password_detail + "\n")
         print(data)
         password_file_write = open(username1, "w")
         password_file_write.writelines(data)
-        screen_deletion()
+        screen11.destroy()
+        screen7.destroy()
         
     elif detail_identifier == 2:
         address1_detail = new_address1_entry.get()
@@ -198,6 +169,8 @@ def actually_changing():
         print(data)
         address1_file_write = open(username1, "w")
         address1_file_write.writelines(data)
+        screen12.destroy()
+        screen7.destroy()
 
     elif detail_identifier == 3:
         address2_detail = new_address2_entry.get()
@@ -205,6 +178,8 @@ def actually_changing():
         print(data)
         address2_file_write = open(username1, "w")
         address2_file_write.writelines(data)
+        screen13.destroy()
+        screen7.destroy()
 
 
     elif detail_identifier == 4:
@@ -213,11 +188,9 @@ def actually_changing():
         print(data)
         postcode_file_write = open(username1, "w")
         postcode_file_wrie.writelines(data)
+        screen14.destroy()
+        screen7.destroy()
     
-    
-
-
-
     
     
 
@@ -2130,28 +2103,6 @@ def session():
     Button(screen6, text="Logout", command=log_out).pack()
 
 
-    
-
-
-def login_success():
-    screen2.destroy()
-    session()
-    
-def password_not_recognised():
-    global screen4
-    screen4 = Toplevel(screen)
-    screen4.title("Password Error")
-    screen4.geometry("150x100")
-    Label(screen4, text = "Password not recognised").pack()
-    Button(screen4, text = "Ok", command = delete3).pack()
-
-def user_not_found():
-    global screen5
-    screen5 = Toplevel(screen)
-    screen5.title("Error")
-    screen5.geometry("150x100")
-    Label(screen5, text = "User not found").pack()
-    Button(screen5, text = "Ok", command = delete4).pack()
 
 def presence_checker():
     global screen46
@@ -2400,7 +2351,15 @@ def login_verify():
             counter = counter + 1
             print(counter)
         else:
-            password_not_recognised()
+            global screen4
+            screen4 = Toplevel(screen)
+            screen4.title("Password Error")
+            screen4.geometry("150x100")
+            Label(screen4, text = "Password not recognised").pack()
+            Button(screen4, text = "Ok", command = delete3).pack()
+
+
+
 
         #their_memorable_word = verify[5]
         boolean_logic2 = (memorable_word1 == verify[5])
@@ -2409,7 +2368,14 @@ def login_verify():
             counter = counter + 1
             print(counter)
         else:
-            password_not_recognised()
+            global screen48
+            screen48 = Toplevel(screen)
+            screen48.title("Password Error")
+            screen48.geometry("150x100")
+            Label(screen48, text = "Memorable word error").pack()
+            Button(screen48, text = "Ok", command = delete3).pack()
+
+
 
         boolean_logic3 = (memorable_question1 == verify[6])
         print(boolean_logic3)
@@ -2423,14 +2389,27 @@ def login_verify():
         presence_counter = int(presence_counter)
         if counter == 3 and presence_counter == 0:
             os.listdir()
-            login_success()
             print(presence_counter)
+            screen2.destroy()
+            session()
         else:
             print(presence_counter)
-            password_not_recognised()
+            global screen49
+            screen49 = Toplevel(screen)
+            screen49.title("Memorable Question error")
+            screen49.geometry("150x100")
+            Label(screen49, text = "Wrong response to memorable question").pack()
+            Button(screen49, text = "Ok", command = delete3).pack()
+
+
 
     else:
-        user_not_found()
+        global screen5
+        screen5 = Toplevel(screen)
+        screen5.title("Error")
+        screen5.geometry("150x100")
+        Label(screen5, text = "User not found").pack()
+        Button(screen5, text = "Ok", command = delete4).pack()
 
 
 
@@ -2582,19 +2561,6 @@ def forgotten_password_verify():
         user_not_found()
 
 
-
-
-
-
-
-
-    
-
-
-    
-
-
-
 def login():
     print("Login session started")
     global screen2
@@ -2715,13 +2681,6 @@ def selling():
 def my_show():
     str_out.set(clicked.get())
 
-    #special_button = Button(screen9, text = "Select from list", command=selected)
-    #special_button.pack()
-
-
-
-
-
 def store_products():
     global ORIGINAL_ROOT_DIR
     global path_for_products
@@ -2781,13 +2740,6 @@ def store_products():
     elif category1 == "Education":
         os.chdir(path_for_education)
     
-
-    
-
-
-
-
-
     file=open(product1,  "w")
     file.write(product1+"\n")
     file.write(price1+"\n")
@@ -2805,20 +2757,12 @@ def store_products():
     
     screen9.destroy()
     variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
-     
-    #label.after(1000, label.master.destroy)
 
 
-
-
-
-def log_out():
-    
+def log_out(): 
     screen6.destroy()
+
   
-
-
-
 def main_screen():
     global screen
     global ORIGINAL_ROOT_DIR
@@ -2957,11 +2901,9 @@ def main_screen():
     directory_for_education = ("Education")
     path_for_education = os.path.join(cwd, directory_for_education)
     print(path_for_education)
-    
-    
+        
     is_existing_education = os.path.exists(path_for_education)
     print(is_existing_education)
-    
 
     if is_existing_education == True:
         print("Doing nothing")
@@ -2979,12 +2921,6 @@ def main_screen():
         os.mkdir(path_for_motorvehicles)
         os.mkdir(path_for_education)
         print("Made new directory")
-        
-        
-    
-
     screen.mainloop()
-
-
 
 main_screen()
