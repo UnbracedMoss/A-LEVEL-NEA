@@ -10,23 +10,672 @@ import pathlib
 global productName
 global product_entry
 
+def main_screen():
+    global screen
+    global ORIGINAL_ROOT_DIR
+    global path_for_reviews
+    global path_for_products
+    global path_for_books
+    global path_for_games
+    global path_for_electronics
+    global path_for_homegarden
+    global path_for_toys
+    global path_for_clothesjewellery
+    global path_for_sportsoutdoors
+    global path_for_food
+    global path_for_health
+    global path_for_motorvehicles
+    global path_for_education
+    global path_for_users
+    global presence_counter
+
+    presence_counter = 0
+    screen=Tk()
+    screen.geometry("300x250")
+    screen.title("Online Marketplace")
+    Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
+    Label(text = " ").pack()
+    Button(text = "Login", width = "30", height = "2", command = login).pack()
+    Label(text = " ").pack()
+    Button(text = "Register", height = "2", width = "30", command = register).pack()
+    os.listdir()
+
+
+    ORIGINAL_ROOT_DIR = StringVar()
+    ORIGINAL_ROOT_DIR = os.getcwd()
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_users = ("Users")
+    directory_for_reviews = ("Reviews")
+    path_for_users = os.path.join(cwd, directory_for_users)
+    path_for_reviews = os.path.join(cwd, directory_for_reviews)
+    is_existing_users = os.path.exists(path_for_users)
+    print(is_existing_users)
+
+    if is_existing_users == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_users)
+        os.mkdir(path_for_reviews)
+        print("Made new directory")
+
+
+    os.chdir(ORIGINAL_ROOT_DIR)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_products = ("Products")
+    path_for_products = os.path.join(cwd, directory_for_products)
+
+    is_existing_products = os.path.exists(path_for_products)
+    print(is_existing_products)
+    if is_existing_products == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_products)
+
+    
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_books = ("Books")
+    path_for_books = os.path.join(cwd, directory_for_books)
+    print(path_for_books)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_games = ("Games")
+    path_for_games = os.path.join(cwd, directory_for_games)
+    print(path_for_games)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_electronics = ("Electronics")
+    path_for_electronics = os.path.join(cwd, directory_for_electronics)
+    print(path_for_electronics)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_homegarden = ("Home")
+    path_for_homegarden = os.path.join(cwd, directory_for_homegarden)
+    print(path_for_homegarden)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_toys = ("Toys")
+    path_for_toys = os.path.join(cwd, directory_for_toys)
+    print(path_for_toys)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_clothesjewellery = ("Clothes")
+    path_for_clothesjewellery = os.path.join(cwd, directory_for_clothesjewellery)
+    print(path_for_clothesjewellery)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_sportsoutdoors = ("Sports")
+    path_for_sportsoutdoors = os.path.join(cwd, directory_for_sportsoutdoors)
+    print(path_for_sportsoutdoors)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    print(cwd)
+    directory_for_food = ("Food")
+    path_for_food = os.path.join(cwd, directory_for_food)
+    print(path_for_food)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_health = ("Health")
+    path_for_health = os.path.join(cwd, directory_for_health)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_motorvehicles = ("MotorVehicles")
+    path_for_motorvehicles = os.path.join(cwd, directory_for_motorvehicles)
+    print(path_for_motorvehicles)
+
+    os.chdir(path_for_products)
+    cwd = os.getcwd()
+    directory_for_education = ("Education")
+    path_for_education = os.path.join(cwd, directory_for_education)
+    print(path_for_education)
+        
+    is_existing_education = os.path.exists(path_for_education)
+    print(is_existing_education)
+
+    if is_existing_education == True:
+        print("Doing nothing")
+    else:
+        print("Creating the new directory")
+        os.mkdir(path_for_books)
+        os.mkdir(path_for_games)
+        os.mkdir(path_for_electronics)
+        os.mkdir(path_for_homegarden)
+        os.mkdir(path_for_toys)
+        os.mkdir(path_for_clothesjewellery)
+        os.mkdir(path_for_sportsoutdoors)
+        os.mkdir(path_for_food)
+        os.mkdir(path_for_health)
+        os.mkdir(path_for_motorvehicles)
+        os.mkdir(path_for_education)
+        print("Made new directory")
+    screen.mainloop()
+
+
+def register():
+    global screen1
+    screen1 = Toplevel (screen)
+    screen1.title("Register")
+    screen1.geometry("600x900")
+    global username
+    global password
+    global username_entry
+    global password_entry
+    global address_line_1
+    global address_line_2
+    global postcode
+    global address_line_1_entry
+    global address_line_2_entry
+    global postcode_entry
+    global memorable_word_entry
+    global memorable_question_entry
+    global memorable_word
+    global memorable_question
+    
+    username = StringVar()
+    password = StringVar()
+    postcode = StringVar()
+    address_line_1 = StringVar()
+    address_line_2 = StringVar()
+    memorable_word = StringVar()
+    memorable_question = StringVar()
+
+    Label(screen1, text = "Please enter details below").pack()
+    Label(screen1, text = " ").pack()
+    Label(screen1, text= "Username * ").pack()
+    username_entry = Entry(screen1, textvariable = username)
+    username_entry.pack()
+    Label(screen1, text = "Password * ").pack()
+    password_entry = Entry(screen1, textvariable = password)
+    password_entry.pack()
+    Label(screen1, text = "").pack()
+    Label(screen1, text="1st address line").pack()
+    address_line_1_entry = Entry(screen1, textvariable = address_line_1)
+    address_line_1_entry.pack()
+    Label(screen1, text="2nd line of address/town").pack()
+    address_line_2_entry = Entry(screen1, textvariable = address_line_2)
+    address_line_2_entry.pack()
+    Label(screen1, text = "Postcode*").pack()
+    postcode_entry = Entry(screen1, textvariable = postcode)
+    postcode_entry.pack()
+    Label(screen1, text = "Please enter your memorable word").pack()
+    memorable_word_entry = Entry(screen1, textvariable = memorable_word)
+    memorable_word_entry.pack()
+    Label(screen1, text = "What is your mother's maiden name (Security question)").pack()
+    memorable_question_entry = Entry(screen1, textvariable = memorable_question)
+    memorable_question_entry.pack()
+    Button(screen1, text = "Register", width = 10, height = 1, command = register_user).pack()
+
+def register_user():
+    global user_dir
+    global ORIGINAL_ROOT_DIR
+    global people_name
+    global presence_counter
+
+    presence_counter = 0
+    taken_username = False
+    missing_entity = False
+    username_info = username.get()
+    password_info = password.get()
+    
+    address_1_info = address_line_1.get()
+    address_2_info = address_line_2.get()
+    postcode_info = postcode.get()
+    memorable_word_info = memorable_word.get()
+    memorable_question_info = memorable_question.get()
+
+
+    username_length = len(username_info)
+    password_length = len(password_info)
+    address1_length = len(address_1_info)
+    address2_length = len(address_2_info)
+    postcode_length = len(postcode_info)
+    memorable_word_length = len(memorable_word_info)
+    memorable_question_length = len(memorable_question_info)
+    
+    if username_length == 0:
+        presence_counter = 1
+        presence_checker()
+    elif password_length == 0:
+        presence_counter = 2
+        presence_checker()
+    elif address1_length == 0:
+        presence_counter = 3
+        presence_checker()
+    elif address2_length == 0:
+        presence_counter = 4
+        presence_checker()
+    elif postcode_length == 0:
+        presence_counter = 5
+        presence_checker()
+    elif memorable_word_length == 0:
+        presence_counter = 6
+        presence_checker()
+    elif memorable_question_length == 0:
+        presence_counter = 7
+        presence_checker()
+
+    if presence_counter > 0:
+        missing_entity = True
+
+    print(missing_entity)
+        
+        
+
+
+    os.chdir(ORIGINAL_ROOT_DIR)
+    directory_for_users = ("Users")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
+    print(user_dir)
+
+    os.chdir(user_dir)
+    list_of_files = os.listdir()
+    if username_info in list_of_files:
+        taken_username = True
+        
+
+    if taken_username == False and missing_entity == False:
+        
+        os.chdir(user_dir)
+        print(user_dir)
+        file=open(username_info, "w")
+        file.write(username_info+"\n")
+        file.write(password_info+"\n")
+        file.write(address_1_info+"\n")
+        file.write(address_2_info+"\n")
+        file.write(postcode_info+"\n")
+        file.write(memorable_word_info+"\n")
+        file.write(memorable_question_info+"\n")
+        file.close()
+
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+
+        Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
+    else:
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+
+        Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11)).pack()
+        presence_counter = 8
+        presence_checker()
+
+
+def presence_checker():
+    global screen46
+    global presence_counter
+    screen46 = Toplevel(screen)
+    screen46.title("Presence check")
+    screen46.geometry("350x500")
+
+    if presence_counter == 1:
+        print("No username detected")
+        Label(screen46, text = "No username was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again")
+        screen1.destroy()
+    elif presence_counter == 2:
+        print("No password detected")
+        Label(screen46, text = "No password was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again")
+        screen1.destroy()
+    elif presence_counter == 3:
+        print("No address1 detected")
+        Label(screen46, text = "The 1st line of address was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 4:
+        print("No address2 detected")
+        Label(screen46, text = "The 2nd line of address was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 5:
+        print("No postcode detected")
+        Label(screen46, text = "Postcode was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 6:
+        print("No memorable word detected")
+        Label(screen46, text = "Memorable word was not inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 7:
+        print("No memorable question detected")
+        Label(screen46, text = "No response to memorable question was inputted").pack()
+        Label(screen46, text = "Data was not stored, please register again").pack()
+        screen1.destroy()
+    elif presence_counter == 8:
+        print("Username already taken")
+        Label(screen46, text = "Username is taken").pack()
+        Label(screen46, text = "Please register again with a different username").pack()
+        screen1.destroy()
+    elif presence_counter == 9:
+        print("Username has not been inputted")
+        Label(screen46, text = "Username has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting username")
+        screen2.destroy()
+    elif presence_counter == 10:
+        print("Password has not been inputted")
+        Label(screen46, text = "Password has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting password").pack()
+        screen2.destroy()
+    elif presence_counter == 11:
+        print("Memorable word has not been inputted")
+        Label(screen46, text = "Memorable word has not been inputted").pack()
+        Label(screen46, text = " Please login again, inputting your memorable word").pack()
+        screen2.destroy()
+    elif presence_counter == 12:
+        print("Memorable question has not been inputted")
+        Label(screen46, text = "Memorable question has not been answered").pack()
+        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
+        screen2.destroy()
+
+def login():
+    print("Login session started")
+    global screen2
+    screen2 = Toplevel(screen)
+    screen2.title("Login")
+    screen2.geometry("300x500")
+    Label(screen2, text = "Please enter details below to login").pack()
+    Label(screen2, text = " ").pack()
+
+    global username_verify
+    global password_verify
+    global memorable_word_verify
+    global memorable_question_verify
+
+    username_verify = StringVar()
+    password_verify = StringVar()
+    memorable_word_verify = StringVar()
+    memorable_question_verify = StringVar()
+
+    global username_entry1
+    global password_entry1
+    global memorable_word_entry1
+    global memorable_question_entry1
+    
+
+    Label(screen2, text = "If forgotten password, enter all other field then press forgotten password").pack()
+    Label(screen2, text = "Username * ").pack()
+    username_entry1 = Entry(screen2, textvariable = username_verify)
+    username_entry1.pack()
+    Label(screen2, text=" ").pack()
+    Label(screen2, text = "Password * ").pack()
+    password_entry1 = Entry(screen2, textvariable = password_verify)
+    password_entry1.pack()
+    Label(screen2, text=" ").pack()
+    Label(screen2, text = "Memorable word").pack()
+    memorable_word_entry1 = Entry(screen2, textvariable = memorable_word_verify)
+    memorable_word_entry1.pack()
+    Label(screen2, text = "What is your mother's maiden name").pack()
+    memorable_question_entry1 = Entry(screen2, textvariable = memorable_question_verify)
+    memorable_question_entry1.pack()
+    Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
+    Button (screen2, text = "Forgotten password", width = 20, height = 1, command = forgotten_password).pack()
+   
+def login_verify():
+    global username1
+    global password1
+    global memorable_word1
+    global memorable_question1
+    global ORIGINAL_ROOT_DIR
+    global username_info
+    global user_dir
+    global counter
+    global presence_counter
+    username1 = username_verify.get()
+    password1 = password_verify.get()
+    memorable_word1 = memorable_word_verify.get()
+    memorable_question1 = memorable_question_verify.get()
+    password1 = str(password1)
+    username1 = str(username1)
+    memorable_word1 = str(memorable_word1)
+    memorable_question1 = str(memorable_question1)
+    username_entry1.delete(0, END)
+    password_entry1.delete(0, END)
+    memorable_word_entry1.delete(0, END)
+    memorable_question_entry1.delete(0, END)
+
+    username1_length = len(username1)
+    password1_length = len(password1)
+    memorable_word1_length = len(memorable_word1)
+    memorable_question1_length = len(memorable_question1)
+
+    if username1_length == 0:
+        presence_counter = 9
+        print(presence_counter)
+        presence_checker()
+    elif password1_length == 0:
+        presence_counter = 10
+        presence_checker()
+    elif memorable_word1_length == 0:
+        presence_counter = 11
+        presence_checker()
+    elif memorable_question1_length == 0:
+        presence_counter = 12
+        presence_checker()
+    else:
+        presence_counter = 0
+
+    
+
+
+    
+    directory_for_users = ("Users")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
+    print(user_dir)
+
+    counter = 0
+    counter = int(counter)
+    
+    os.chdir(user_dir)
+    list_of_files = os.listdir()
+    if username1 in list_of_files:
+        file1 = open(username1, "r")
+        verify = file1.read().splitlines()
+        their_password = verify[1]
+        print(their_password)
+        print(password1)
+        print(password1 == verify[1])
+        boolean_login = (password1 == verify[1])
+        print(boolean_login)
+        #YOU ARE HERE, YOU NEED TO SEPARATELY VERIFY THE PASSWORD AND MEMORABLE
+        #WORD AND MEMORABLE QUESTION
+        if boolean_login == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            global screen4
+            screen4 = Toplevel(screen)
+            screen4.title("Password Error")
+            screen4.geometry("150x100")
+            Label(screen4, text = "Password not recognised").pack()
+            Button(screen4, text = "Ok", command = delete3).pack()
 
 
 
 
+        #their_memorable_word = verify[5]
+        boolean_logic2 = (memorable_word1 == verify[5])
+        print(boolean_logic2)
+        if boolean_logic2 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            global screen48
+            screen48 = Toplevel(screen)
+            screen48.title("Password Error")
+            screen48.geometry("150x100")
+            Label(screen48, text = "Memorable word error").pack()
+            Button(screen48, text = "Ok", command = delete3).pack()
+
+
+
+        boolean_logic3 = (memorable_question1 == verify[6])
+        print(boolean_logic3)
+        if boolean_logic3 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            password_not_recognised()
+        #their_memorable_question = verify[6]
+        counter = int(counter)
+        presence_counter = int(presence_counter)
+        if counter == 3 and presence_counter == 0:
+            os.listdir()
+            print(presence_counter)
+            screen2.destroy()
+            session()
+        else:
+            print(presence_counter)
+            global screen49
+            screen49 = Toplevel(screen)
+            screen49.title("Memorable Question error")
+            screen49.geometry("150x100")
+            Label(screen49, text = "Wrong response to memorable question").pack()
+            Button(screen49, text = "Ok", command = delete3).pack()
+
+
+
+    else:
+        global screen5
+        screen5 = Toplevel(screen)
+        screen5.title("Error")
+        screen5.geometry("150x100")
+        Label(screen5, text = "User not found").pack()
+        Button(screen5, text = "Ok", command = delete4).pack()
+
+   
+    
+  
+def forgotten_password():
+    global screen47
+    screen47 = Toplevel(screen)
+    screen47.title("Sapenzia/Isle of Sgail")
+    screen47.geometry("300x500")
+    Label(screen47, text = "Please enter the details below").pack()
+    Label(screen47, text = "If login successful, to view password, go into account management")
+    global forgotten_username_entry
+    global forgotten_memorable_word_entry
+    global forgotten_memorable_question_entry
+    forgotten_username_entry = StringVar()
+    forgotten_memorable_word_entry = StringVar()
+    forgotten_memorable_question_entry = StringVar()
+
+    Label(screen47, text = "Username*").pack()
+    Entry(screen47, textvariable = forgotten_username_entry).pack()
+    Label(screen47, text = "Memorable word").pack()
+    Entry(screen47, textvariable = forgotten_memorable_word_entry).pack()
+    Label(screen47, text = "Memorable question").pack()
+    Entry(screen47, textvariable = forgotten_memorable_question_entry).pack()
+
+    Button(screen47, text = "Login", command = forgotten_password_verify).pack()
+
+
+def forgotten_password_verify():
+    global forgotten_username_verify
+    global forgotten_memorable_word_verify
+    global forgotten_memorable_question_verify
+    global ORIGINAL_ROOT_DIR
+
+    
+    forgotten_username_verify = forgotten_username_entry.get()
+    forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
+    forgotten_memorable_question_verify = forgotten_memorable_question_entry.get()
+    # I'm having to use the get function as without using it, when calling the entry variables, it just stages PY_VAR5
+    print(forgotten_username_verify)
+    print(forgotten_memorable_word_verify)
+    print(forgotten_memorable_question_verify)
 
 
 
 
+        
+    directory_for_users = ("Users")
+    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
+    print(user_dir)
 
-def delete2():
-    screen3.destroy()
-def delete3():
-    screen4.destroy()
-def delete4():
-    screen5.destroy()
-def delete5():
-    screen1.destroy()
+    counter = 0
+    counter = int(counter)
+    
+    os.chdir(user_dir)
+    list_of_files = os.listdir()
+    if forgotten_username_verify in list_of_files:
+        file1 = open(forgotten_username_verify, "r")
+        verify = file1.read().splitlines()
+        
+        #their_memorable_word = verify[5]
+        boolean_logic2 = (forgotten_memorable_word_verify == verify[5])
+        print(boolean_logic2)
+        if boolean_logic2 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            print("Incorrect memorable word")
+
+        boolean_logic3 = (forgotten_memorable_question_verify == verify[6])
+        print(boolean_logic3)
+        if boolean_logic3 == True:
+            counter = counter + 1
+            print(counter)
+        else:
+            print("Incorrect memorable question")
+        #their_memorable_question = verify[6]
+        counter = int(counter)
+        if counter == 2:
+            os.listdir()
+            login_success()
+        else:
+            forgotten_password()
+    else:
+        user_not_found()
+
+
+
+
+def session():
+    global screen6
+    screen6 = Toplevel(screen)
+    screen6.title("Account Dashboard")
+    screen6.geometry("350x500")
+    Label(screen6, text= "Welcome to the Dashboard").pack()
+    Button(screen6, text="Account Management", command=account_management).pack()
+    Button(screen6, text= " Buying", command=buying).pack()
+    Button(screen6, text="Selling", command=selling).pack()
+    Button(screen6, text="Reviews", command=review_mainmenu).pack()
+    Button(screen6, text="Logout", command=log_out).pack()
+
+
+
+
 
 
 
@@ -133,11 +782,6 @@ def postcode_changes():
     new_postcode_entry.pack()
     Button(screen14, text = "Update postcode", command = actually_changing).pack()
     
-    
-
-
-
-
 def actually_changing():
     global username1
     global username_detail
@@ -235,8 +879,44 @@ def buying():
     education_button.pack()
     
 
-    
 
+
+def books():
+    global screen15
+    global book_list
+    global book_entry
+    global book_list_data
+    global path_for_books
+    screen15 = Toplevel(screen)
+    screen15.title("Books")
+    screen15.geometry("500x500")
+
+    Label(screen15, text = "BOOKS").pack()
+
+    book_entry = Entry(screen15,)
+    book_entry.pack()
+
+    #create a list box
+    book_list = Listbox(screen15)
+    book_list.pack()
+
+    #create a list
+    book_list_data = os.listdir(path_for_books)
+    #testing479 = os.listdir(path_for_books)
+    #print(testing479)
+
+    #Add the data to the list
+    update_book(book_list_data)
+
+    #Create a binding on the listbox onclick
+    book_list.bind("<<ListboxSelect>>", fillout_book)
+
+    #Create a binding on the entry box
+    book_entry.bind("<KeyRelease>", check_book)
+
+    #Button to select
+    book_button = Button(screen15, text = "Select", command = book_select)
+    book_button.pack()
 
 def update_book(book_list_data):
     global book_list
@@ -311,47 +991,48 @@ def book_select():
 
 
 
-    
+def games():
+    global screen16
+    global game_list
+    global game_entry
+    global game_list_data
+    global path_for_games
+    screen16 = Toplevel(screen)
+    screen16.title("Games")
+    screen16.geometry("500x500")
 
+    Label(screen16, text = "Games").pack()
 
-
-
-def books():
-    global screen15
-    global book_list
-    global book_entry
-    global book_list_data
-    global path_for_books
-    screen15 = Toplevel(screen)
-    screen15.title("Books")
-    screen15.geometry("500x500")
-
-    Label(screen15, text = "BOOKS").pack()
-
-    book_entry = Entry(screen15,)
-    book_entry.pack()
+    game_entry = Entry(screen16,)
+    game_entry.pack()
 
     #create a list box
-    book_list = Listbox(screen15)
-    book_list.pack()
+    game_list = Listbox(screen16)
+    game_list.pack()
 
     #create a list
-    book_list_data = os.listdir(path_for_books)
+    game_list_data = os.listdir(path_for_games)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_book(book_list_data)
+    update_game(game_list_data)
 
     #Create a binding on the listbox onclick
-    book_list.bind("<<ListboxSelect>>", fillout_book)
+    game_list.bind("<<ListboxSelect>>", fillout_game)
 
     #Create a binding on the entry box
-    book_entry.bind("<KeyRelease>", check_book)
+    game_entry.bind("<KeyRelease>", check_game)
 
     #Button to select
-    book_button = Button(screen15, text = "Select", command = book_select)
-    book_button.pack()
+    game_button = Button(screen16, text = "Select", command = game_select)
+    game_button.pack()
+    
+  
+
+
+
+
     
 def update_game(game_list_data):
     global game_list
@@ -429,45 +1110,45 @@ def game_select():
     purchase.pack()
 
 
+def electronics():
+    global screen17
+    global electronics_list
+    global electronics_entry
+    global electronics_list_data
+    global path_for_electronics
+    screen17 = Toplevel(screen)
+    screen17.title("Electronics")
+    screen17.geometry("500x500")
 
+    Label(screen17, text = "Electronics").pack()
 
-def games():
-    global screen16
-    global game_list
-    global game_entry
-    global game_list_data
-    global path_for_games
-    screen16 = Toplevel(screen)
-    screen16.title("Games")
-    screen16.geometry("500x500")
-
-    Label(screen16, text = "Games").pack()
-
-    game_entry = Entry(screen16,)
-    game_entry.pack()
+    electronics_entry = Entry(screen17,)
+    electronics_entry.pack()
 
     #create a list box
-    game_list = Listbox(screen16)
-    game_list.pack()
+    electronics_list = Listbox(screen17)
+    electronics_list.pack()
 
     #create a list
-    game_list_data = os.listdir(path_for_games)
+    electronics_list_data = os.listdir(path_for_electronics)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_game(game_list_data)
+    update_electronics(electronics_list_data)
 
     #Create a binding on the listbox onclick
-    game_list.bind("<<ListboxSelect>>", fillout_game)
+    electronics_list.bind("<<ListboxSelect>>", fillout_electronics)
 
     #Create a binding on the entry box
-    game_entry.bind("<KeyRelease>", check_game)
+    electronics_entry.bind("<KeyRelease>", check_electronics)
 
     #Button to select
-    game_button = Button(screen16, text = "Select", command = game_select)
-    game_button.pack()
-    
+    electronics_button = Button(screen17, text = "Select", command = electronics_select)
+    electronics_button.pack()
+
+
+
 def update_electronics(electronics_list_data):
     global electronics_list
     #Clear the listbox
@@ -550,42 +1231,51 @@ def electronics_select():
 
 
 
-def electronics():
-    global screen17
-    global electronics_list
-    global electronics_entry
-    global electronics_list_data
-    global path_for_electronics
-    screen17 = Toplevel(screen)
-    screen17.title("Electronics")
-    screen17.geometry("500x500")
 
-    Label(screen17, text = "Electronics").pack()
+def home_garden():
+    global screen18
+    global home_garden_list
+    global home_garden_entry
+    global home_garden_list_data
+    global path_for_homegarden
+    screen18 = Toplevel(screen)
+    screen18.title("Home & Garden")
+    screen18.geometry("500x500")
 
-    electronics_entry = Entry(screen17,)
-    electronics_entry.pack()
+    Label(screen18, text = "Home & Garden").pack()
+
+    home_garden_entry = Entry(screen18,)
+    home_garden_entry.pack()
 
     #create a list box
-    electronics_list = Listbox(screen17)
-    electronics_list.pack()
+    home_garden_list = Listbox(screen18)
+    home_garden_list.pack()
 
     #create a list
-    electronics_list_data = os.listdir(path_for_electronics)
+    home_garden_list_data = os.listdir(path_for_homegarden)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_electronics(electronics_list_data)
+    update_home_garden(home_garden_list_data)
 
     #Create a binding on the listbox onclick
-    electronics_list.bind("<<ListboxSelect>>", fillout_electronics)
+    home_garden_list.bind("<<ListboxSelect>>", fillout_home_garden)
 
     #Create a binding on the entry box
-    electronics_entry.bind("<KeyRelease>", check_electronics)
+    home_garden_entry.bind("<KeyRelease>", check_home_garden)
+
+
+
 
     #Button to select
-    electronics_button = Button(screen17, text = "Select", command = electronics_select)
-    electronics_button.pack()
+    home_garden_button = Button(screen18, text = "Select", command = home_garden_select)
+    home_garden_button.pack()
+
+
+
+
+
 
 
 def update_home_garden(home_garden_list_data):
@@ -662,52 +1352,44 @@ def home_garden_select():
     purchase = Button(screen29, text = "Purchase", command = purchase_screen)
     purchase.pack()
 
+def toys():
+    global screen19
+    global toys_list
+    global toys_entry
+    global toys_list_data
+    global path_for_toys
+    screen19 = Toplevel(screen)
+    screen19.title("Toys")
+    screen19.geometry("500x500")
 
+    Label(screen19, text = "Toys").pack()
 
-
-
-
-def home_garden():
-    global screen18
-    global home_garden_list
-    global home_garden_entry
-    global home_garden_list_data
-    global path_for_homegarden
-    screen18 = Toplevel(screen)
-    screen18.title("Home & Garden")
-    screen18.geometry("500x500")
-
-    Label(screen18, text = "Home & Garden").pack()
-
-    home_garden_entry = Entry(screen18,)
-    home_garden_entry.pack()
+    toys_entry = Entry(screen19,)
+    toys_entry.pack()
 
     #create a list box
-    home_garden_list = Listbox(screen18)
-    home_garden_list.pack()
+    toys_list = Listbox(screen19)
+    toys_list.pack()
 
     #create a list
-    home_garden_list_data = os.listdir(path_for_homegarden)
+    toys_list_data = os.listdir(path_for_toys)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_home_garden(home_garden_list_data)
+    update_toys(toys_list_data)
 
     #Create a binding on the listbox onclick
-    home_garden_list.bind("<<ListboxSelect>>", fillout_home_garden)
+    toys_list.bind("<<ListboxSelect>>", fillout_toys)
 
     #Create a binding on the entry box
-    home_garden_entry.bind("<KeyRelease>", check_home_garden)
-
+    toys_entry.bind("<KeyRelease>", check_toys)
 
 
 
     #Button to select
-    home_garden_button = Button(screen18, text = "Select", command = home_garden_select)
-    home_garden_button.pack()
-
-
+    toys_button = Button(screen19, text = "Select", command = toys_select)
+    toys_button.pack()
 
 def update_toys(toys_list_data):
     global toys_list
@@ -786,45 +1468,47 @@ def toys_select():
 
 
 
+def clothes_jewellery():
+    global screen20
+    global clothes_jewellery_list
+    global clothes_jewellery_entry
+    global clothes_jewellery_list_data
+    global path_for_clothesjewellery
+    screen20 = Toplevel(screen)
+    screen20.title("Clothes & Jewellery")
+    screen20.geometry("500x500")
 
-def toys():
-    global screen19
-    global toys_list
-    global toys_entry
-    global toys_list_data
-    global path_for_toys
-    screen19 = Toplevel(screen)
-    screen19.title("Toys")
-    screen19.geometry("500x500")
+    Label(screen20, text = "Clothes & Jewellery").pack()
 
-    Label(screen19, text = "Toys").pack()
-
-    toys_entry = Entry(screen19,)
-    toys_entry.pack()
+    clothes_jewellery_entry = Entry(screen20,)
+    clothes_jewellery_entry.pack()
 
     #create a list box
-    toys_list = Listbox(screen19)
-    toys_list.pack()
+    clothes_jewellery_list = Listbox(screen20)
+    clothes_jewellery_list.pack()
 
     #create a list
-    toys_list_data = os.listdir(path_for_toys)
+    clothes_jewellery_list_data = os.listdir(path_for_clothesjewellery)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_toys(toys_list_data)
+    update_clothes_jewellery(clothes_jewellery_list_data)
 
     #Create a binding on the listbox onclick
-    toys_list.bind("<<ListboxSelect>>", fillout_toys)
+    clothes_jewellery_list.bind("<<ListboxSelect>>", fillout_clothes_jewellery)
 
     #Create a binding on the entry box
-    toys_entry.bind("<KeyRelease>", check_toys)
+    clothes_jewellery_entry.bind("<KeyRelease>", check_clothes_jewellery)
 
 
 
     #Button to select
-    toys_button = Button(screen19, text = "Select", command = toys_select)
-    toys_button.pack()
+    clothes_jewellery_button = Button(screen20, text = "Select", command = clothes_jewellery_select)
+    clothes_jewellery_button.pack()
+
+
+
 
 
 def update_clothes_jewellery(clothes_jewellery_list_data):
@@ -902,45 +1586,45 @@ def clothes_jewellery_select():
     purchase.pack()
 
 
-def clothes_jewellery():
-    global screen20
-    global clothes_jewellery_list
-    global clothes_jewellery_entry
-    global clothes_jewellery_list_data
-    global path_for_clothesjewellery
-    screen20 = Toplevel(screen)
-    screen20.title("Clothes & Jewellery")
-    screen20.geometry("500x500")
+def sports_outdoors():
+    global screen21
+    global sports_outdoors_list
+    global sports_outdoors_entry
+    global sports_outdoors_list_data
+    global path_for_sportsoutdoors
+    screen21 = Toplevel(screen)
+    screen21.title("Sports & Outdoors")
+    screen21.geometry("500x500")
 
-    Label(screen20, text = "Clothes & Jewellery").pack()
+    Label(screen21, text = "Sports & Outdoors").pack()
 
-    clothes_jewellery_entry = Entry(screen20,)
-    clothes_jewellery_entry.pack()
+    sports_outdoors_entry = Entry(screen21,)
+    sports_outdoors_entry.pack()
 
     #create a list box
-    clothes_jewellery_list = Listbox(screen20)
-    clothes_jewellery_list.pack()
+    sports_outdoors_list = Listbox(screen21)
+    sports_outdoors_list.pack()
 
     #create a list
-    clothes_jewellery_list_data = os.listdir(path_for_clothesjewellery)
+    sports_outdoors_list_data = os.listdir(path_for_sportsoutdoors)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_clothes_jewellery(clothes_jewellery_list_data)
+    update_sports_outdoors(sports_outdoors_list_data)
 
     #Create a binding on the listbox onclick
-    clothes_jewellery_list.bind("<<ListboxSelect>>", fillout_clothes_jewellery)
+    sports_outdoors_list.bind("<<ListboxSelect>>", fillout_sports_outdoors)
 
     #Create a binding on the entry box
-    clothes_jewellery_entry.bind("<KeyRelease>", check_clothes_jewellery)
-
+    sports_outdoors_entry.bind("<KeyRelease>", check_sports_outdoors)
 
 
     #Button to select
-    clothes_jewellery_button = Button(screen20, text = "Select", command = clothes_jewellery_select)
-    clothes_jewellery_button.pack()
+    sports_outdoors_button = Button(screen21, text = "Select", command = sports_outdoors_select)
+    sports_outdoors_button.pack()
 
+    
 
 
 def update_sports_outdoors(sports_outdoors_list_data):
@@ -1021,45 +1705,46 @@ def sports_outdoors_select():
     purchase.pack()
 
 
-def sports_outdoors():
-    global screen21
-    global sports_outdoors_list
-    global sports_outdoors_entry
-    global sports_outdoors_list_data
-    global path_for_sportsoutdoors
-    screen21 = Toplevel(screen)
-    screen21.title("Sports & Outdoors")
-    screen21.geometry("500x500")
+def food():
+    global screen22
+    global food_list
+    global food_entry
+    global food_list_data
+    global path_for_food
+    screen22 = Toplevel(screen)
+    screen22.title("Food")
+    screen22.geometry("500x500")
 
-    Label(screen21, text = "Sports & Outdoors").pack()
+    Label(screen22, text = "Food").pack()
 
-    sports_outdoors_entry = Entry(screen21,)
-    sports_outdoors_entry.pack()
+    food_entry = Entry(screen22,)
+    food_entry.pack()
 
     #create a list box
-    sports_outdoors_list = Listbox(screen21)
-    sports_outdoors_list.pack()
+    food_list = Listbox(screen22)
+    food_list.pack()
 
     #create a list
-    sports_outdoors_list_data = os.listdir(path_for_sportsoutdoors)
+    food_list_data = os.listdir(path_for_food)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_sports_outdoors(sports_outdoors_list_data)
+    update_food(food_list_data)
 
     #Create a binding on the listbox onclick
-    sports_outdoors_list.bind("<<ListboxSelect>>", fillout_sports_outdoors)
+    food_list.bind("<<ListboxSelect>>", fillout_food)
 
     #Create a binding on the entry box
-    sports_outdoors_entry.bind("<KeyRelease>", check_sports_outdoors)
+    food_entry.bind("<KeyRelease>", check_food)
+    
 
 
     #Button to select
-    sports_outdoors_button = Button(screen21, text = "Select", command = sports_outdoors_select)
-    sports_outdoors_button.pack()
+    food_button = Button(screen22, text = "Select", command = food_select)
+    food_button.pack()
 
-    
+
 
 
 def update_food(food_list_data):
@@ -1139,46 +1824,46 @@ def food_select():
     purchase.pack()
 
 
+def health():
+    global screen23
+    global health_list
+    global health_entry
+    global health_list_data
+    global path_for_health
+    screen23 = Toplevel(screen)
+    screen23.title("Health")
+    screen23.geometry("500x500")
 
+    Label(screen23, text = "Health").pack()
 
-def food():
-    global screen22
-    global food_list
-    global food_entry
-    global food_list_data
-    global path_for_food
-    screen22 = Toplevel(screen)
-    screen22.title("Food")
-    screen22.geometry("500x500")
-
-    Label(screen22, text = "Food").pack()
-
-    food_entry = Entry(screen22,)
-    food_entry.pack()
+    health_entry = Entry(screen23,)
+    health_entry.pack()
 
     #create a list box
-    food_list = Listbox(screen22)
-    food_list.pack()
+    health_list = Listbox(screen23)
+    health_list.pack()
 
     #create a list
-    food_list_data = os.listdir(path_for_food)
+    health_list_data = os.listdir(path_for_health)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_food(food_list_data)
+    update_health(health_list_data)
 
     #Create a binding on the listbox onclick
-    food_list.bind("<<ListboxSelect>>", fillout_food)
+    health_list.bind("<<ListboxSelect>>", fillout_health)
 
     #Create a binding on the entry box
-    food_entry.bind("<KeyRelease>", check_food)
-    
+    health_entry.bind("<KeyRelease>", check_health)
+
 
 
     #Button to select
-    food_button = Button(screen22, text = "Select", command = food_select)
-    food_button.pack()
+    health_button = Button(screen23, text = "Select", command = health_select)
+    health_button.pack()
+
+    
 
 
 def update_health(health_list_data):
@@ -1259,46 +1944,54 @@ def health_select():
 
 
 
-def health():
-    global screen23
-    global health_list
-    global health_entry
-    global health_list_data
-    global path_for_health
-    screen23 = Toplevel(screen)
-    screen23.title("Health")
-    screen23.geometry("500x500")
 
-    Label(screen23, text = "Health").pack()
 
-    health_entry = Entry(screen23,)
-    health_entry.pack()
+def motor_vehicles():
+    global screen24
+    global motor_vehicles_list
+    global motor_vehicles_entry
+    global motor_vehicles_list_data
+    global path_for_motorvehicles
+    screen24 = Toplevel(screen)
+    screen24.title("Motor Vehicles")
+    screen24.geometry("500x500")
+
+    Label(screen24, text = "Motor vehicles").pack()
+
+    motor_vehicles_entry = Entry(screen24,)
+    motor_vehicles_entry.pack()
 
     #create a list box
-    health_list = Listbox(screen23)
-    health_list.pack()
+    motor_vehicles_list = Listbox(screen24)
+    motor_vehicles_list.pack()
 
     #create a list
-    health_list_data = os.listdir(path_for_health)
+    motor_vehicles_list_data = os.listdir(path_for_motorvehicles)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_health(health_list_data)
+    update_motor_vehicles(motor_vehicles_list_data)
 
     #Create a binding on the listbox onclick
-    health_list.bind("<<ListboxSelect>>", fillout_health)
+    motor_vehicles_list.bind("<<ListboxSelect>>", fillout_motor_vehicles)
 
     #Create a binding on the entry box
-    health_entry.bind("<KeyRelease>", check_health)
-
+    motor_vehicles_entry.bind("<KeyRelease>", check_motor_vehicles)
 
 
     #Button to select
-    health_button = Button(screen23, text = "Select", command = health_select)
-    health_button.pack()
+    motor_vehicles_button = Button(screen24, text = "Select", command = motor_vehicles_select)
+    motor_vehicles_button.pack()
 
     
+
+
+
+
+
+
+
 
 
 
@@ -1379,53 +2072,48 @@ def motor_vehicles_select():
     purchase.pack()
 
 
+def education():
+    global screen25
+    global education_list
+    global education_entry
+    global education_list_data
+    global path_for_education
+    screen25 = Toplevel(screen)
+    screen25.title("Education")
+    screen25.geometry("500x500")
 
-def motor_vehicles():
-    global screen24
-    global motor_vehicles_list
-    global motor_vehicles_entry
-    global motor_vehicles_list_data
-    global path_for_motorvehicles
-    screen24 = Toplevel(screen)
-    screen24.title("Motor Vehicles")
-    screen24.geometry("500x500")
+    Label(screen25, text = "Education").pack()
 
-    Label(screen24, text = "Motor vehicles").pack()
-
-    motor_vehicles_entry = Entry(screen24,)
-    motor_vehicles_entry.pack()
+    education_entry = Entry(screen25,)
+    education_entry.pack()
 
     #create a list box
-    motor_vehicles_list = Listbox(screen24)
-    motor_vehicles_list.pack()
+    education_list = Listbox(screen25)
+    education_list.pack()
 
     #create a list
-    motor_vehicles_list_data = os.listdir(path_for_motorvehicles)
+    education_list_data = os.listdir(path_for_education)
     #testing479 = os.listdir(path_for_books)
     #print(testing479)
 
     #Add the data to the list
-    update_motor_vehicles(motor_vehicles_list_data)
+    update_education(education_list_data)
 
     #Create a binding on the listbox onclick
-    motor_vehicles_list.bind("<<ListboxSelect>>", fillout_motor_vehicles)
+    education_list.bind("<<ListboxSelect>>", fillout_education)
 
     #Create a binding on the entry box
-    motor_vehicles_entry.bind("<KeyRelease>", check_motor_vehicles)
+    education_entry.bind("<KeyRelease>", check_education)
+
+
+
 
 
     #Button to select
-    motor_vehicles_button = Button(screen24, text = "Select", command = motor_vehicles_select)
-    motor_vehicles_button.pack()
+    education_button = Button(screen25, text = "Select", command = education_select)
+    education_button.pack()
 
     
-
-
-
-
-
-
-
 
 
 def update_education(education_list_data):
@@ -1504,54 +2192,6 @@ def education_select():
     education_select_button.pack()
 
     
-
-
-
-
-
-def education():
-    global screen25
-    global education_list
-    global education_entry
-    global education_list_data
-    global path_for_education
-    screen25 = Toplevel(screen)
-    screen25.title("Education")
-    screen25.geometry("500x500")
-
-    Label(screen25, text = "Education").pack()
-
-    education_entry = Entry(screen25,)
-    education_entry.pack()
-
-    #create a list box
-    education_list = Listbox(screen25)
-    education_list.pack()
-
-    #create a list
-    education_list_data = os.listdir(path_for_education)
-    #testing479 = os.listdir(path_for_books)
-    #print(testing479)
-
-    #Add the data to the list
-    update_education(education_list_data)
-
-    #Create a binding on the listbox onclick
-    education_list.bind("<<ListboxSelect>>", fillout_education)
-
-    #Create a binding on the entry box
-    education_entry.bind("<KeyRelease>", check_education)
-
-
-
-
-
-    #Button to select
-    education_button = Button(screen25, text = "Select", command = education_select)
-    education_button.pack()
-
-    
-
 def purchase_screen():
     global screen37
     global ORIGINAL_ROOT_DIR
@@ -1706,7 +2346,163 @@ def final_screen():
     elif purchasing_choice == 11:
         screen36.destroy()
         screen25.destroy()
+
+
+
+def selling():
+    global screen9
+    global product_entry
+    global price_entry
+    global clicked
+    global keyword1_entry
+    global keyword2_entry
+    global keyword3_entry
+    global description_entry
+    global str_out
+    global options
+
+    screen9 = Toplevel(screen)
+    screen9.title("Generate a post")
+    screen9.geometry("1000x1000")
+
+    product_entry = StringVar()
+    price_entry = IntVar()
     
+    Label(screen9, text = "Product name*").pack()
+    product_entry = Entry(screen9)
+    product_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Price * ").pack()
+    price_entry = Entry(screen9)
+    price_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 1:").pack()
+    keyword1_entry = Entry(screen9)
+    keyword1_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 2:").pack()
+    keyword2_entry = Entry(screen9)
+    keyword2_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Keyword 3:").pack()
+    keyword3_entry = Entry(screen9)
+    keyword3_entry.pack()
+    Label(screen9, text = "").pack()
+    Label(screen9, text = "Description:").pack()
+    description_entry = Text(screen9, height = 8, width = 60)
+    description_entry.pack()
+
+    options = [
+        "Books" ,
+        "Games" ,
+        "Electronics" ,
+        "Home & Garden" ,
+        "Toys" ,
+        "Clothes & Jewellery" ,
+        "Sports & Outdoors",
+        "Food",
+        "Health",
+        "Motor Vehicles",
+        "Education"
+    ]
+
+    clicked = StringVar()
+    clicked.set(options[0])
+
+    str_out = StringVar()
+    str_out.set("Output")
+
+    drop = OptionMenu(screen9, clicked, *options)
+    drop.pack(pady=20)
+    b1 = Button(screen9, text = "Select category", command=lambda: my_show())
+    b1.pack()
+    Label(screen9, textvariable=str_out).pack()
+
+
+    Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
+
+def my_show():
+    str_out.set(clicked.get())
+
+def store_products():
+    global ORIGINAL_ROOT_DIR
+    global path_for_products
+    global path_for_books
+    global path_for_games
+    global path_for_electronics
+    global path_for_homegarden
+    global path_for_toys
+    global path_for_clothesjewellery
+    global path_for_sportsoutdoors
+    global path_for_food
+    global path_for_health
+    global path_for_motorvehicles
+    global path_for_education
+    print(ORIGINAL_ROOT_DIR)
+    print("Works")
+    product1 = product_entry.get()
+    price1 = price_entry.get()
+    category1 = clicked.get()
+    keyword1 = keyword1_entry.get()
+    keyword2 = keyword2_entry.get()
+    keyword3 = keyword3_entry.get()
+    description = description_entry.get(1.0 , END)
+    print(username1)
+    print(product1)
+    print(category1)
+    print(price1)
+    print(keyword1)
+    print(keyword2)
+    print(keyword3)
+    print(description)
+
+    if category1 == "Books":
+        print(path_for_books)
+        os.chdir(path_for_books)
+        
+    elif category1 == "Games":
+        os.chdir(path_for_games)
+    elif category1 == "Electronics":
+        os.chdir(path_for_electronics)
+    elif category1 == "Home & Garden":
+        os.chdir(path_for_homegarden)
+    elif category1 == "Toys":
+        os.chdir(path_for_toys)
+    elif category1 == "Clothes & Jewellery":
+        print(path_for_clothesjewellery)
+        os.chdir(path_for_clothesjewellery)
+    elif category1 == "Sports & Outdoors":
+        print(path_for_sportsoutdoors)
+        os.chdir(path_for_sportsoutdoors)
+    elif category1 == "Food":
+        os.chdir(path_for_food)
+    elif category1 == "Health":
+        os.chdir(path_for_health)
+    elif category1 == "Motor Vehicles":
+        os.chdir(path_for_motorvehicles)
+    elif category1 == "Education":
+        os.chdir(path_for_education)
+    
+    file=open(product1,  "w")
+    file.write(product1+"\n")
+    file.write(price1+"\n")
+    file.write(username1+"\n")
+    file.write(category1+"\n")
+    file.write(keyword1+"\n")
+    file.write(keyword2+"\n")
+    file.write(keyword3+"\n")
+    file.write(description+"\n")
+    file.close()
+
+    product_entry.delete(0, END)
+    price_entry.delete(0, END)
+
+    
+    screen9.destroy()
+    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+
+
+  
  
 def review_mainmenu():
     global screen39
@@ -2090,327 +2886,19 @@ def review_write_select_user():
     
 
 
-def session():
-    global screen6
-    screen6 = Toplevel(screen)
-    screen6.title("Account Dashboard")
-    screen6.geometry("350x500")
-    Label(screen6, text= "Welcome to the Dashboard").pack()
-    Button(screen6, text="Account Management", command=account_management).pack()
-    Button(screen6, text= " Buying", command=buying).pack()
-    Button(screen6, text="Selling", command=selling).pack()
-    Button(screen6, text="Reviews", command=review_mainmenu).pack()
-    Button(screen6, text="Logout", command=log_out).pack()
 
 
 
-def presence_checker():
-    global screen46
-    global presence_counter
-    screen46 = Toplevel(screen)
-    screen46.title("Presence check")
-    screen46.geometry("350x500")
+def delete3():
+    screen4.destroy()
 
-    if presence_counter == 1:
-        print("No username detected")
-        Label(screen46, text = "No username was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again")
-        screen1.destroy()
-    elif presence_counter == 2:
-        print("No password detected")
-        Label(screen46, text = "No password was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again")
-        screen1.destroy()
-    elif presence_counter == 3:
-        print("No address1 detected")
-        Label(screen46, text = "The 1st line of address was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 4:
-        print("No address2 detected")
-        Label(screen46, text = "The 2nd line of address was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 5:
-        print("No postcode detected")
-        Label(screen46, text = "Postcode was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 6:
-        print("No memorable word detected")
-        Label(screen46, text = "Memorable word was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 7:
-        print("No memorable question detected")
-        Label(screen46, text = "No response to memorable question was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 8:
-        print("Username already taken")
-        Label(screen46, text = "Username is taken").pack()
-        Label(screen46, text = "Please register again with a different username").pack()
-        screen1.destroy()
-    elif presence_counter == 9:
-        print("Username has not been inputted")
-        Label(screen46, text = "Username has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting username")
-        screen2.destroy()
-    elif presence_counter == 10:
-        print("Password has not been inputted")
-        Label(screen46, text = "Password has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting password").pack()
-        screen2.destroy()
-    elif presence_counter == 11:
-        print("Memorable word has not been inputted")
-        Label(screen46, text = "Memorable word has not been inputted").pack()
-        Label(screen46, text = " Please login again, inputting your memorable word").pack()
-        screen2.destroy()
-    elif presence_counter == 12:
-        print("Memorable question has not been inputted")
-        Label(screen46, text = "Memorable question has not been answered").pack()
-        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
-        screen2.destroy()
+def delete2():
+    screen3.destroy()
 
-    
-
-
-def register_user():
-    global user_dir
-    global ORIGINAL_ROOT_DIR
-    global people_name
-    global presence_counter
-
-    presence_counter = 0
-    taken_username = False
-    missing_entity = False
-    username_info = username.get()
-    password_info = password.get()
-    
-    address_1_info = address_line_1.get()
-    address_2_info = address_line_2.get()
-    postcode_info = postcode.get()
-    memorable_word_info = memorable_word.get()
-    memorable_question_info = memorable_question.get()
-
-
-    username_length = len(username_info)
-    password_length = len(password_info)
-    address1_length = len(address_1_info)
-    address2_length = len(address_2_info)
-    postcode_length = len(postcode_info)
-    memorable_word_length = len(memorable_word_info)
-    memorable_question_length = len(memorable_question_info)
-    
-    if username_length == 0:
-        presence_counter = 1
-        presence_checker()
-    elif password_length == 0:
-        presence_counter = 2
-        presence_checker()
-    elif address1_length == 0:
-        presence_counter = 3
-        presence_checker()
-    elif address2_length == 0:
-        presence_counter = 4
-        presence_checker()
-    elif postcode_length == 0:
-        presence_counter = 5
-        presence_checker()
-    elif memorable_word_length == 0:
-        presence_counter = 6
-        presence_checker()
-    elif memorable_question_length == 0:
-        presence_counter = 7
-        presence_checker()
-
-    if presence_counter > 0:
-        missing_entity = True
-
-    print(missing_entity)
-        
-        
-
-
-    os.chdir(ORIGINAL_ROOT_DIR)
-    directory_for_users = ("Users")
-    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
-    print(user_dir)
-
-    os.chdir(user_dir)
-    list_of_files = os.listdir()
-    if username_info in list_of_files:
-        taken_username = True
-        
-
-    if taken_username == False and missing_entity == False:
-        
-        os.chdir(user_dir)
-        print(user_dir)
-        file=open(username_info, "w")
-        file.write(username_info+"\n")
-        file.write(password_info+"\n")
-        file.write(address_1_info+"\n")
-        file.write(address_2_info+"\n")
-        file.write(postcode_info+"\n")
-        file.write(memorable_word_info+"\n")
-        file.write(memorable_question_info+"\n")
-        file.close()
-
-        username_entry.delete(0, END)
-        password_entry.delete(0, END)
-        postcode_entry.delete(0, END)
-        address_line_1_entry.delete(0, END)
-        address_line_2_entry.delete(0, END)
-        memorable_word_entry.delete(0, END)
-        memorable_question_entry.delete(0, END)
-
-        Label(screen1, text = "Registration Success", fg = "green", font = ("Calibri", 11)).pack()
-    else:
-        username_entry.delete(0, END)
-        password_entry.delete(0, END)
-        postcode_entry.delete(0, END)
-        address_line_1_entry.delete(0, END)
-        address_line_2_entry.delete(0, END)
-        memorable_word_entry.delete(0, END)
-        memorable_question_entry.delete(0, END)
-
-        Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11)).pack()
-        presence_counter = 8
-        presence_checker()
-
-def login_verify():
-    global username1
-    global password1
-    global memorable_word1
-    global memorable_question1
-    global ORIGINAL_ROOT_DIR
-    global username_info
-    global user_dir
-    global counter
-    global presence_counter
-    username1 = username_verify.get()
-    password1 = password_verify.get()
-    memorable_word1 = memorable_word_verify.get()
-    memorable_question1 = memorable_question_verify.get()
-    password1 = str(password1)
-    username1 = str(username1)
-    memorable_word1 = str(memorable_word1)
-    memorable_question1 = str(memorable_question1)
-    username_entry1.delete(0, END)
-    password_entry1.delete(0, END)
-    memorable_word_entry1.delete(0, END)
-    memorable_question_entry1.delete(0, END)
-
-    username1_length = len(username1)
-    password1_length = len(password1)
-    memorable_word1_length = len(memorable_word1)
-    memorable_question1_length = len(memorable_question1)
-
-    if username1_length == 0:
-        presence_counter = 9
-        print(presence_counter)
-        presence_checker()
-    elif password1_length == 0:
-        presence_counter = 10
-        presence_checker()
-    elif memorable_word1_length == 0:
-        presence_counter = 11
-        presence_checker()
-    elif memorable_question1_length == 0:
-        presence_counter = 12
-        presence_checker()
-    else:
-        presence_counter = 0
-
-    
-
-
-    
-    directory_for_users = ("Users")
-    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
-    print(user_dir)
-
-    counter = 0
-    counter = int(counter)
-    
-    os.chdir(user_dir)
-    list_of_files = os.listdir()
-    if username1 in list_of_files:
-        file1 = open(username1, "r")
-        verify = file1.read().splitlines()
-        their_password = verify[1]
-        print(their_password)
-        print(password1)
-        print(password1 == verify[1])
-        boolean_login = (password1 == verify[1])
-        print(boolean_login)
-        #YOU ARE HERE, YOU NEED TO SEPARATELY VERIFY THE PASSWORD AND MEMORABLE
-        #WORD AND MEMORABLE QUESTION
-        if boolean_login == True:
-            counter = counter + 1
-            print(counter)
-        else:
-            global screen4
-            screen4 = Toplevel(screen)
-            screen4.title("Password Error")
-            screen4.geometry("150x100")
-            Label(screen4, text = "Password not recognised").pack()
-            Button(screen4, text = "Ok", command = delete3).pack()
-
-
-
-
-        #their_memorable_word = verify[5]
-        boolean_logic2 = (memorable_word1 == verify[5])
-        print(boolean_logic2)
-        if boolean_logic2 == True:
-            counter = counter + 1
-            print(counter)
-        else:
-            global screen48
-            screen48 = Toplevel(screen)
-            screen48.title("Password Error")
-            screen48.geometry("150x100")
-            Label(screen48, text = "Memorable word error").pack()
-            Button(screen48, text = "Ok", command = delete3).pack()
-
-
-
-        boolean_logic3 = (memorable_question1 == verify[6])
-        print(boolean_logic3)
-        if boolean_logic3 == True:
-            counter = counter + 1
-            print(counter)
-        else:
-            password_not_recognised()
-        #their_memorable_question = verify[6]
-        counter = int(counter)
-        presence_counter = int(presence_counter)
-        if counter == 3 and presence_counter == 0:
-            os.listdir()
-            print(presence_counter)
-            screen2.destroy()
-            session()
-        else:
-            print(presence_counter)
-            global screen49
-            screen49 = Toplevel(screen)
-            screen49.title("Memorable Question error")
-            screen49.geometry("150x100")
-            Label(screen49, text = "Wrong response to memorable question").pack()
-            Button(screen49, text = "Ok", command = delete3).pack()
-
-
-
-    else:
-        global screen5
-        screen5 = Toplevel(screen)
-        screen5.title("Error")
-        screen5.geometry("150x100")
-        Label(screen5, text = "User not found").pack()
-        Button(screen5, text = "Ok", command = delete4).pack()
-
+def delete4():
+    screen5.destroy()
+def delete5():
+    screen1.destroy()
 
 
 
@@ -2422,505 +2910,10 @@ def login_verify():
 
     
 
-def register():
-    global screen1
-    screen1 = Toplevel (screen)
-    screen1.title("Register")
-    screen1.geometry("600x900")
-    global username
-    global password
-    global username_entry
-    global password_entry
-    global address_line_1
-    global address_line_2
-    global postcode
-    global address_line_1_entry
-    global address_line_2_entry
-    global postcode_entry
-    global memorable_word_entry
-    global memorable_question_entry
-    global memorable_word
-    global memorable_question
-    
-    username = StringVar()
-    password = StringVar()
-    postcode = StringVar()
-    address_line_1 = StringVar()
-    address_line_2 = StringVar()
-    memorable_word = StringVar()
-    memorable_question = StringVar()
-
-    Label(screen1, text = "Please enter details below").pack()
-    Label(screen1, text = " ").pack()
-    Label(screen1, text= "Username * ").pack()
-    username_entry = Entry(screen1, textvariable = username)
-    username_entry.pack()
-    Label(screen1, text = "Password * ").pack()
-    password_entry = Entry(screen1, textvariable = password)
-    password_entry.pack()
-    Label(screen1, text = "").pack()
-    Label(screen1, text="1st address line").pack()
-    address_line_1_entry = Entry(screen1, textvariable = address_line_1)
-    address_line_1_entry.pack()
-    Label(screen1, text="2nd line of address/town").pack()
-    address_line_2_entry = Entry(screen1, textvariable = address_line_2)
-    address_line_2_entry.pack()
-    Label(screen1, text = "Postcode*").pack()
-    postcode_entry = Entry(screen1, textvariable = postcode)
-    postcode_entry.pack()
-    Label(screen1, text = "Please enter your memorable word").pack()
-    memorable_word_entry = Entry(screen1, textvariable = memorable_word)
-    memorable_word_entry.pack()
-    Label(screen1, text = "What is your mother's maiden name (Security question)").pack()
-    memorable_question_entry = Entry(screen1, textvariable = memorable_question)
-    memorable_question_entry.pack()
-    Button(screen1, text = "Register", width = 10, height = 1, command = register_user).pack()
-
-
-
-def forgotten_password():
-    global screen47
-    screen47 = Toplevel(screen)
-    screen47.title("Sapenzia/Isle of Sgail")
-    screen47.geometry("300x500")
-    Label(screen47, text = "Please enter the details below").pack()
-    Label(screen47, text = "If login successful, to view password, go into account management")
-    global forgotten_username_entry
-    global forgotten_memorable_word_entry
-    global forgotten_memorable_question_entry
-    forgotten_username_entry = StringVar()
-    forgotten_memorable_word_entry = StringVar()
-    forgotten_memorable_question_entry = StringVar()
-
-    Label(screen47, text = "Username*").pack()
-    Entry(screen47, textvariable = forgotten_username_entry).pack()
-    Label(screen47, text = "Memorable word").pack()
-    Entry(screen47, textvariable = forgotten_memorable_word_entry).pack()
-    Label(screen47, text = "Memorable question").pack()
-    Entry(screen47, textvariable = forgotten_memorable_question_entry).pack()
-
-    Button(screen47, text = "Login", command = forgotten_password_verify).pack()
-
-
-def forgotten_password_verify():
-    global forgotten_username_verify
-    global forgotten_memorable_word_verify
-    global forgotten_memorable_question_verify
-    global ORIGINAL_ROOT_DIR
-
-    
-    forgotten_username_verify = forgotten_username_entry.get()
-    forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
-    forgotten_memorable_question_verify = forgotten_memorable_question_entry.get()
-    # I'm having to use the get function as without using it, when calling the entry variables, it just stages PY_VAR5
-    print(forgotten_username_verify)
-    print(forgotten_memorable_word_verify)
-    print(forgotten_memorable_question_verify)
-
-
-
-
-        
-    directory_for_users = ("Users")
-    user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
-    print(user_dir)
-
-    counter = 0
-    counter = int(counter)
-    
-    os.chdir(user_dir)
-    list_of_files = os.listdir()
-    if forgotten_username_verify in list_of_files:
-        file1 = open(forgotten_username_verify, "r")
-        verify = file1.read().splitlines()
-        
-        #their_memorable_word = verify[5]
-        boolean_logic2 = (forgotten_memorable_word_verify == verify[5])
-        print(boolean_logic2)
-        if boolean_logic2 == True:
-            counter = counter + 1
-            print(counter)
-        else:
-            print("Incorrect memorable word")
-
-        boolean_logic3 = (forgotten_memorable_question_verify == verify[6])
-        print(boolean_logic3)
-        if boolean_logic3 == True:
-            counter = counter + 1
-            print(counter)
-        else:
-            print("Incorrect memorable question")
-        #their_memorable_question = verify[6]
-        counter = int(counter)
-        if counter == 2:
-            os.listdir()
-            login_success()
-        else:
-            forgotten_password()
-    else:
-        user_not_found()
-
-
-def login():
-    print("Login session started")
-    global screen2
-    screen2 = Toplevel(screen)
-    screen2.title("Login")
-    screen2.geometry("300x500")
-    Label(screen2, text = "Please enter details below to login").pack()
-    Label(screen2, text = " ").pack()
-
-    global username_verify
-    global password_verify
-    global memorable_word_verify
-    global memorable_question_verify
-
-    username_verify = StringVar()
-    password_verify = StringVar()
-    memorable_word_verify = StringVar()
-    memorable_question_verify = StringVar()
-
-    global username_entry1
-    global password_entry1
-    global memorable_word_entry1
-    global memorable_question_entry1
-    
-
-    Label(screen2, text = "If forgotten password, enter all other field then press forgotten password").pack()
-    Label(screen2, text = "Username * ").pack()
-    username_entry1 = Entry(screen2, textvariable = username_verify)
-    username_entry1.pack()
-    Label(screen2, text=" ").pack()
-    Label(screen2, text = "Password * ").pack()
-    password_entry1 = Entry(screen2, textvariable = password_verify)
-    password_entry1.pack()
-    Label(screen2, text=" ").pack()
-    Label(screen2, text = "Memorable word").pack()
-    memorable_word_entry1 = Entry(screen2, textvariable = memorable_word_verify)
-    memorable_word_entry1.pack()
-    Label(screen2, text = "What is your mother's maiden name").pack()
-    memorable_question_entry1 = Entry(screen2, textvariable = memorable_question_verify)
-    memorable_question_entry1.pack()
-    Button(screen2, text="Login", width = 10, height = 1, command = login_verify).pack()
-    Button (screen2, text = "Forgotten password", width = 20, height = 1, command = forgotten_password).pack()
-   
-    
-    
-def selling():
-    global screen9
-    global product_entry
-    global price_entry
-    global clicked
-    global keyword1_entry
-    global keyword2_entry
-    global keyword3_entry
-    global description_entry
-    global str_out
-    global options
-
-    screen9 = Toplevel(screen)
-    screen9.title("Generate a post")
-    screen9.geometry("1000x1000")
-
-    product_entry = StringVar()
-    price_entry = IntVar()
-    
-    Label(screen9, text = "Product name*").pack()
-    product_entry = Entry(screen9)
-    product_entry.pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "Price * ").pack()
-    price_entry = Entry(screen9)
-    price_entry.pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "Keyword 1:").pack()
-    keyword1_entry = Entry(screen9)
-    keyword1_entry.pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "Keyword 2:").pack()
-    keyword2_entry = Entry(screen9)
-    keyword2_entry.pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "Keyword 3:").pack()
-    keyword3_entry = Entry(screen9)
-    keyword3_entry.pack()
-    Label(screen9, text = "").pack()
-    Label(screen9, text = "Description:").pack()
-    description_entry = Text(screen9, height = 8, width = 60)
-    description_entry.pack()
-
-    options = [
-        "Books" ,
-        "Games" ,
-        "Electronics" ,
-        "Home & Garden" ,
-        "Toys" ,
-        "Clothes & Jewellery" ,
-        "Sports & Outdoors",
-        "Food",
-        "Health",
-        "Motor Vehicles",
-        "Education"
-    ]
-
-    clicked = StringVar()
-    clicked.set(options[0])
-
-    str_out = StringVar()
-    str_out.set("Output")
-
-    drop = OptionMenu(screen9, clicked, *options)
-    drop.pack(pady=20)
-    b1 = Button(screen9, text = "Select category", command=lambda: my_show())
-    b1.pack()
-    Label(screen9, textvariable=str_out).pack()
-
-
-    Button(screen9, text = "List item for sale", width = 15, height = 2, command = store_products).pack()
-
-def my_show():
-    str_out.set(clicked.get())
-
-def store_products():
-    global ORIGINAL_ROOT_DIR
-    global path_for_products
-    global path_for_books
-    global path_for_games
-    global path_for_electronics
-    global path_for_homegarden
-    global path_for_toys
-    global path_for_clothesjewellery
-    global path_for_sportsoutdoors
-    global path_for_food
-    global path_for_health
-    global path_for_motorvehicles
-    global path_for_education
-    print(ORIGINAL_ROOT_DIR)
-    print("Works")
-    product1 = product_entry.get()
-    price1 = price_entry.get()
-    category1 = clicked.get()
-    keyword1 = keyword1_entry.get()
-    keyword2 = keyword2_entry.get()
-    keyword3 = keyword3_entry.get()
-    description = description_entry.get(1.0 , END)
-    print(username1)
-    print(product1)
-    print(category1)
-    print(price1)
-    print(keyword1)
-    print(keyword2)
-    print(keyword3)
-    print(description)
-
-    if category1 == "Books":
-        print(path_for_books)
-        os.chdir(path_for_books)
-        
-    elif category1 == "Games":
-        os.chdir(path_for_games)
-    elif category1 == "Electronics":
-        os.chdir(path_for_electronics)
-    elif category1 == "Home & Garden":
-        os.chdir(path_for_homegarden)
-    elif category1 == "Toys":
-        os.chdir(path_for_toys)
-    elif category1 == "Clothes & Jewellery":
-        print(path_for_clothesjewellery)
-        os.chdir(path_for_clothesjewellery)
-    elif category1 == "Sports & Outdoors":
-        print(path_for_sportsoutdoors)
-        os.chdir(path_for_sportsoutdoors)
-    elif category1 == "Food":
-        os.chdir(path_for_food)
-    elif category1 == "Health":
-        os.chdir(path_for_health)
-    elif category1 == "Motor Vehicles":
-        os.chdir(path_for_motorvehicles)
-    elif category1 == "Education":
-        os.chdir(path_for_education)
-    
-    file=open(product1,  "w")
-    file.write(product1+"\n")
-    file.write(price1+"\n")
-    file.write(username1+"\n")
-    file.write(category1+"\n")
-    file.write(keyword1+"\n")
-    file.write(keyword2+"\n")
-    file.write(keyword3+"\n")
-    file.write(description+"\n")
-    file.close()
-
-    product_entry.delete(0, END)
-    price_entry.delete(0, END)
-
-    
-    screen9.destroy()
-    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
 
 
 def log_out(): 
     screen6.destroy()
 
   
-def main_screen():
-    global screen
-    global ORIGINAL_ROOT_DIR
-    global path_for_reviews
-    global path_for_products
-    global path_for_books
-    global path_for_games
-    global path_for_electronics
-    global path_for_homegarden
-    global path_for_toys
-    global path_for_clothesjewellery
-    global path_for_sportsoutdoors
-    global path_for_food
-    global path_for_health
-    global path_for_motorvehicles
-    global path_for_education
-    global path_for_users
-    global presence_counter
-
-    presence_counter = 0
-    screen=Tk()
-    screen.geometry("300x250")
-    screen.title("Online Marketplace")
-    Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
-    Label(text = " ").pack()
-    Button(text = "Login", width = "30", height = "2", command = login).pack()
-    Label(text = " ").pack()
-    Button(text = "Register", height = "2", width = "30", command = register).pack()
-    os.listdir()
-
-
-    ORIGINAL_ROOT_DIR = StringVar()
-    ORIGINAL_ROOT_DIR = os.getcwd()
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_users = ("Users")
-    directory_for_reviews = ("Reviews")
-    path_for_users = os.path.join(cwd, directory_for_users)
-    path_for_reviews = os.path.join(cwd, directory_for_reviews)
-    is_existing_users = os.path.exists(path_for_users)
-    print(is_existing_users)
-
-    if is_existing_users == True:
-        print("Doing nothing")
-    else:
-        print("Creating the new directory")
-        os.mkdir(path_for_users)
-        os.mkdir(path_for_reviews)
-        print("Made new directory")
-
-
-    os.chdir(ORIGINAL_ROOT_DIR)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_products = ("Products")
-    path_for_products = os.path.join(cwd, directory_for_products)
-
-    is_existing_products = os.path.exists(path_for_products)
-    print(is_existing_products)
-    if is_existing_products == True:
-        print("Doing nothing")
-    else:
-        print("Creating the new directory")
-        os.mkdir(path_for_products)
-
-    
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_books = ("Books")
-    path_for_books = os.path.join(cwd, directory_for_books)
-    print(path_for_books)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_games = ("Games")
-    path_for_games = os.path.join(cwd, directory_for_games)
-    print(path_for_games)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_electronics = ("Electronics")
-    path_for_electronics = os.path.join(cwd, directory_for_electronics)
-    print(path_for_electronics)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_homegarden = ("Home")
-    path_for_homegarden = os.path.join(cwd, directory_for_homegarden)
-    print(path_for_homegarden)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_toys = ("Toys")
-    path_for_toys = os.path.join(cwd, directory_for_toys)
-    print(path_for_toys)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_clothesjewellery = ("Clothes")
-    path_for_clothesjewellery = os.path.join(cwd, directory_for_clothesjewellery)
-    print(path_for_clothesjewellery)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_sportsoutdoors = ("Sports")
-    path_for_sportsoutdoors = os.path.join(cwd, directory_for_sportsoutdoors)
-    print(path_for_sportsoutdoors)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    print(cwd)
-    directory_for_food = ("Food")
-    path_for_food = os.path.join(cwd, directory_for_food)
-    print(path_for_food)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    directory_for_health = ("Health")
-    path_for_health = os.path.join(cwd, directory_for_health)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    directory_for_motorvehicles = ("MotorVehicles")
-    path_for_motorvehicles = os.path.join(cwd, directory_for_motorvehicles)
-    print(path_for_motorvehicles)
-
-    os.chdir(path_for_products)
-    cwd = os.getcwd()
-    directory_for_education = ("Education")
-    path_for_education = os.path.join(cwd, directory_for_education)
-    print(path_for_education)
-        
-    is_existing_education = os.path.exists(path_for_education)
-    print(is_existing_education)
-
-    if is_existing_education == True:
-        print("Doing nothing")
-    else:
-        print("Creating the new directory")
-        os.mkdir(path_for_books)
-        os.mkdir(path_for_games)
-        os.mkdir(path_for_electronics)
-        os.mkdir(path_for_homegarden)
-        os.mkdir(path_for_toys)
-        os.mkdir(path_for_clothesjewellery)
-        os.mkdir(path_for_sportsoutdoors)
-        os.mkdir(path_for_food)
-        os.mkdir(path_for_health)
-        os.mkdir(path_for_motorvehicles)
-        os.mkdir(path_for_education)
-        print("Made new directory")
-    screen.mainloop()
-
 main_screen()
