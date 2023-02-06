@@ -66,7 +66,6 @@ def main_screen():
     print(cwd)
     directory_for_products = ("Products")
     path_for_products = os.path.join(cwd, directory_for_products)
-
     is_existing_products = os.path.exists(path_for_products)
     print(is_existing_products)
     if is_existing_products == True:
@@ -2882,10 +2881,6 @@ def review_write_select_user():
     #Button to select
     review_write_button = Button(screen40, text = "Select", command = review_write)
     review_write_button.pack()  
-    
-    
-
-
 
 
 
@@ -2899,18 +2894,6 @@ def delete4():
     screen5.destroy()
 def delete5():
     screen1.destroy()
-
-
-
-
-        
-
-
-    
-
-    
-
-
 
 def log_out(): 
     screen6.destroy()
