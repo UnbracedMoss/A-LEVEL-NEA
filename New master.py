@@ -609,7 +609,6 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
-    global test_time_delete
 
     forgotten_username_verify = forgotten_username_entry.get()
     forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
@@ -642,7 +641,9 @@ def forgotten_password_verify():
             print(counter)
         else:
             print("Incorrect memorable word")
-            Label(screen47, text = "Incorrect memorable word").pack()
+            incorrect_memorable_word = Label(screen47, text = "Incorrect memorable word")
+            incorrect_memorable_word.pack()
+            screen.after(3000, incorrect_memorable_word.destroy)
             fusername_entry.delete(0, END)
             fword_entry.delete(0, END)
             fquestion_entry.delete(0, END)
@@ -655,9 +656,9 @@ def forgotten_password_verify():
             print(counter)
         else:
             print("Incorrect memorable question")
-            test_time_delete = Label(screen47, text = "Incorrect response to memorable question")
-            test_time_delete.pack()
-            screen.after(10000, test_time_delete.destroy)
+            incorrect_memorable_question = Label(screen47, text = "Incorrect response to memorable question")
+            incorrect_memorable_question.pack()
+            screen.after(2000, incorrect_memorable_question.destroy)
             fusername_entry.delete(0, END)
             fword_entry.delete(0, END)
             fquestion_entry.delete(0, END)
