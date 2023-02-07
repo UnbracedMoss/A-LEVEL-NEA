@@ -5,6 +5,7 @@ from tkinter import filedialog
 import pathlib
 
 
+
 #Next unused screen: 50
 
 global productName
@@ -30,7 +31,7 @@ def main_screen():
     global presence_counter
 
     presence_counter = 0
-    screen=Tk()
+    screen = Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
     Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
@@ -567,7 +568,8 @@ def login_verify():
         screen5.title("Error")
         screen5.geometry("150x100")
         Label(screen5, text = "User not found").pack()
-        Button(screen5, text = "Ok", command = delete4).pack()
+        delete_counter = 4
+        Button(screen5, text = "Ok", command = screen_deletion).pack()
 
    
     
@@ -582,16 +584,22 @@ def forgotten_password():
     global forgotten_username_entry
     global forgotten_memorable_word_entry
     global forgotten_memorable_question_entry
+    global fusername_entry
+    global fword_entry
+    global fquestion_entry
     forgotten_username_entry = StringVar()
     forgotten_memorable_word_entry = StringVar()
     forgotten_memorable_question_entry = StringVar()
 
     Label(screen47, text = "Username*").pack()
-    Entry(screen47, textvariable = forgotten_username_entry).pack()
+    fusername_entry = Entry(screen47, textvariable = forgotten_username_entry)
+    fusername_entry.pack()
     Label(screen47, text = "Memorable word").pack()
-    Entry(screen47, textvariable = forgotten_memorable_word_entry).pack()
+    fword_entry = Entry(screen47, textvariable = forgotten_memorable_word_entry)
+    fword_entry.pack()
     Label(screen47, text = "Memorable question").pack()
-    Entry(screen47, textvariable = forgotten_memorable_question_entry).pack()
+    fquestion_entry = Entry(screen47, textvariable = forgotten_memorable_question_entry)
+    fquestion_entry.pack()
 
     Button(screen47, text = "Login", command = forgotten_password_verify).pack()
 
@@ -601,10 +609,8 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
-    global forgotten_password_counter
+    global test_time_delete
 
-    forgotten_password_counter = StringVar()
-    forgotten_password_counter = 1
     forgotten_username_verify = forgotten_username_entry.get()
     forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
     forgotten_memorable_question_verify = forgotten_memorable_question_entry.get()
@@ -614,15 +620,13 @@ def forgotten_password_verify():
     print(forgotten_memorable_question_verify)
 
 
-
-
         
     directory_for_users = ("Users")
     user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
     print(user_dir)
 
+    counter = IntVar()
     counter = 0
-    counter = int(counter)
     
     os.chdir(user_dir)
     list_of_files = os.listdir()
@@ -638,6 +642,11 @@ def forgotten_password_verify():
             print(counter)
         else:
             print("Incorrect memorable word")
+            Label(screen47, text = "Incorrect memorable word").pack()
+            fusername_entry.delete(0, END)
+            fword_entry.delete(0, END)
+            fquestion_entry.delete(0, END)
+            
 
         boolean_logic3 = (forgotten_memorable_question_verify == verify[6])
         print(boolean_logic3)
@@ -646,26 +655,31 @@ def forgotten_password_verify():
             print(counter)
         else:
             print("Incorrect memorable question")
+            test_time_delete = Label(screen47, text = "Incorrect response to memorable question")
+            test_time_delete.pack()
+            screen.after(10000, test_time_delete.destroy)
+            fusername_entry.delete(0, END)
+            fword_entry.delete(0, END)
+            fquestion_entry.delete(0, END)
         #their_memorable_question = verify[6]
         counter = int(counter)
         if counter == 2:
             os.listdir()
             session()
         else:
-            forgotten_password()
+            fusername_entry.delete(0, END)
+            fword_entry.delete(0, END)
+            fquestion_entry.delete(0, END)
     else:
-        user_not_found()
-
+        fusername_entry.delete(0, END)
+        fword_entry.delete(0, END)
+        fquestion_entry.delete(0, END)
 
 
 
 def session():
     global screen6
-    global forgotten_password_counter
-    if forgotten_password_counter == 1:
-        screen47.destroy()
-    else:
-        print("Why even is there an else statement")
+    print("Why even is there an else statement")
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
@@ -2887,29 +2901,17 @@ def review_write_select_user():
     review_write_button.pack()  
 
 
-
-
-
 def screen_deletion():
     global delete_counter
     if delete_counter == 3:
         screen4.destroy()
-    if delete_counter == 48:
+    elif delete_counter == 4:
+        screen5.destroy()
+    elif delete_counter == 48:
         screen48.destroy()
-        
+
+
     
-
-
-def delete3():
-    screen4.destroy()
-
-def delete2():
-    screen3.destroy()
-
-def delete4():
-    screen5.destroy()
-def delete5():
-    screen1.destroy()
 
 def log_out(): 
     screen6.destroy()
