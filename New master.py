@@ -177,8 +177,8 @@ def register():
     screen1.geometry("600x900")
     global username
     global password
-    global username_entry
-    global password_entry
+    global username_entry # Would be used to delete the entry later on
+    global password_entry # Would be used to delete password entry after successful
     global address_line_1
     global address_line_2
     global postcode
@@ -402,7 +402,7 @@ def login():
     global screen2
     screen2 = Toplevel(screen)
     screen2.title("Login")
-    screen2.geometry("300x500")
+    screen2.geometry("700x500")
     Label(screen2, text = "Please enter details below to login").pack()
     Label(screen2, text = " ").pack()
 
@@ -450,6 +450,8 @@ def login_verify():
     global user_dir
     global counter
     global presence_counter
+    global delete_counter
+    delete_counter = StringVar()
     username1 = username_verify.get()
     password1 = password_verify.get()
     memorable_word1 = memorable_word_verify.get()
@@ -515,13 +517,10 @@ def login_verify():
             global screen4
             screen4 = Toplevel(screen)
             screen4.title("Password Error")
-            screen4.geometry("150x100")
+            screen4.geometry("550x500")
             Label(screen4, text = "Password not recognised").pack()
-            Button(screen4, text = "Ok", command = delete3).pack()
-
-
-
-
+            delete_counter = 3
+            Button(screen4, text = "Ok", command = screen_deletion).pack()
         #their_memorable_word = verify[5]
         boolean_logic2 = (memorable_word1 == verify[5])
         print(boolean_logic2)
@@ -531,13 +530,11 @@ def login_verify():
         else:
             global screen48
             screen48 = Toplevel(screen)
-            screen48.title("Password Error")
-            screen48.geometry("150x100")
-            Label(screen48, text = "Memorable word error").pack()
-            Button(screen48, text = "Ok", command = delete3).pack()
-
-
-
+            screen48.title("Memorable word error")
+            screen48.geometry("550x500")
+            Label(screen48, text = "Incorrect response to memorable word").pack()
+            delete_counter = 48
+            Button(screen48, text = "Ok", command = screen_deletion).pack()
         boolean_logic3 = (memorable_question1 == verify[6])
         print(boolean_logic3)
         if boolean_logic3 == True:
@@ -553,14 +550,14 @@ def login_verify():
             print(presence_counter)
             screen2.destroy()
             session()
-        else:
-            print(presence_counter)
-            global screen49
-            screen49 = Toplevel(screen)
-            screen49.title("Memorable Question error")
-            screen49.geometry("150x100")
-            Label(screen49, text = "Wrong response to memorable question").pack()
-            Button(screen49, text = "Ok", command = delete3).pack()
+        #else:
+           # print(presence_counter)
+            #global screen49
+            #screen49 = Toplevel(screen)
+            #screen49.title("Memorable Question error")
+            #screen49.geometry("150x100")
+            #Label(screen49, text = "Wrong response to memorable question").pack()
+           # Button(screen49, text = "Ok", command = delete3).pack()
 
 
 
@@ -604,8 +601,10 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
+    global forgotten_password_counter
 
-    
+    forgotten_password_counter = StringVar()
+    forgotten_password_counter = 1
     forgotten_username_verify = forgotten_username_entry.get()
     forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
     forgotten_memorable_question_verify = forgotten_memorable_question_entry.get()
@@ -651,7 +650,7 @@ def forgotten_password_verify():
         counter = int(counter)
         if counter == 2:
             os.listdir()
-            login_success()
+            session()
         else:
             forgotten_password()
     else:
@@ -662,6 +661,11 @@ def forgotten_password_verify():
 
 def session():
     global screen6
+    global forgotten_password_counter
+    if forgotten_password_counter == 1:
+        screen47.destroy()
+    else:
+        print("Why even is there an else statement")
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
@@ -683,7 +687,7 @@ def account_management():
     global screen7
     screen7 = Toplevel(screen)
     screen7.title("Account Management")
-    screen7.geometry("500x500")
+    screen7.geometry("700x700")
     Label(screen7, text="Welcome to account management").pack()
     Label(screen7, text = "Username:", font= ('Helvetica', 13, 'bold')).pack()
     Label(screen7, text=username1).pack()
@@ -2882,6 +2886,18 @@ def review_write_select_user():
     review_write_button = Button(screen40, text = "Select", command = review_write)
     review_write_button.pack()  
 
+
+
+
+
+def screen_deletion():
+    global delete_counter
+    if delete_counter == 3:
+        screen4.destroy()
+    if delete_counter == 48:
+        screen48.destroy()
+        
+    
 
 
 def delete3():
