@@ -641,6 +641,9 @@ def forgotten_password_verify():
         if counter == 2:
             os.listdir()
             session()
+            screen47.destroy()
+            screen2.destroy()
+            
         else:
             fusername_entry.delete(0, END)
             fword_entry.delete(0, END)
@@ -773,7 +776,7 @@ def actually_changing_details():
         address1_file_write.writelines(data)
         screen7.destroy()
         filler.delete(0, END)
-        address1_changed = Label(screen50, text = "Password has been changed")
+        address1_changed = Label(screen50, text = "The 1st Line of address has been changed")
         address1_changed.pack()
         screen.after(3000, screen50.destroy)
 
@@ -784,7 +787,7 @@ def actually_changing_details():
         address2_file_write = open(username1, "w")
         address2_file_write.writelines(data)
         screen7.destroy()
-        address2_changed = Label(screen50, text = "Password has changed")
+        address2_changed = Label(screen50, text = "The 2nd Line of Address has been changed")
         address2_changed.pack()
         screen.after(3000, screen50.destroy)
 
