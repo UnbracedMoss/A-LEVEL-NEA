@@ -6,7 +6,7 @@ import pathlib
 
 
 
-#Next unused screen: 50
+#Next unused screen: 51
 
 global productName
 global product_entry
@@ -487,10 +487,7 @@ def login_verify():
     else:
         presence_counter = 0
 
-    
-
-
-    
+     
     directory_for_users = ("Users")
     user_dir = os.path.join(ORIGINAL_ROOT_DIR, directory_for_users)
     print(user_dir)
@@ -509,19 +506,13 @@ def login_verify():
         print(password1 == verify[1])
         boolean_login = (password1 == verify[1])
         print(boolean_login)
-        #YOU ARE HERE, YOU NEED TO SEPARATELY VERIFY THE PASSWORD AND MEMORABLE
-        #WORD AND MEMORABLE QUESTION
         if boolean_login == True:
             counter = counter + 1
             print(counter)
         else:
-            global screen4
-            screen4 = Toplevel(screen)
-            screen4.title("Password Error")
-            screen4.geometry("550x500")
-            Label(screen4, text = "Password not recognised").pack()
-            delete_counter = 3
-            Button(screen4, text = "Ok", command = screen_deletion).pack()
+            password_no_recog = Label(screen2, text = "Password not recognised")
+            password_no_recog.pack()
+            screen.after(2000, password_no_recog.destroy)
         #their_memorable_word = verify[5]
         boolean_logic2 = (memorable_word1 == verify[5])
         print(boolean_logic2)
@@ -529,13 +520,9 @@ def login_verify():
             counter = counter + 1
             print(counter)
         else:
-            global screen48
-            screen48 = Toplevel(screen)
-            screen48.title("Memorable word error")
-            screen48.geometry("550x500")
-            Label(screen48, text = "Incorrect response to memorable word").pack()
-            delete_counter = 48
-            Button(screen48, text = "Ok", command = screen_deletion).pack()
+            memWord_no_recog = Label(screen2, text = "Incorrect response to memorable word")
+            memWord_no_recog.pack()
+            screen.after(2000, memWord_no_recog.destroy)
         boolean_logic3 = (memorable_question1 == verify[6])
         print(boolean_logic3)
         if boolean_logic3 == True:
@@ -551,25 +538,12 @@ def login_verify():
             print(presence_counter)
             screen2.destroy()
             session()
-        #else:
-           # print(presence_counter)
-            #global screen49
-            #screen49 = Toplevel(screen)
-            #screen49.title("Memorable Question error")
-            #screen49.geometry("150x100")
-            #Label(screen49, text = "Wrong response to memorable question").pack()
-           # Button(screen49, text = "Ok", command = delete3).pack()
-
 
 
     else:
-        global screen5
-        screen5 = Toplevel(screen)
-        screen5.title("Error")
-        screen5.geometry("150x100")
-        Label(screen5, text = "User not found").pack()
-        delete_counter = 4
-        Button(screen5, text = "Ok", command = screen_deletion).pack()
+        user_no_fou = Label(screen2, text = "User not found")
+        user_no_fou.pack()
+        screen.after(2000, user_no_fou.destroy)
 
    
     
@@ -704,126 +678,87 @@ def account_management():
     screen7.title("Account Management")
     screen7.geometry("700x700")
     Label(screen7, text="Welcome to account management").pack()
-    Label(screen7, text = "Username:", font= ('Helvetica', 13, 'bold')).pack()
-    Label(screen7, text=username1).pack()
-    Label(screen7, text="").pack()
-    Label(screen7, text = "Usernames cannot be changed").pack()
-    Button(screen7, text="Change me", command=username_changes).pack()
     Label(screen7, text = "Password:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text =password1).pack()
     Label(screen7, text="").pack()
-    Button(screen7, text="Change me", command=password_changes).pack()
    
     f= open(username1)
     content = f.readlines()
 
     Label(screen7, text = "Address Line 1:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[2]).pack()
-    Button(screen7, text="Change me", command=address1_changes).pack()
 
     Label(screen7, text = "Address Line 2:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[3]).pack()
-    Button(screen7, text="Change me", command=address2_changes).pack()
 
     Label(screen7, text = "Postcode", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[4]).pack()
-    Button(screen7, text="Change me", command=postcode_changes).pack()
 
-def username_changes():
-    global screen10
-    global new_username_entry
-    global detail_identifier
-    screen10 = Toplevel(screen)
-    screen10.title("Changing Username")
-    screen10.geometry("500x500")
 
-    Label(screen10, text = "Currently unable to change the username")
+    Button(screen7, text = "Change personal details", command =changing_details).pack()
 
-def password_changes():
-    global screen11
-    global new_password_entry
-    global detail_identifier
-    screen11 = Toplevel(screen)
-    screen11.title("Changing Password")
-    screen11.geometry("500x500")
 
-    detail_identifier = 1
-    Label(screen11, text="Please input the new password").pack()
-    Label(screen11, text = "").pack()
-    new_password_entry = Entry(screen11)
-    new_password_entry.pack()
-    Button(screen11, text = "Change password", command = actually_changing).pack()
 
-def address1_changes():
-    global screen12
-    global detail_identifier
-    global new_address1_entry
-    screen12 = Toplevel(screen)
-    screen12.title("Changing 1st line of Address")
-    screen12.geometry("500x500")
+def changing_details():
+    global str_out_details
+    global detail_selection
+    global screen50
+    global clicked_details
+    global new_detail_entry
+    screen50 = Toplevel(screen)
+    screen50.title("Changing Account details")
+    screen50.geometry("500x500")
 
-    detail_identifier = 2
-    Label(screen12, text = "Please enter updated 1st line of address").pack()
-    Label(screen12, text = "").pack()
-    new_address1_entry = Entry(screen12)
-    new_address1_entry.pack()
-    Button(screen12, text = "Update first line of address", command = actually_changing).pack()
+    new_detail_entry = StringVar()
+
+    details = [
+        "Password" ,
+        "1st Line of Address" ,
+        "2nd Line of Address" ,
+        "Postcode" ,
+        "Memorable Word" ,
+        "Memorable Question" 
+    ]
+
+    clicked_details = StringVar()
+    clicked_details.set(details[0])
+
+    str_out_details = StringVar()
+    str_out_details.set("Output")
+
+    drop_detail = OptionMenu(screen50, clicked_details, *details)
+    drop_detail.pack(pady=20)
+    b2 = Button(screen50, text = "Select category", command=lambda: my_show_details())
+    b2.pack()
+    Label(screen50, textvariable=str_out_details).pack()
+    Entry(screen50, textvariable = new_detail_entry).pack()
+    Button(screen50, text = "Make changes", command = actually_changing_details).pack()
+
+def my_show_details():
+    str_out_details.set(clicked_details.get())
     
 
-def address2_changes():
-    global screen13
-    global detail_identifier
-    global new_address2_entry
-    screen13 = Toplevel(screen)
-    screen13.title("Changing 2nd line of Address")
-    screen13.geometry("500x500")
 
-    detail_identifier = 3
-    Label(screen13, text = "Please enter updated second line of address").pack()
-    Label(screen13, text = "").pack()
-    new_address2_entry = Entry(screen13)
-    new_address2_entry.pack()
-    Button(screen13, text = "Update second line of address", command = actually_changing).pack()
-
-def postcode_changes():
-    global screen14
-    global detail_identifier
-    global new_postcode_entry
-    screen14 = Toplevel(screen)
-    screen14.title("Changing Postcode")
-    screen14.geometry("500x500")
-
-    detail_identifier = 4
-    Label(screen14, text = "Please enter new postcode:").pack()
-    Label(screen14, text = "").pack()
-    new_postcode_entry = Entry(screen14)
-    new_postcode_entry.pack()
-    Button(screen14, text = "Update postcode", command = actually_changing).pack()
-    
-def actually_changing():
+def actually_changing_details():
+    global detail_category
+    detail_category = clicked_details.get()
+    print(detail_category)
     global username1
-    global username_detail
+    global username_file_read
     username_file_read = open(username1, "r")
     data = username_file_read.readlines()
     print(data)
-    if detail_identifier == 0:
-        username_detail = new_username_entry.get()
-        print(username_detail)
-        data[0] = (username_detail + "\n")
-        print(data)
-        username_file_write = open(username1, "w")
-        username_file_write.writelines(data)
-        screen10.destroy()
-        screen7.destroy()
-               
-    elif detail_identifier == 1:
-        password_detail = new_password_entry.get()
+    
+
+    if detail_category == "Password":
+        password_detail = new_detail_entry.get()
         data[1] = (password_detail + "\n")
         print(data)
         password_file_write = open(username1, "w")
         password_file_write.writelines(data)
-        screen11.destroy()
         screen7.destroy()
+        
+
         
     elif detail_identifier == 2:
         address1_detail = new_address1_entry.get()
@@ -832,7 +767,7 @@ def actually_changing():
         address1_file_write = open(username1, "w")
         address1_file_write.writelines(data)
         screen12.destroy()
-        screen7.destroy()
+        Label(screen7, text = "* Details have changed, please reload").pack()
 
     elif detail_identifier == 3:
         address2_detail = new_address2_entry.get()
@@ -841,7 +776,7 @@ def actually_changing():
         address2_file_write = open(username1, "w")
         address2_file_write.writelines(data)
         screen13.destroy()
-        screen7.destroy()
+        Label(screen7, text = "* Details have been changed, please reload").pack()
 
 
     elif detail_identifier == 4:
@@ -2904,9 +2839,7 @@ def review_write_select_user():
 
 def screen_deletion():
     global delete_counter
-    if delete_counter == 3:
-        screen4.destroy()
-    elif delete_counter == 4:
+    if delete_counter == 4:
         screen5.destroy()
     elif delete_counter == 48:
         screen48.destroy()
