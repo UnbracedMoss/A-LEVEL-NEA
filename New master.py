@@ -705,6 +705,7 @@ def changing_details():
     global screen50
     global clicked_details
     global new_detail_entry
+    global filler
     screen50 = Toplevel(screen)
     screen50.title("Changing Account details")
     screen50.geometry("500x500")
@@ -731,7 +732,8 @@ def changing_details():
     b2 = Button(screen50, text = "Select category", command=lambda: my_show_details())
     b2.pack()
     Label(screen50, textvariable=str_out_details).pack()
-    Entry(screen50, textvariable = new_detail_entry).pack()
+    filler = Entry(screen50, textvariable = new_detail_entry)
+    filler.pack()
     Button(screen50, text = "Make changes", command = actually_changing_details).pack()
 
 def my_show_details():
@@ -745,6 +747,7 @@ def actually_changing_details():
     print(detail_category)
     global username1
     global username_file_read
+    print(username1)
     username_file_read = open(username1, "r")
     data = username_file_read.readlines()
     print(data)
@@ -757,36 +760,66 @@ def actually_changing_details():
         password_file_write = open(username1, "w")
         password_file_write.writelines(data)
         screen7.destroy()
-        
+        filler.delete(0, END)
+        password_changed = Label(screen50, text = "Password has been changed")
+        password_changed.pack()
+        screen.after(3000, screen50.destroy)
 
-        
-    elif detail_identifier == 2:
-        address1_detail = new_address1_entry.get()
+    elif detail_category == "1st Line of Address":
+        address1_detail = new_detail_entry.get()
         data[2] = (address1_detail + "\n")
         print(data)
         address1_file_write = open(username1, "w")
         address1_file_write.writelines(data)
-        screen12.destroy()
-        Label(screen7, text = "* Details have changed, please reload").pack()
+        screen7.destroy()
+        filler.delete(0, END)
+        address1_changed = Label(screen50, text = "Password has been changed")
+        address1_changed.pack()
+        screen.after(3000, screen50.destroy)
 
-    elif detail_identifier == 3:
-        address2_detail = new_address2_entry.get()
-        data[3] = (address2_detail + "\n")
+    elif detail_category == "2nd Line of Address":
+        address2_detail = new_detail_entry.get()
+        data[3] = (address2detail + "\n")
         print(data)
         address2_file_write = open(username1, "w")
         address2_file_write.writelines(data)
-        screen13.destroy()
-        Label(screen7, text = "* Details have been changed, please reload").pack()
+        screen7.destroy()
+        address2_changed = Label(screen50, text = "Password has changed")
+        address2_changed.pack()
+        screen.after(3000, screen50.destroy)
 
-
-    elif detail_identifier == 4:
-        postcode_detail = new_postcode_entry.get()
+    elif detail_category == "Postcode":
+        postcode_detail = new_detail_entry.get()
         data[4] = (postcode_detail + "\n")
         print(data)
         postcode_file_write = open(username1, "w")
-        postcode_file_wrie.writelines(data)
-        screen14.destroy()
+        postcode_file_write.writelines(data)
         screen7.destroy()
+        postcode_changed = Label(screen50, text = "Postcode has changed")
+        postcode_changed.pack()
+        screen.after(3000, screen50.destroy)
+
+    elif detail_category == "Memorable Word":
+        memorable_word_detail = new_detail_entry.get()
+        data[5] = (memorable_word_detail + "\n")
+        print(data)
+        memorable_word_write = open(username1, "w")
+        memorable_word_write.writelines(data)
+        screen7.destroy()
+        memorable_word_changed = Label(screen50, text = "Memorable Word has changed")
+        memorable_word_changed.pack()
+        screen.after(3000, screen50.destroy)
+
+    elif detail_category == "Memorable Question":
+        memorable_question_detail = new_detail_entry.get()
+        data[6] = (memorable_question_detail + "\n")
+        print(data)
+        memorable_word_write = open(username1, "w")
+        memorable_question_write.writelines(data)
+        screen7.destroy()
+        memorable_question_changed = Label(screen50, text = "Memorable Question has changed")
+        memorable_question_changed.pack()
+        screen.after(3000, screen50.destroy)
     
     
     
@@ -1938,17 +1971,6 @@ def motor_vehicles():
     motor_vehicles_button.pack()
 
     
-
-
-
-
-
-
-
-
-
-
-
 def update_motor_vehicles(motor_vehicles_list_data):
     global motor_vehicles_list
     #Clear the listbox
