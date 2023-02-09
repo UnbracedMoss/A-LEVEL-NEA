@@ -8,6 +8,14 @@ import pathlib
 
 #Next unused screen: 51
 
+
+# TYPE CHECK FOR INTEGERS
+# x = input()
+# try:
+#   int(x)
+# except ValueError:
+#   print("Not an integer")
+
 global productName
 global product_entry
 
