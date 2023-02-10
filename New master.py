@@ -996,7 +996,7 @@ def book_select():
     Label(screen26, text = book_info[1]).pack()
 
     Label(screen26, text = "Description;", font=("Helvetica", 13, "bold")).pack()
-    Label(screen26, text = book_info[5]).pack()
+    Label(screen26, text = book_info[7]).pack()
 
     Label(screen26, text = "Sold by:", font=("Helvetica", 13, "bold")).pack()
     Label(screen26, text = book_info[2]).pack()
@@ -2548,7 +2548,7 @@ def store_products():
             no_keyword3_entry.pack()
             screen.after(3000, no_keyword3_entry.destroy)
             return
-        if len(decription) == 0:
+        if len(description) == 0:
             screen9.destroy()
             no_description_entry = Label(screen6, text = "Nothing has been entered for description, please add more")
             no_description_entry.pack()
@@ -2589,8 +2589,6 @@ def store_products():
         print("Not an integer")
         selling()
 
-
-  
  
 def review_mainmenu():
     global screen39
@@ -2603,40 +2601,120 @@ def review_mainmenu():
     Button(screen39, text = "Look at seller's rating", command = review_read_select_user).pack()
 
 
-def update_user_list_read(user_list_data_read):
-    global user_list_read
-    #Clear the listbox
-    user_list_read.delete(0, END)
 
-    #Add data to listbox
-    for item in user_list_data_read:
-        user_list_read.insert(END, item)
+def review_write_select_user():
+    global screen40
+    global review_write_user_entry
+    global user_list_write
+    global path_for_users
+    global user_list_data_write
+    screen40 = Toplevel(screen)
+    screen40.title("Selecting the User")
+    screen40.geometry("350x500")
+
+    review_write_user_entry = Entry(screen40,)
+    review_write_user_entry.pack()
+
+    #create a list box
+    user_list_write = Listbox(screen40)
+    user_list_write.pack()
+
+    #create a list
+    user_list_data_write = os.listdir(path_for_users)
+
+    #Add the data to the list
+    update_user_list_write(user_list_data_write)
+
+    #Create a binding on the listbox onclick
+    user_list_write.bind("<<ListboxSelect>>", fillout_user_list_write)
+
+    #Create a binding on the entry box
+    review_write_user_entry.bind("<KeyRelease>", check_user_list_write)
+
+    #Button to select
+    review_write_button = Button(screen40, text = "Select", command = review_write)
+    review_write_button.pack()  
 
 
-#Update entry box with listbox clicked
-def fillout_user_list_read(event):
-    global review_read_user_entry
-    #Delete whatever is in the entry box
-    review_read_user_entry.delete(0, END)
+def review_write():
+    global screen41
+    global path_for_reviews
+    global header_entry
+    global review_entry
+    global selected_user
+    global review_write_user_entry
+    screen41 = Toplevel(screen)
+    screen41.title("Leave a review")
+    screen41.geometry("350x500")
+    Label(screen40, text = "Leaving a review").pack()
 
-    #Add clicked list item to entry box
-    review_read_user_entry.insert(0, user_list_read.get(ACTIVE))
+    review_entry = StringVar()
+    header_entry = StringVar()
 
-def check_user_list_read(event):
-    #Grab what was typed
-    global review_read_user_entry
-    global user_list_data_read
-    typed_user_read = review_read_user_entry.get()
+
+    os.chdir(path_for_reviews)
+    Label(screen41, text = "Header").pack()
+    header_entry= Entry(screen41)
+    header_entry.pack()
+
+    Label(screen41, text = "Description of review").pack()
+    review_entry = Text(screen41, height = 8, width = 60)
+    review_entry.pack()
+
+    selected_user = StringVar()
+    selected_user = review_write_user_entry.get()
+    print(selected_user)
+
+    Button(screen41, text = "Store values", command=review_write_store).pack()
+
+ 
+
+
+
+
+def review_write_store():
+    global screen42
+    global header
+    global review
+    global selected_user
+    header = header_entry.get()
+    review = review_entry.get(1.0 , END)
+    print(header)
+    print(review)
+    print(selected_user)
+    filename = selected_user + header
+    print(filename)
+
+    if len(header) == 0:
+        screen41.destroy()
+        no_header_entry = Label(screen40, text = "No header has been inputted")
+        no_header_entry.pack()
+        screen.after(3000, no_header_entry.destroy)
+        return
+    if len(review) == 0:
+        screen41.destroy()
+        no_review_entry = Label(screen40, text = "Nothing has been entered for the review")
+        no_review_entry.pack()
+        screen.after(3000, no_review_entry.destroy)
+        return
+
+
+
+
+    
+    os.chdir(path_for_reviews)
+    file=open(filename, "w")
+    file.write(header+"\n")
+    file.write(review+"\n")
+    file.close()
+
+
+    Label(screen41, text = "Review submitted").pack()
+    screen41.destroy()
     
 
-    if typed_user_read == " ":
-        data = user_list_data_read
-    else:
-        data = []
-        for item in user_list_data_read:
-            if typed_user_read.lower() in item.lower():
-                data.append(item)
-    update_user_list_read(data)
+
+
 
 
 
@@ -2680,6 +2758,46 @@ def review_read_select_user():
     #user would input a name, the function would implement this to the data
     #x = filename.split(selected_user)
     #print(x)
+
+
+
+def update_user_list_read(user_list_data_read):
+    global user_list_read
+    #Clear the listbox
+    user_list_read.delete(0, END)
+
+    #Add data to listbox
+    for item in user_list_data_read:
+        user_list_read.insert(END, item)
+
+
+#Update entry box with listbox clicked
+def fillout_user_list_read(event):
+    global review_read_user_entry
+    #Delete whatever is in the entry box
+    review_read_user_entry.delete(0, END)
+
+    #Add clicked list item to entry box
+    review_read_user_entry.insert(0, user_list_read.get(ACTIVE))
+
+def check_user_list_read(event):
+    #Grab what was typed
+    global review_read_user_entry
+    global user_list_data_read
+    typed_user_read = review_read_user_entry.get()
+    
+
+    if typed_user_read == " ":
+        data = user_list_data_read
+    else:
+        data = []
+        for item in user_list_data_read:
+            if typed_user_read.lower() in item.lower():
+                data.append(item)
+    update_user_list_read(data)
+
+
+
 
 
 def update_review_list_read(review_list_data_read):
@@ -2791,6 +2909,7 @@ def review_read():
     global selected_user
     global review_header
     global review_description
+    global selected_user
     screen45 = Toplevel(screen)
     screen45.title("Reviews")
     screen45.geometry("350x500")
@@ -2803,17 +2922,10 @@ def review_read():
 
     review_file = StringVar()
     review_file = " "
+    review_file = selected_user + actual_review_header
+    print(review_file)
 
 
-    os.chdir(path_for_reviews)
-    list_of_files = os.listdir()
-    for review_file in os.listdir(path_for_reviews):
-        if review_file.endswith(actual_review_header):
-            print(review_file)
-        else:
-            pass
-
-    
     os.chdir(path_for_reviews)
     list_of_files = os.listdir()
     if review_file in list_of_files:
@@ -2834,70 +2946,6 @@ def review_read():
     Label(screen45, text = "Description:").pack()
     Label(screen45, text = review_description).pack()
 
-
-def review_write():
-    global screen41
-    global path_for_reviews
-    global header_entry
-    global review_entry
-    global selected_user
-    global review_write_user_entry
-    screen41 = Toplevel(screen)
-    screen41.title("Leave a review")
-    screen41.geometry("350x500")
-    Label(screen40, text = "Leaving a review").pack()
-
-    review_entry = StringVar()
-    header_entry = StringVar()
-
-
-    os.chdir(path_for_reviews)
-    Label(screen41, text = "Header").pack()
-    header_entry= Entry(screen41)
-    header_entry.pack()
-
-    Label(screen41, text = "Description of review").pack()
-    review_entry = Text(screen41, height = 8, width = 60)
-    review_entry.pack()
-
-    selected_user = StringVar()
-    selected_user = review_write_user_entry.get()
-    print(selected_user)
-
-    Button(screen41, text = "Store values", command=review_write_store).pack()
-
- 
-
-
-
-
-def review_write_store():
-    global screen42
-    global header
-    global review
-    global selected_user
-    header = header_entry.get()
-    review = review_entry.get(1.0 , END)
-    print(header)
-    print(review)
-    print(selected_user)
-    filename = selected_user + header
-    print(filename)
-
-
-
-
-    
-    os.chdir(path_for_reviews)
-    file=open(filename, "w")
-    file.write(header+"\n")
-    file.write(review+"\n")
-    file.close()
-
-
-    Label(screen41, text = "Review submitted").pack()
-    screen41.destroy()
-    
 
  
 def update_user_list_write(user_list_data_write):
@@ -2937,39 +2985,6 @@ def check_user_list_write(event):
 
 
 
-
-def review_write_select_user():
-    global screen40
-    global review_write_user_entry
-    global user_list_write
-    global path_for_users
-    global user_list_data_write
-    screen40 = Toplevel(screen)
-    screen40.title("Selecting the User")
-    screen40.geometry("350x500")
-
-    review_write_user_entry = Entry(screen40,)
-    review_write_user_entry.pack()
-
-    #create a list box
-    user_list_write = Listbox(screen40)
-    user_list_write.pack()
-
-    #create a list
-    user_list_data_write = os.listdir(path_for_users)
-
-    #Add the data to the list
-    update_user_list_write(user_list_data_write)
-
-    #Create a binding on the listbox onclick
-    user_list_write.bind("<<ListboxSelect>>", fillout_user_list_write)
-
-    #Create a binding on the entry box
-    review_write_user_entry.bind("<KeyRelease>", check_user_list_write)
-
-    #Button to select
-    review_write_button = Button(screen40, text = "Select", command = review_write)
-    review_write_button.pack()  
 
 
 def screen_deletion():
