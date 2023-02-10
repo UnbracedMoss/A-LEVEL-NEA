@@ -9,13 +9,6 @@ import pathlib
 #Next unused screen: 51
 
 
-# TYPE CHECK FOR INTEGERS
-# x = input()
-# try:
-#   int(x)
-# except ValueError:
-#   print("Not an integer")
-
 global productName
 global product_entry
 
@@ -265,33 +258,96 @@ def register_user():
     memorable_question_length = len(memorable_question_info)
     
     if username_length == 0:
-        presence_counter = 1
-        presence_checker()
+        print("No username detected")
+        no_username_entered = Label(screen1, text = "No username was inputted")
+        no_username_entered.pack()
+        screen.after(3000, no_username_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif password_length == 0:
-        presence_counter = 2
-        presence_checker()
+        print("No password detected")
+        no_password_entered = Label(screen1, text = "No password detected")
+        no_password_entered.pack()
+        screen.after(3000, no_password_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif address1_length == 0:
-        presence_counter = 3
-        presence_checker()
+        print("No address1 detected")
+        no_address1_entered = Label(screen1, text = "1st line of address has not been entered")
+        no_address1_entered.pack()
+        screen.after(3000, no_address1_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif address2_length == 0:
-        presence_counter = 4
-        presence_checker()
+        print("No address2 detected")
+        no_address2_entered = Label(screen1, text = "2nd line of address has not been entered")
+        no_address2_entered.pack()
+        screen.after(3000, no_address2_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif postcode_length == 0:
-        presence_counter = 5
-        presence_checker()
+        print("No postcode detected")
+        no_postcode_entered = Label(screen1, text = "Postcode has not been entered")
+        no_postcode_entered.pack()
+        screen.after(3000, no_postcode_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif memorable_word_length == 0:
-        presence_counter = 6
-        presence_checker()
+        print("No memorable word detected")
+        no_memorable_word_entered = Label(screen1, text = "Memorable word has not been entered")
+        no_memorable_word_entered.pack()
+        screen.after(3000, no_memorable_word_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
     elif memorable_question_length == 0:
-        presence_counter = 7
-        presence_checker()
-
-    if presence_counter > 0:
-        missing_entity = True
-
-    print(missing_entity)
-        
-        
+        print("No memorable question detected")
+        no_memorable_question_entered = Label(screen1, text = "Memorable question has not been entered")
+        no_memorable_question_entered.pack()
+        screen.after(3000, no_memorable_question_entered.destroy)
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)
+        address_line_1_entry.delete(0, END)
+        address_line_2_entry.delete(0, END)
+        postcode_entry.delete(0, END)
+        memorable_word_entry.delete(0, END)
+        memorable_question_entry.delete(0, END)
+        return
 
 
     os.chdir(ORIGINAL_ROOT_DIR)
@@ -338,78 +394,12 @@ def register_user():
         memorable_question_entry.delete(0, END)
 
         Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11)).pack()
-        presence_counter = 8
-        presence_checker()
-
-
-def presence_checker():
-    global screen46
-    global presence_counter
-    screen46 = Toplevel(screen)
-    screen46.title("Presence check")
-    screen46.geometry("350x500")
-
-    if presence_counter == 1:
-        print("No username detected")
-        Label(screen46, text = "No username was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again")
-        screen1.destroy()
-    elif presence_counter == 2:
-        print("No password detected")
-        Label(screen46, text = "No password was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again")
-        screen1.destroy()
-    elif presence_counter == 3:
-        print("No address1 detected")
-        Label(screen46, text = "The 1st line of address was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 4:
-        print("No address2 detected")
-        Label(screen46, text = "The 2nd line of address was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 5:
-        print("No postcode detected")
-        Label(screen46, text = "Postcode was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 6:
-        print("No memorable word detected")
-        Label(screen46, text = "Memorable word was not inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 7:
-        print("No memorable question detected")
-        Label(screen46, text = "No response to memorable question was inputted").pack()
-        Label(screen46, text = "Data was not stored, please register again").pack()
-        screen1.destroy()
-    elif presence_counter == 8:
         print("Username already taken")
         Label(screen46, text = "Username is taken").pack()
         Label(screen46, text = "Please register again with a different username").pack()
         screen1.destroy()
-    elif presence_counter == 9:
-        print("Username has not been inputted")
-        Label(screen46, text = "Username has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting username")
-        screen2.destroy()
-    elif presence_counter == 10:
-        print("Password has not been inputted")
-        Label(screen46, text = "Password has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting password").pack()
-        screen2.destroy()
-    elif presence_counter == 11:
-        print("Memorable word has not been inputted")
-        Label(screen46, text = "Memorable word has not been inputted").pack()
-        Label(screen46, text = " Please login again, inputting your memorable word").pack()
-        screen2.destroy()
-    elif presence_counter == 12:
-        print("Memorable question has not been inputted")
-        Label(screen46, text = "Memorable question has not been answered").pack()
-        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
-        screen2.destroy()
-    
+
+
 
 def login():
     print("Login session started")
@@ -485,18 +475,25 @@ def login_verify():
     memorable_question1_length = len(memorable_question1)
 
     if username1_length == 0:
-        presence_counter = 9
-        print(presence_counter)
-        presence_checker()
+        print("Username has not been inputted")
+        Label(screen46, text = "Username has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting username")
+        screen2.destroy()
     elif password1_length == 0:
-        presence_counter = 10
-        presence_checker()
+        print("Password has not been inputted")
+        Label(screen46, text = "Password has not been inputted").pack()
+        Label(screen46, text = "Please login again, inputting password").pack()
+        screen2.destroy()
     elif memorable_word1_length == 0:
-        presence_counter = 11
-        presence_checker()
+        print("Memorable word has not been inputted")
+        Label(screen46, text = "Memorable word has not been inputted").pack()
+        Label(screen46, text = " Please login again, inputting your memorable word").pack()
+        screen2.destroy()
     elif memorable_question1_length == 0:
-        presence_counter = 12
-        presence_checker()
+        print("Memorable question has not been inputted")
+        Label(screen46, text = "Memorable question has not been answered").pack()
+        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
+        screen2.destroy()
     else:
         presence_counter = 0
 
