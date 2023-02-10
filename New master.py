@@ -685,16 +685,27 @@ def session():
 
 def account_management():
     global screen7
+    global username1
+    global forgotten_username_entry
     screen7 = Toplevel(screen)
     screen7.title("Account Management")
     screen7.geometry("700x700")
     Label(screen7, text="Welcome to account management").pack()
     Label(screen7, text = "Password:", font=('Helvetica', 13, 'bold')).pack()
-    Label(screen7, text =password1).pack()
-    Label(screen7, text="").pack()
-   
-    f= open(username1)
-    content = f.readlines()
+
+
+
+    if len(username1) == 0:
+        f = open(forgotten_username_entry)
+        content = f.readlines()
+    else:
+        f = open(username1)
+        content = f.readlines()
+
+    
+    
+    Label(screen7, text ="Password:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen7, text=content[1]).pack()
 
     Label(screen7, text = "Address Line 1:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[2]).pack()
@@ -2424,6 +2435,8 @@ def store_products():
     global path_for_health
     global path_for_motorvehicles
     global path_for_education
+    global username1
+    global forgotten_username_entry
     print(ORIGINAL_ROOT_DIR)
     print("Works")
     product1 = product_entry.get()
@@ -2433,7 +2446,12 @@ def store_products():
     keyword2 = keyword2_entry.get()
     keyword3 = keyword3_entry.get()
     description = description_entry.get(1.0 , END)
-    print(username1)
+    
+    if len(username1) == 0:
+        print(forgotten_username_entry)
+    else:
+        print(username1)
+
     print(product1)
     print(category1)
     print(price1)
@@ -2469,10 +2487,25 @@ def store_products():
     elif category1 == "Education":
         os.chdir(path_for_education)
     
+
+
+    try:
+       int(price_entry)
+    except ValueError:
+        print("Not an integer")
+        selling()
+
+
     file=open(product1,  "w")
     file.write(product1+"\n")
     file.write(price1+"\n")
-    file.write(username1+"\n")
+    
+    if len(username1) == 0:
+        file.write(forgotten_username_entry)
+    else:
+        file.write(username1)
+
+
     file.write(category1+"\n")
     file.write(keyword1+"\n")
     file.write(keyword2+"\n")
