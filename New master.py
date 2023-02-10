@@ -2517,13 +2517,42 @@ def store_products():
             print("Category not selected")
             selling()
 
-        product1_length = len(product1)
-        if product1_length < 1:
+        if len(product1) == 0:
             print("WORKS")
+            screen9.destroy()
             no_product1_entry = Label(screen6, text = "Product name has not been entered, please enter again")
             no_product1_entry.pack()
             screen.after(3000, no_product1_entry.destroy)
-            buying()
+            return
+        if len(price1) == 0:
+            screen9.destroy()
+            no_price1_entry = Label(screen6, text = "Price has not been entered, please enter all information again")
+            no_price1_entry.pack()
+            screen.after(3000, no_price1_entry.destroy)
+            return
+        if len(keyword1) == 0:
+            screen9.destroy()
+            no_keyword_1_entry = Label(screen6, text = "Keyword 1 has not been entered, please enter all information again")
+            no_keyword1_entry.pack()
+            screen.after(3000, no_keyword1_entry.destroy)
+            return
+        if len(keyword2) == 0:
+            screen9.destroy()
+            no_keyword2_entry = Label(screen6, text = "Keyword 2 has not been entered, please enter all information again")
+            no_keyword2_entry.pack()
+            screen.after(3000, no_keyword2_entry.destroy)
+            return
+        if len(keyword3) == 0:
+            screen9.destroy()
+            no_keyword3_entry = Label(screen6, text = "Keyword 3 has not been entered, please enter all information again")
+            no_keyword3_entry.pack()
+            screen.after(3000, no_keyword3_entry.destroy)
+            return
+        if len(decription) == 0:
+            screen9.destroy()
+            no_description_entry = Label(screen6, text = "Nothing has been entered for description, please add more")
+            no_description_entry.pack()
+            screen.after(3000, no_description_entry.destroy)
             return
             
             
