@@ -591,6 +591,10 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
+    global forgotten_password_used
+
+    forgotten_password_used = BooleanVar()
+    
 
     forgotten_username_verify = forgotten_username_entry.get()
     forgotten_memorable_word_verify = forgotten_memorable_word_entry.get()
@@ -651,6 +655,7 @@ def forgotten_password_verify():
             session()
             screen47.destroy()
             screen2.destroy()
+            forgotten_password_used = True
             
         else:
             fusername_entry.delete(0, END)
@@ -687,6 +692,7 @@ def account_management():
     global screen7
     global username1
     global forgotten_username_entry
+    global forgotten_password_used
     screen7 = Toplevel(screen)
     screen7.title("Account Management")
     screen7.geometry("700x700")
@@ -695,14 +701,15 @@ def account_management():
 
 
 
-    if len(username1) == 0:
-        f = open(forgotten_username_entry)
+
+    if forgotten_password_used == True:
+        username = forgotten_username_entry.get()
+        f = open(username)
         content = f.readlines()
     else:
         f = open(username1)
         content = f.readlines()
 
-    
     
     Label(screen7, text ="Password:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text=content[1]).pack()
@@ -2437,6 +2444,7 @@ def store_products():
     global path_for_education
     global username1
     global forgotten_username_entry
+    global forgotten_password_used
     print(ORIGINAL_ROOT_DIR)
     print("Works")
     product1 = product_entry.get()
@@ -2446,79 +2454,88 @@ def store_products():
     keyword2 = keyword2_entry.get()
     keyword3 = keyword3_entry.get()
     description = description_entry.get(1.0 , END)
+    not_number = BooleanVar()
+    not_number = True
     
-    if len(username1) == 0:
-        print(forgotten_username_entry)
-    else:
-        print(username1)
-
-    print(product1)
-    print(category1)
-    print(price1)
-    print(keyword1)
-    print(keyword2)
-    print(keyword3)
-    print(description)
-
-    if category1 == "Books":
-        print(path_for_books)
-        os.chdir(path_for_books)
-        
-    elif category1 == "Games":
-        os.chdir(path_for_games)
-    elif category1 == "Electronics":
-        os.chdir(path_for_electronics)
-    elif category1 == "Home & Garden":
-        os.chdir(path_for_homegarden)
-    elif category1 == "Toys":
-        os.chdir(path_for_toys)
-    elif category1 == "Clothes & Jewellery":
-        print(path_for_clothesjewellery)
-        os.chdir(path_for_clothesjewellery)
-    elif category1 == "Sports & Outdoors":
-        print(path_for_sportsoutdoors)
-        os.chdir(path_for_sportsoutdoors)
-    elif category1 == "Food":
-        os.chdir(path_for_food)
-    elif category1 == "Health":
-        os.chdir(path_for_health)
-    elif category1 == "Motor Vehicles":
-        os.chdir(path_for_motorvehicles)
-    elif category1 == "Education":
-        os.chdir(path_for_education)
-    
-
-
+    x = price_entry.get()
     try:
-       int(price_entry)
+        int(x)
     except ValueError:
+        not_number = False
+
+
+    
+
+    if not_number == True:
+        if forgotten_password_used == True:
+            print(forgotten_username_entry)
+        else:
+            print(username1)
+            print(product1)
+            print(category1)
+            print(price1)
+            print(keyword1)
+            print(keyword2)
+            print(keyword3)
+            print(description)
+
+        if category1 == "Books":
+            print(path_for_books)
+            os.chdir(path_for_books)
+        
+        elif category1 == "Games":
+            os.chdir(path_for_games)
+        elif category1 == "Electronics":
+            os.chdir(path_for_electronics)
+        elif category1 == "Home & Garden":
+            os.chdir(path_for_homegarden)
+        elif category1 == "Toys":
+            os.chdir(path_for_toys)
+        elif category1 == "Clothes & Jewellery":
+            print(path_for_clothesjewellery)
+            os.chdir(path_for_clothesjewellery)
+        elif category1 == "Sports & Outdoors":
+            print(path_for_sportsoutdoors)
+            os.chdir(path_for_sportsoutdoors)
+        elif category1 == "Food":
+            os.chdir(path_for_food)
+        elif category1 == "Health":
+            os.chdir(path_for_health)
+        elif category1 == "Motor Vehicles":
+            os.chdir(path_for_motorvehicles)
+        elif category1 == "Education":
+            os.chdir(path_for_education)
+    
+
+  
+
+        file=open(product1,  "w")
+        file.write(product1+"\n")
+        file.write(price1+"\n")
+    
+        if forgotten_password_used == True:
+            username = forgotten_username_entry.get()
+            file.write(username+"\n")
+        else:
+            file.write(username1+"\n")
+
+
+        file.write(category1+"\n")
+        file.write(keyword1+"\n")
+        file.write(keyword2+"\n")
+        file.write(keyword3+"\n")
+        file.write(description+"\n")
+        file.close()
+
+        product_entry.delete(0, END)
+        price_entry.delete(0, END)
+
+    
+        screen9.destroy()
+        variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+    else:
         print("Not an integer")
         selling()
-
-
-    file=open(product1,  "w")
-    file.write(product1+"\n")
-    file.write(price1+"\n")
-    
-    if len(username1) == 0:
-        file.write(forgotten_username_entry)
-    else:
-        file.write(username1)
-
-
-    file.write(category1+"\n")
-    file.write(keyword1+"\n")
-    file.write(keyword2+"\n")
-    file.write(keyword3+"\n")
-    file.write(description+"\n")
-    file.close()
-
-    product_entry.delete(0, END)
-    price_entry.delete(0, END)
-
-    
-    screen9.destroy()
-    variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
 
 
   
