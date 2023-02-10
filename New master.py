@@ -37,8 +37,7 @@ def main_screen():
     global path_for_education
     global path_for_users
     global presence_counter
-
-    presence_counter = 0
+    global forgotten_password_used # Was originally declared in forgotten_password_verify but the validation could not take place if user had logged in accurately
     screen = Tk()
     screen.geometry("300x250")
     screen.title("Online Marketplace")
@@ -49,6 +48,11 @@ def main_screen():
     Button(text = "Register", height = "2", width = "30", command = register).pack()
     os.listdir()
 
+    
+    presence_counter = 0
+
+    forgotten_password_used = BooleanVar()
+    forgotten_password_used = False
 
     ORIGINAL_ROOT_DIR = StringVar()
     ORIGINAL_ROOT_DIR = os.getcwd()
@@ -405,6 +409,7 @@ def presence_checker():
         Label(screen46, text = "Memorable question has not been answered").pack()
         Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
         screen2.destroy()
+    
 
 def login():
     print("Login session started")
@@ -591,9 +596,7 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
-    global forgotten_password_used
-
-    forgotten_password_used = BooleanVar()
+    
     
 
     forgotten_username_verify = forgotten_username_entry.get()
@@ -697,10 +700,6 @@ def account_management():
     screen7.title("Account Management")
     screen7.geometry("700x700")
     Label(screen7, text="Welcome to account management").pack()
-    Label(screen7, text = "Password:", font=('Helvetica', 13, 'bold')).pack()
-
-
-
 
     if forgotten_password_used == True:
         username = forgotten_username_entry.get()
@@ -2445,8 +2444,17 @@ def store_products():
     global username1
     global forgotten_username_entry
     global forgotten_password_used
+    global presence_counter
     print(ORIGINAL_ROOT_DIR)
     print("Works")
+
+    product1 = StringVar()
+    price1 = StringVar()
+    category1 = StringVar()
+    keyword1 = StringVar()
+    keyword2 = StringVar()
+    keyword3 = StringVar()
+    description = StringVar()
     product1 = product_entry.get()
     price1 = price_entry.get()
     category1 = clicked.get()
@@ -2505,6 +2513,21 @@ def store_products():
             os.chdir(path_for_motorvehicles)
         elif category1 == "Education":
             os.chdir(path_for_education)
+        else:
+            print("Category not selected")
+            selling()
+
+        product1_length = len(product1)
+        if product1_length < 1:
+            print("WORKS")
+            no_product1_entry = Label(screen6, text = "Product name has not been entered, please enter again")
+            no_product1_entry.pack()
+            screen.after(3000, no_product1_entry.destroy)
+            buying()
+            return
+            
+            
+            
     
 
   
