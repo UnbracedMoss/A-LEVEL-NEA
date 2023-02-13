@@ -3,14 +3,7 @@ import os
 import time
 from tkinter import filedialog
 import pathlib
-
-
-
 #Next unused screen: 52
-
-
-global productName
-global product_entry
 
 def main_screen():
     global screen
@@ -1954,34 +1947,16 @@ def final_screen():
     screen38.title("Verdict undecided")
     screen38.geometry("500x500")
 
-    #username_file_read = open(username1, "r")
-    #data = username_file_read.readlines()
-    #print(data)
-    
-
-    #if detail_category == "Password":
-        #password_detail = new_detail_entry.get()
-        #data[1] = (password_detail + "\n")
-        #print(data)
-        #password_file_write = open(username1, "w")
-        #password_file_write.writelines(data)
-
-
-
-
     os.chdir(purchasing_directory)
     f = open(purchasing_product, "r")
     content = f.readlines()
     quantity = IntVar()
     quantity = int(content[2])
     print(quantity)
-
     
-
     if quantity == 0:
         print("No quantity to purchase")
         session()
-        
     
     else:
         quantity = quantity - 1
@@ -1991,10 +1966,13 @@ def final_screen():
         content[2] = (q_data + "\n")
         quantity_write = open(purchasing_product, "w")
         quantity_write.writelines(content)
+        Label(screen38, text = "Item purchased, have fun").pack()
+        print(username1)
+        q = open(username1, "w")
+        print(q)
+        q.write(purchasing_product + "\n")
+        q.close()
         
-        
-
-
 
 def selling():
     global screen9
