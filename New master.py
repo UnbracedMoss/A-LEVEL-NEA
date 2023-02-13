@@ -1969,7 +1969,9 @@ def final_screen():
         Label(screen38, text = "Item purchased, have fun").pack()
         print(username1)
         os.chdir(path_for_users)
-        q = open(username1, "w")
+        #https://www.freecodecamp.org/news/file-handling-in-python/
+        # Basically, I need to open the file with "a" as that is append, opening the file with "w" destroys everyting within the file
+        q = open(username1, "a")
         print(q)
         q.write(purchasing_product + "\n")
         q.close()
