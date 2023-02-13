@@ -1968,6 +1968,7 @@ def final_screen():
         quantity_write.writelines(content)
         Label(screen38, text = "Item purchased, have fun").pack()
         print(username1)
+        os.chdir(path_for_users)
         q = open(username1, "w")
         print(q)
         q.write(purchasing_product + "\n")
