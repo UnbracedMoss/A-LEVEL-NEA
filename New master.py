@@ -3,7 +3,7 @@ import os
 import time
 from tkinter import filedialog
 import pathlib
-#Next unused screen: 52
+#Next unused screen: 53
 
 def main_screen():
     global screen
@@ -714,6 +714,7 @@ def account_management():
 
 
     Button(screen7, text = "Change personal details", command =changing_details).pack()
+    Button(screen7, text = "View order history", command =order_history).pack()
 
 
 
@@ -840,6 +841,92 @@ def actually_changing_details():
         screen.after(3000, screen50.destroy)
     
     
+def order_history():
+    global screen51
+    global str_out_order
+    global clicked_order
+    screen51 = Toplevel(screen)
+    screen51.title("Order History")
+    screen51.geometry("847x734")
+    Label(screen51, text = "ORDER HISTORY")
+
+    f = open(username1, "r")
+    content = f.readlines()
+
+    raw_orders = []
+    y = 7
+    #while len(content[i]) > 0:
+        #print("Works")
+        #orders.append(content[i])
+        #print(orders)
+        #y = y + 1
+    #print("Loop has concluded")
+
+    # had an error where because the stopping condition of the while loop could never be properly defined, it was causing issues at the end of the range, causing errors
+    #exception handling may work better, utilising the IndexError that was always happening
+
+    try:
+        while len(content[y]) > 0:
+            print("Works")
+            raw_orders.append(content[y])
+            print(raw_orders)
+            y = y + 1
+    except IndexError:
+        print("Loop has concluded")
+
+
+    orders = []
+    for sub in raw_orders:
+        orders.append(sub.replace("\n", ""))
+        print(orders)
+
+    for i in range (len(orders)):
+        i = 0
+        Label(screen51, text = orders[i]).pack()
+        i = i+1
+
+
+
+
+    clicked_order = StringVar()
+    clicked_order.set(orders[0])
+
+    str_out_order = StringVar()
+    str_out_order.set("Output")
+
+    drop1 = OptionMenu(screen51, clicked_order, *orders)
+    drop1.pack(pady=20)
+    b2 = Button(screen51, text = "Select category", command=lambda: my_show_order())
+    b2.pack()
+    Label(screen51, textvariable=str_out_order).pack()
+
+    Button(screen51, text = "View specific order", command = specific_order_history).pack()
+
+
+def my_show_order():
+    str_out_order.set(clicked_order.get())
+
+def specific_order_history():
+    global clicked_order
+    global order_name
+    global list_of_files_orders
+    order_name = StringVar()
+    order_name = clicked_order.get()
+    os.chdir(path_for_products)
+    print(path_for_products)
+    for path, directories, files in os.walk(path_for_products):
+     if order_name in files:
+          print('found %s' % os.path.join(path, order_name))
+          order_directory = os.path.join(path, order_name)
+          print(order_directory)
+          fp = open(order_directory, "r")
+          order_contents = fp.readlines()
+          print(order_contents[1])
+          #CBA to complete
+    
+
+
+
     
 
 def buying():
@@ -1800,8 +1887,10 @@ def selection_screen():
     global path_for_motorvehicles
     global path_for_education
     global user_dir
+    global selected_category
 
     selected_product = StringVar()
+    selected_category = StringVar()
 
     if purchasing_choice == 1:
         selected_book = book_entry.get()
@@ -1937,26 +2026,49 @@ def purchase_screen():
     
     
 def final_screen():
-    global screen38
-    global screen8
+    global screen6
     global purchasing_choice
     global purchasing_product
     global purchasing_directory
-    
-    screen38 = Toplevel(screen)
-    screen38.title("Verdict undecided")
-    screen38.geometry("500x500")
-
     os.chdir(purchasing_directory)
     f = open(purchasing_product, "r")
     content = f.readlines()
     quantity = IntVar()
     quantity = int(content[2])
     print(quantity)
+
+    screen37.destroy()
+    screen8.destroy()
+    screen51.destroy()
+    if purchasing_choice == 1:
+        screen15.destroy()
+    elif purchasing_choice == 2:
+        screen16.destroy()
+    elif purchasing_choice == 3:
+        screen17.destroy()
+    elif purchasing_choice == 4:
+        screen18.destroy()
+    elif purchasing_choice == 5:
+        screen19.destroy()
+    elif purchasing_choice == 6:
+        screen20.destroy()
+    elif purchasing_choice == 7:
+        screen21.destroy()
+    elif purchasing_choice == 8:
+        screen22.destroy()
+    elif purchasing_choice == 9:
+        screen23.destroy()
+    elif purchasing_choice == 10:
+        screen24.destroy()
+    elif purchasing_choice == 11:
+        screen25.destroy()
     
     if quantity == 0:
-        print("No quantity to purchase")
-        session()
+        unlucky = Label(screen6, text = "None left, cannot purchase")
+        unlucky.pack()
+        screen.after(3000, unlucky.destroy)
+
+    
     
     else:
         quantity = quantity - 1
@@ -1966,7 +2078,9 @@ def final_screen():
         content[2] = (q_data + "\n")
         quantity_write = open(purchasing_product, "w")
         quantity_write.writelines(content)
-        Label(screen38, text = "Item purchased, have fun").pack()
+        lucky = Label(screen6, text = "Item purchased, delivery is who knows when")
+        lucky.pack()
+        screen.after(3000, lucky.destroy)
         print(username1)
         os.chdir(path_for_users)
         #https://www.freecodecamp.org/news/file-handling-in-python/
