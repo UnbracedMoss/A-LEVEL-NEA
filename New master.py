@@ -2583,8 +2583,10 @@ def store_products():
         screen9.destroy()
         variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
     else:
-        print("Not an integer")
-        selling()
+        price_entry.delete(0, END)
+        price_no_num = Label(screen9, text = "Only integer value accepted for Price, please correct")
+        price_no_num.pack()
+        screen.after(3000, price_no_num.destroy)
 
  
 def review_mainmenu():
