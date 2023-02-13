@@ -1860,9 +1860,43 @@ def selection_screen():
 
     print(selected_product)
     print(selected_directory)
-    screen37 = Toplevel(screen)
-    screen37.title("Purchasing Screen")
-    screen37.geometry("500x500")
+    screen51 = Toplevel(screen)
+    screen51.title(selected_product)
+    screen51.geometry("800x900")
+
+    os.chdir(selected_directory)
+    f = open(selected_product)
+    content = f.readlines()
+
+    Label(screen51, text = "Product Name:").pack()
+    Label(screen51, text = content[0]).pack()
+    Label(screen51, text = "Price:").pack()
+    Label(screen51, text = content[1]).pack()
+    Label(screen51, text = "Quantity").pack()
+    Label(screen51, text = content[2]).pack()
+    Label(screen51, text = "Seller:").pack()
+    Label(screen51, text = content[3]).pack()
+    Label(screen51, text = "Category:").pack()
+    Label(screen51, text = content[4]).pack()
+    Label(screen51, text = "Keyword 1:").pack()
+    Label(screen51, text = content[5]).pack()
+    Label(screen51, text = "Keyword 2:").pack()
+    Label(screen51, text = content[6]).pack()
+    Label(screen51, text = "Keyword 3:").pack()
+    Label(screen51, text = content[7]).pack()
+    Label(screen51, text = "Description:").pack()
+    Label(screen51, text = content[8:-1]).pack() # Cannot remove the brace brackets, no clue how, simply going to leave it there
+
+    Button(screen51, text = "Purchase", command = purchase_screen).pack()
+
+
+
+
+    
+
+    
+
+    
 
 
 
@@ -1872,76 +1906,10 @@ def selection_screen():
 def purchase_screen():
     global screen37
     global ORIGINAL_ROOT_DIR
-    global purchasing_directory
-    global purchasing_choice
     global purchasing_product
-    global selected_book
-    global selected_game
-    global selected_electronic
-    global selected_home_garden
-    global selected_toys
-    global selected_clothes_jewellery
-    global selected_sports_outdoors
-    global selected_food
-    global selected_health
-    global selected_motor_vehicles
-    global selected_education
-    global path_for_products
-    global path_for_books
-    global path_for_games
-    global path_for_electronics
-    global path_for_homegarden
-    global path_for_toys
-    global path_for_clothesjewellery
-    global path_for_sportsoutdoors
-    global path_for_food
-    global path_for_health
-    global path_for_motorvehicles
-    global path_for_education
-    global user_dir
-
-
-
-    print(path_for_health)
-
-    
-    if purchasing_choice == 1:
-        purchasing_product = selected_book
-        purchasing_directory = path_for_books
-    elif purchasing_choice == 2:
-        purchasing_product = selected_game
-        purchasing_directory = path_for_games
-    elif purchasing_choice == 3:
-        purchasing_product = selected_electronic
-        purchasing_directory = path_for_electronics
-    elif purchasing_choice == 4:
-        purchasing_product = selected_home_garden
-        purchasing_directory = path_for_homegarden
-    elif purchasing_choice == 5:
-        purchasing_product = selected_toys
-        purchasing_directory = path_for_toys
-    elif purchasing_choice == 6:
-        purchasing_product = selected_clothes_jewellery
-        purchasing_directory = path_for_clothesjewellery
-    elif purchasing_choice == 7:
-        purchasing_product = selected_sports_outdoors
-        purchasing_directory = path_for_sportsoutdoors
-    elif purchasing_choice == 8:
-        purchasing_product = selected_food
-        purchasing_directory = path_for_food
-    elif purchasing_choice == 9:
-        purchasing_product = selected_health
-        purchasing_directory = path_for_health
-    elif purchasing_choice == 10:
-        purchasing_product = selected_motor_vehicles
-        purchasing_directory = path_for_motorvehicles
-    elif purchasing_choice == 11:
-        purchasing_product = selected_education.get()
-        purchasing_directory = path_for_education.get()
-    else:
-        print("I really can't be asked to fix this issue")
-
-
+    global purchasing_directory
+    purchasing_product = selected_product
+    purchasing_directory = selected_directory
 
     screen37 = Toplevel(screen)
     screen37.title("Purchasing Screen")
@@ -1979,50 +1947,52 @@ def final_screen():
     global screen38
     global screen8
     global purchasing_choice
+    global purchasing_product
+    global purchasing_directory
     
     screen38 = Toplevel(screen)
-    screen38.title("Congratualtions")
+    screen38.title("Verdict undecided")
     screen38.geometry("500x500")
 
-    Label(screen38, text = "Can't even spell congratulations").pack()
-    Label(screen38, text = "Product purchased").pack()
-    screen37.destroy()
-    screen8.destroy()
+    #username_file_read = open(username1, "r")
+    #data = username_file_read.readlines()
+    #print(data)
+    
+
+    #if detail_category == "Password":
+        #password_detail = new_detail_entry.get()
+        #data[1] = (password_detail + "\n")
+        #print(data)
+        #password_file_write = open(username1, "w")
+        #password_file_write.writelines(data)
 
 
-    if purchasing_choice == 1:
-        screen26.destroy()
-        screen15.destroy()
-    elif purchasing_choice == 2:
-        screen27.destroy()
-        screen16.destroy()
-    elif purchasing_choice == 3:
-        screen28.destroy()
-        screen17.destroy()
-    elif purchasing_choice == 4:
-        screen29.destroy()
-        screen18.destroy()
-    elif purchasing_choice == 5:
-        screen30.destroy()
-        screen19.destroy()
-    elif purchasing_choice == 6:
-        screen31.destroy()
-        screen20.destroy()
-    elif purchasing_choice == 7:
-        screen32.destroy()
-        screen21.destroy()
-    elif purchasing_choice == 8:
-        screen33.destroy()
-        screen22.destroy()
-    elif purchasing_choice == 9:
-        screen34.destroy()
-        screen23.destroy()
-    elif purchasing_choice == 10:
-        screen35.destroy()
-        screen24.destroy()
-    elif purchasing_choice == 11:
-        screen36.destroy()
-        screen25.destroy()
+
+
+    os.chdir(purchasing_directory)
+    f = open(purchasing_product, "r")
+    content = f.readlines()
+    quantity = IntVar()
+    quantity = int(content[2])
+    print(quantity)
+
+    
+
+    if quantity == 0:
+        print("No quantity to purchase")
+        session()
+        
+    
+    else:
+        quantity = quantity - 1
+        print(quantity)
+        q_data = StringVar()
+        q_data = str(quantity)
+        content[2] = (q_data + "\n")
+        quantity_write = open(purchasing_product, "w")
+        quantity_write.writelines(content)
+        
+        
 
 
 
@@ -2297,7 +2267,9 @@ def store_products():
 
     
         screen9.destroy()
-        variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
+        successful_listing = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11))
+        successful_listing.pack()
+        screen.after(3000, successful_listing.destroy)
     else:
         if price_not_number == True:
             price_entry.delete(0, END)
