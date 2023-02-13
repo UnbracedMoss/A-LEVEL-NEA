@@ -2353,6 +2353,7 @@ def selling():
     global screen9
     global product_entry
     global price_entry
+    global quantity_entry
     global clicked
     global keyword1_entry
     global keyword2_entry
@@ -2363,7 +2364,7 @@ def selling():
 
     screen9 = Toplevel(screen)
     screen9.title("Generate a post")
-    screen9.geometry("1000x1000")
+    screen9.geometry("1920x1080")
 
     product_entry = StringVar()
     price_entry = IntVar()
@@ -2376,6 +2377,10 @@ def selling():
     price_entry = Entry(screen9)
     price_entry.pack()
     Label(screen9, text = "").pack()
+    Label(screen9, text = "Quantity").pack()
+    quantity_entry = Entry(screen9)
+    quantity_entry.pack()
+    Label(screen, text ="").pack() 
     Label(screen9, text = "Keyword 1:").pack()
     keyword1_entry = Entry(screen9)
     keyword1_entry.pack()
@@ -2447,6 +2452,7 @@ def store_products():
 
     product1 = StringVar()
     price1 = StringVar()
+    quantity1 = StringVar()
     category1 = StringVar()
     keyword1 = StringVar()
     keyword2 = StringVar()
@@ -2454,24 +2460,49 @@ def store_products():
     description = StringVar()
     product1 = product_entry.get()
     price1 = price_entry.get()
+    quantity1 = quantity_entry.get()
     category1 = clicked.get()
     keyword1 = keyword1_entry.get()
     keyword2 = keyword2_entry.get()
     keyword3 = keyword3_entry.get()
     description = description_entry.get(1.0 , END)
+
+    price_not_number = BooleanVar()
+    price_not_number = False
+
+    quantity_not_number = BooleanVar()
+    quantity_not_number = False
+
     not_number = BooleanVar()
-    not_number = True
+    not_number = False
     
     x = price_entry.get()
     try:
         int(x)
     except ValueError:
+        price_not_number = True
+        print(price_not_number)
+
+    y = quantity_entry.get()
+    try:
+        int(y)
+    except ValueError:
+        quantity_not_number = True
+        print(quantity_not_number)
+
+
+    if (quantity_not_number == True) or (price_not_number == True):
+        not_number = True
+        print(not_number)
+    else:
         not_number = False
+        print(not_number)
+        
 
 
     
 
-    if not_number == True:
+    if not_number == False:
         if forgotten_password_used == True:
             print(forgotten_username_entry)
         else:
@@ -2479,6 +2510,7 @@ def store_products():
             print(product1)
             print(category1)
             print(price1)
+            print(quantity1)
             print(keyword1)
             print(keyword2)
             print(keyword3)
@@ -2527,6 +2559,12 @@ def store_products():
             no_price1_entry.pack()
             screen.after(3000, no_price1_entry.destroy)
             return
+        if len(quantity1) == 0:
+            screen9.destroy()
+            no_quantity1_entry = Label(screen6, text = "Quantity has not been entered, please enter all information again")
+            no_quantity1_entry.pack()
+            screen.after(3000, no_quantity1_entry.destroy)
+            return
         if len(keyword1) == 0:
             screen9.destroy()
             no_keyword_1_entry = Label(screen6, text = "Keyword 1 has not been entered, please enter all information again")
@@ -2561,6 +2599,7 @@ def store_products():
         file=open(product1,  "w")
         file.write(product1+"\n")
         file.write(price1+"\n")
+        file.write(quantity1+"\n")
     
         if forgotten_password_used == True:
             username = forgotten_username_entry.get()
@@ -2583,10 +2622,16 @@ def store_products():
         screen9.destroy()
         variable_1 = Label(screen6, text = "Product sucessfully listed", fg = "green", font = ("Calibri", 11)).pack()
     else:
-        price_entry.delete(0, END)
-        price_no_num = Label(screen9, text = "Only integer value accepted for Price, please correct")
-        price_no_num.pack()
-        screen.after(3000, price_no_num.destroy)
+        if price_not_number == True:
+            price_entry.delete(0, END)
+            price_no_num = Label(screen9, text = "Only integer value accepted for Price, please correct")
+            price_no_num.pack()
+            screen.after(3000, price_no_num.destroy)
+        elif quantity_not_number == True:
+            quantity_entry.delete(0, END)
+            quantity_no_num = Label(screen9, text = "Only an integer value can be accepted for quantity, please correct")
+            quantity_no_num.pack()
+            screen.after(3000, quantity_no_num.destroy)
 
  
 def review_mainmenu():
