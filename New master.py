@@ -910,23 +910,33 @@ def specific_order_history():
     global clicked_order
     global order_name
     global list_of_files_orders
+    global screen52
+    screen52 = Toplevel(screen)
+    screen52.title("Item details")
+    screen52.geometry("800x808")
+    Label(screen52, text = "Ordered item's details").pack()
     order_name = StringVar()
     order_name = clicked_order.get()
     os.chdir(path_for_products)
     print(path_for_products)
     for path, directories, files in os.walk(path_for_products):
-     if order_name in files:
-          print('found %s' % os.path.join(path, order_name))
-          order_directory = os.path.join(path, order_name)
-          print(order_directory)
-          fp = open(order_directory, "r")
-          order_contents = fp.readlines()
-          print(order_contents[1])
-          #CBA to complete
-    
-
-
-
+        if order_name in files:
+            order_directory = os.path.join(path, order_name)
+            print(order_directory)
+            fp = open(order_directory, "r")
+            order_contents = fp.readlines()
+            Label(screen52, text = "Item name:").pack()
+            Label(screen52, text = order_contents[0]).pack()
+            Label(screen52, text = "Price:").pack()
+            Label(screen52, text = order_contents[1]).pack()
+            Label(screen52, text = "Quantity ordered: 1").pack()
+            Label(screen52, text = "Seller:").pack()
+            Label(screen52, text = order_contents[3]).pack()
+            Label(screen52, text = "Category:").pack()
+            Label(screen52, text = order_contents[4]).pack()
+            Label(screen52, text = "Description:").pack()
+            Label(screen52, text = order_contents[8:-1]).pack()
+        
     
 
 def buying():
