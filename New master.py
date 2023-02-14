@@ -956,6 +956,7 @@ def specific_order_history():
 def funds():
     global screen53
     global fund_amount
+    global fund_amount_entry
     screen53 = Toplevel(screen)
     screen53.title("Adding funds to account")
     screen53.geometry("800x754")
@@ -970,37 +971,36 @@ def funds():
 
 def funds_addition():
     global fund
+    global old_fund
     global fund_amount
 
     fund = IntVar()
+    old_fund = IntVar()
+    new_fund = IntVar()
     fund = fund_amount.get()
     print(fund)
     fund_read = open(username1, "r")
-
-
-
-    
-    username_file_read = open(username1, "r")
-    data = username_file_read.readlines()
+    data = fund_read.readlines()
+    old_fund = int(data[7]) # Make it an integer to perform numerical calculations on the data
+    new_fund = old_fund + fund
+    new_fund = str(new_fund) # Have to make it a string before writing
+    data[7] = new_fund
+    print(new_fund)
+    fund_write = open(username1, "w")
+    fund_write.writelines(data)
     print(data)
-    
 
-    if detail_category == "Password":
-        password_detail = new_detail_entry.get()
-        data[1] = (password_detail + "\n")
-        print(data)
-        password_file_write = open(username1, "w")
-        password_file_write.writelines(data)
-        screen7.destroy()
-        filler.delete(0, END)
-        password_changed = Label(screen50, text = "Password has been changed")
-        password_changed.pack()
-        screen.after(3000, screen50.destroy)
+    if len(str(fund))> 0:
+        fund_amount_entry.delete(0, END)
+        Label(screen53, text = "Funds have been added to the account").pack()
+        Label(screen53, text = "Please refresh the account management screen").pack()
+        screen.after(3000, screen53.destroy)
+    
     
 
 
 
-
+    
 
 
 def buying():
