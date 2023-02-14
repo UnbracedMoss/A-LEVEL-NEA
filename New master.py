@@ -2146,23 +2146,65 @@ def final_screen():
     
     else:
         quantity = quantity - 1
-        print(quantity)
-        q_data = StringVar()
-        q_data = str(quantity)
-        content[2] = (q_data + "\n")
-        quantity_write = open(purchasing_product, "w")
-        quantity_write.writelines(content)
-        lucky = Label(screen6, text = "Item purchased, delivery is who knows when")
-        lucky.pack()
-        screen.after(3000, lucky.destroy)
-        print(username1)
         os.chdir(path_for_users)
-        #https://www.freecodecamp.org/news/file-handling-in-python/
-        # Basically, I need to open the file with "a" as that is append, opening the file with "w" destroys everyting within the file
-        q = open(username1, "a")
-        print(q)
-        q.write(purchasing_product + "\n")
-        q.close()
+        money_check = open(username1, "r")
+        buyer_content = money_check.readlines()
+        money_available = IntVar()
+        money_available = int(buyer_content[7])
+
+        os.chdir(purchasing_directory)
+        price_check = open(purchasing_product, "r")
+        price_content = price_check.readlines()
+        price = IntVar()
+        price = int(price_content[1])
+        seller = StringVar()
+        seller = str(price_content[3]) # Have an issue where im getting the newline character
+        seller = seller.strip()
+        print(seller)
+        
+
+        os.chdir(path_for_users)
+        seller_details = open(seller, "r")
+        seller_content = seller_details.readlines()
+        seller_money = int(seller_content[7])
+        
+
+        if money_available > price:
+            money_available = money_available - price
+            buyer_content[7] = str(money_available)
+            seller_money = seller_money + price
+            seller_content[7] = str(seller_money)
+            buyer_write = open(username1, "w")
+            buyer_write.writelines(buyer_content)
+            seller_write = open(seller, "w")
+            seller_write.writelines(seller_content)
+
+            print(quantity)
+            q_data = StringVar()
+            q_data = str(quantity)
+            content[2] = (q_data + "\n")# Had an issue where funds were going up and down in the right places, but quantity wasnt going dowb
+            print(content)
+            os.chdir(purchasing_directory) # Line wasnt previously here
+            quantity_write = open(purchasing_product, "w")
+            quantity_write.writelines(content)
+            lucky = Label(screen6, text = "Item purchased, delivery is who knows when")
+            lucky.pack()
+            screen.after(3000, lucky.destroy)
+            print(username1)
+            os.chdir(path_for_users)
+            #https://www.freecodecamp.org/news/file-handling-in-python/
+            # Basically, I need to open the file with "a" as that is append, opening the file with "w" destroys everyting within the file
+            q = open(username1, "a")
+            print(q)
+            q.write(purchasing_product + "\n")
+            q.close()
+        
+            
+        else:
+            print("Man broke")
+            print("Purchase cancelled")
+            
+        
         
 
 def selling():
