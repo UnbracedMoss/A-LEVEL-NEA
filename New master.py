@@ -355,7 +355,8 @@ def register_user():
         
 
     if taken_username == False and missing_entity == False:
-        
+        money = IntVar()
+        money = 0
         os.chdir(user_dir)
         print(user_dir)
         file=open(username_info, "w")
@@ -366,7 +367,7 @@ def register_user():
         file.write(postcode_info+"\n")
         file.write(memorable_word_info+"\n")
         file.write(memorable_question_info+"\n")
-        file.write("0"+"\n")
+        file.write(str(money)+"\n")
         file.close()
 
         username_entry.delete(0, END)
@@ -2171,19 +2172,21 @@ def final_screen():
 
         if money_available > price:
             money_available = money_available - price
-            buyer_content[7] = str(money_available)
+            new_buyer_content = str(money_available)
+            buyer_content[7] = (new_buyer_content + "\n")
             seller_money = seller_money + price
-            seller_content[7] = str(seller_money)
+            new_seller_content= str(seller_money)
+            seller_content[7] = (new_seller_content + "\n")
             buyer_write = open(username1, "w")
-            buyer_write.writelines(buyer_content)
+            buyer_write.writelines(buyer_content) # solved the issue
             seller_write = open(seller, "w")
-            seller_write.writelines(seller_content)
+            seller_write.writelines(seller_content) # solved the issue
 
             print(quantity)
             q_data = StringVar()
             q_data = str(quantity)
             content[2] = (q_data + "\n")# Had an issue where funds were going up and down in the right places, but quantity wasnt going dowb
-            print(content)
+            print(content) # Realised that the changes above meant that the directory was in the wrong place
             os.chdir(purchasing_directory) # Line wasnt previously here
             quantity_write = open(purchasing_product, "w")
             quantity_write.writelines(content)
@@ -2194,12 +2197,10 @@ def final_screen():
             os.chdir(path_for_users)
             #https://www.freecodecamp.org/news/file-handling-in-python/
             # Basically, I need to open the file with "a" as that is append, opening the file with "w" destroys everyting within the file
-            q = open(username1, "a")
-            print(q)
-            q.write(purchasing_product + "\n")
-            q.close()
-        
-            
+            z = open(username1, "a")
+            print(z)
+            print(purchasing_product)
+            z.write(purchasing_product + "\n")
         else:
             print("Man broke")
             print("Purchase cancelled")
