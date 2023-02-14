@@ -3,7 +3,7 @@ import os
 import time
 from tkinter import filedialog
 import pathlib
-#Next unused screen: 53
+#Next unused screen: 54
 
 def main_screen():
     global screen
@@ -366,6 +366,7 @@ def register_user():
         file.write(postcode_info+"\n")
         file.write(memorable_word_info+"\n")
         file.write(memorable_question_info+"\n")
+        file.write("0"+"\n")
         file.close()
 
         username_entry.delete(0, END)
@@ -586,6 +587,7 @@ def forgotten_password_verify():
     global forgotten_memorable_word_verify
     global forgotten_memorable_question_verify
     global ORIGINAL_ROOT_DIR
+    global forgotten_password_used
     
     
 
@@ -649,6 +651,7 @@ def forgotten_password_verify():
             screen47.destroy()
             screen2.destroy()
             forgotten_password_used = True
+            print(forgotten_password_used)
             
         else:
             fusername_entry.delete(0, END)
@@ -692,12 +695,12 @@ def account_management():
     Label(screen7, text="Welcome to account management").pack()
 
     if forgotten_password_used == True:
-        username = forgotten_username_entry.get()
-        f = open(username)
-        content = f.readlines()
-    else:
-        f = open(username1)
-        content = f.readlines()
+        print("Forgotten password used")
+        forgotten_username = forgotten_username_entry.get()
+        username1 = forgotten_username
+
+    f = open(username1)
+    content = f.readlines()
 
     
     Label(screen7, text ="Password:", font=('Helvetica', 13, 'bold')).pack()
@@ -712,9 +715,20 @@ def account_management():
     Label(screen7, text = "Postcode", font=('Helvetica', 13, 'bold')).pack()
     Label(screen7, text = content[4]).pack()
 
+    Label(screen7, text = "Memorable word:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen7, text = content[5]).pack()
+
+    Label(screen7, text = "Memorable Question:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen7, text = content[6]).pack()
+
+    Label(screen7, text = "Funds available in account:", font=("Helvetica", 13, "bold")).pack()
+    Label(screen7, text = content[7]).pack()
+          
+
 
     Button(screen7, text = "Change personal details", command =changing_details).pack()
     Button(screen7, text = "View order history", command =order_history).pack()
+    Button(screen7, text = "Add funds to account", command =funds).pack()
 
 
 
@@ -854,7 +868,7 @@ def order_history():
     content = f.readlines()
 
     raw_orders = []
-    y = 7
+    y = 8
     #while len(content[i]) > 0:
         #print("Works")
         #orders.append(content[i])
@@ -938,6 +952,56 @@ def specific_order_history():
             Label(screen52, text = order_contents[8:-1]).pack()
         
     
+
+def funds():
+    global screen53
+    global fund_amount
+    screen53 = Toplevel(screen)
+    screen53.title("Adding funds to account")
+    screen53.geometry("800x754")
+
+
+    fund_amount = IntVar()
+    Label(screen53, text = "How much do you want to add to your account").pack()
+    fund_amount_entry = Entry(screen53, textvariable = fund_amount)
+    fund_amount_entry.pack()
+    Button(screen53, text = "Add funds", command = funds_addition).pack()
+
+
+def funds_addition():
+    global fund
+    global fund_amount
+
+    fund = IntVar()
+    fund = fund_amount.get()
+    print(fund)
+    fund_read = open(username1, "r")
+
+
+
+    
+    username_file_read = open(username1, "r")
+    data = username_file_read.readlines()
+    print(data)
+    
+
+    if detail_category == "Password":
+        password_detail = new_detail_entry.get()
+        data[1] = (password_detail + "\n")
+        print(data)
+        password_file_write = open(username1, "w")
+        password_file_write.writelines(data)
+        screen7.destroy()
+        filler.delete(0, END)
+        password_changed = Label(screen50, text = "Password has been changed")
+        password_changed.pack()
+        screen.after(3000, screen50.destroy)
+    
+
+
+
+
+
 
 def buying():
     global screen8
