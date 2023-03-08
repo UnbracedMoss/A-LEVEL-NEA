@@ -388,11 +388,17 @@ def register_user():
         memorable_word_entry.delete(0, END)
         memorable_question_entry.delete(0, END)
 
-        Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11)).pack()
+        file_nada = Label(screen1, text = "File not written", fg = "red", font = ("Calibri", 11))
+        file_nada.pack()
+        screen.after(4000, file_nada.destroy)
         print("Username already taken")
-        Label(screen46, text = "Username is taken").pack()
-        Label(screen46, text = "Please register again with a different username").pack()
-        screen1.destroy()
+        username_taken = Label(screen1, text = "Username is taken")
+        username_taken.pack()
+        taken2 = Label(screen1, text = "Please register again with a different username")
+        taken2.pack()
+        screen.after(2000, username_taken.destroy)
+        screen.after(2000, taken2.destroy)
+        
 
 
 
