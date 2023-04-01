@@ -653,11 +653,11 @@ def forgotten_password_verify():
         #their_memorable_question = verify[6]
         counter = int(counter)
         if counter == 2:
+            forgotten_password_used = True # This was originally after the session(), meaning the value "True" was never actually assigned to the variable "forgotten_password_used"
             os.listdir()
             session()
             screen47.destroy()
             screen2.destroy()
-            forgotten_password_used = True
             print(forgotten_password_used)
             
         else:
@@ -673,11 +673,25 @@ def forgotten_password_verify():
 
 def session():
     global screen6
+    global forgotten_password_used
+    global forgotten_username_entry
+    global username1
     print("Why even is there an else statement")
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
     Label(screen6, text= "Welcome to the Dashboard").pack()
+
+
+    if forgotten_password_used == True:
+        print("Forgotten password used")
+        username1 = forgotten_username_entry.get()
+        print(username1)
+    else:
+        print("WHY ARE YOU NOT FUCKING GOING TO THE CONDITIONAL STATEMENT")
+
+
+
     Button(screen6, text="Account Management", command=account_management).pack()
     Button(screen6, text= " Buying", bg = "yellow", command=buying).pack()
     Button(screen6, text="Selling", bg = "yellow", command=selling).pack()
@@ -687,25 +701,18 @@ def session():
 
 
 
-
-
-
-
 def account_management():
     global screen7
     global username1
     global forgotten_username_entry
     global forgotten_password_used
+    global path_for_users
     screen7 = Toplevel(screen)
     screen7.title("Account Management")
     screen7.geometry("700x700")
     Label(screen7, text="Welcome to account management").pack()
-
-    if forgotten_password_used == True:
-        print("Forgotten password used")
-        forgotten_username = forgotten_username_entry.get()
-        username1 = forgotten_username
-
+    print(username1)
+    os.chdir(path_for_users)
     f = open(username1)
     content = f.readlines()
 
