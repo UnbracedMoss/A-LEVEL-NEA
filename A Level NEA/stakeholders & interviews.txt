@@ -1,0 +1,7 @@
+stakeholders & interviews
+evaluation
+testing
+development
+
+Whats the goal of each portion of code
+Basically a diary entry of why I DID IT
