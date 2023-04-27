@@ -25,7 +25,7 @@ def main_screen():
     global presence_counter
     global forgotten_password_used # Was originally declared in forgotten_password_verify but the validation could not take place if user had logged in accurately
     screen = Tk()
-    screen.geometry("300x250")
+    screen.geometry("500x300")
     screen.title("Online Marketplace")
     Label(text = "Online Marketplace", bg = "grey", font = ("Calibri", 13)).pack()
     Label(text = " ").pack()
@@ -477,24 +477,28 @@ def login_verify():
 
     if username1_length == 0:
         print("Username has not been inputted")
-        Label(screen46, text = "Username has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting username")
+        no_pa = Label(screen, text = "Username has not been inputted, Please login again")
+        no_pa.pack()
         screen2.destroy()
+        screen.after(2000, no_pa.destroy)
     elif password1_length == 0:
         print("Password has not been inputted")
-        Label(screen46, text = "Password has not been inputted").pack()
-        Label(screen46, text = "Please login again, inputting password").pack()
+        no_pa = Label(screen, text = "Password has not been inputted, Please login again")
+        no_pa.pack()
         screen2.destroy()
+        screen.after(2000, no_pa.destroy)
     elif memorable_word1_length == 0:
         print("Memorable word has not been inputted")
-        Label(screen46, text = "Memorable word has not been inputted").pack()
-        Label(screen46, text = " Please login again, inputting your memorable word").pack()
+        no_pa = Label(screen, text = "Memorable word has not been inputted, Please login again")
+        no_pa.pack()
         screen2.destroy()
+        screen.after(2000, no_pa.destroy)
     elif memorable_question1_length == 0:
         print("Memorable question has not been inputted")
-        Label(screen46, text = "Memorable question has not been answered").pack()
-        Label(screen46, text = "Please login again, inputting the answer to the memorable question").pack()
+        no_pa = Label(screen, text = "Response to memorable question has not been inputted, Please login again")
+        no_pa.pack()
         screen2.destroy()
+        screen.after(2000, no_pa.destroy)
     else:
         presence_counter = 0
 
@@ -524,7 +528,8 @@ def login_verify():
             password_no_recog = Label(screen2, text = "Password not recognised")
             password_no_recog.pack()
             screen.after(2000, password_no_recog.destroy)
-        #their_memorable_word = verify[5]
+
+    
         boolean_logic2 = (memorable_word1 == verify[5])
         print(boolean_logic2)
         if boolean_logic2 == True:
@@ -534,14 +539,19 @@ def login_verify():
             memWord_no_recog = Label(screen2, text = "Incorrect response to memorable word")
             memWord_no_recog.pack()
             screen.after(2000, memWord_no_recog.destroy)
+
         boolean_logic3 = (memorable_question1 == verify[6])
         print(boolean_logic3)
         if boolean_logic3 == True:
             counter = counter + 1
             print(counter)
         else:
-            password_not_recognised()
-        #their_memorable_question = verify[6]
+            memQues_no_recog = Label(screen2, text = "Incorrect response to the memorable question")
+            memQues_no_recog.pack()
+            screen.after(3000, memQues_no_recog.destroy)
+
+
+    
         counter = int(counter)
         presence_counter = int(presence_counter)
         if counter == 3 and presence_counter == 0:
@@ -606,6 +616,19 @@ def forgotten_password_verify():
     print(forgotten_memorable_word_verify)
     print(forgotten_memorable_question_verify)
 
+    if len(forgotten_username_verify) == 0:
+        no_user = Label(screen47, text = "No username entered")
+        no_user.pack()
+        screen.after(3000, no_user.destroy)
+    elif len(forgotten_memorable_word_verify) == 0:
+        no_memWord  = Label(screen47, text = "No memorable word entered")
+        no_memWord.pack()
+        screen.after(3000, no_memWord.destroy)
+    elif len(forgotten_memorable_question_verify) == 0:
+        no_memQues = Label(screen47, text = "No response to memorable question entered")
+        no_memQues.pack()
+        screen.after(3000, no_memQues.destroy)
+
 
         
     directory_for_users = ("Users")
@@ -665,6 +688,9 @@ def forgotten_password_verify():
             fword_entry.delete(0, END)
             fquestion_entry.delete(0, END)
     else:
+        incorrect_username = Label(screen47, text = "Incorrect username entered")
+        incorrect_username.pack()
+        screen.after(3000, incorrect_username.destroy)
         fusername_entry.delete(0, END)
         fword_entry.delete(0, END)
         fquestion_entry.delete(0, END)
@@ -798,6 +824,13 @@ def actually_changing_details():
     username_file_read = open(username1, "r")
     data = username_file_read.readlines()
     print(data)
+    testing = new_detail_entry.get()
+
+    if len(testing) == 0:
+        no_detail_select = Label(screen50, text = "No information entered")
+        no_detail_select.pack()
+        screen.after(4000, no_detail_select.destroy)
+        return
     
 
     if detail_category == "Password":
@@ -826,7 +859,7 @@ def actually_changing_details():
 
     elif detail_category == "2nd Line of Address":
         address2_detail = new_detail_entry.get()
-        data[3] = (address2detail + "\n")
+        data[3] = (address2_detail + "\n")
         print(data)
         address2_file_write = open(username1, "w")
         address2_file_write.writelines(data)
@@ -861,7 +894,7 @@ def actually_changing_details():
         memorable_question_detail = new_detail_entry.get()
         data[6] = (memorable_question_detail + "\n")
         print(data)
-        memorable_word_write = open(username1, "w")
+        memorable_question_write = open(username1, "w")
         memorable_question_write.writelines(data)
         screen7.destroy()
         memorable_question_changed = Label(screen50, text = "Memorable Question has changed")
@@ -908,10 +941,8 @@ def order_history():
         orders.append(sub.replace("\n", ""))
         print(orders)
 
-    for i in range (len(orders)):
-        i = 0
-        Label(screen51, text = orders[i]).pack()
-        i = i+1
+    Label(screen51, text = "Select order below:").pack()
+
 
 
 
@@ -976,7 +1007,7 @@ def funds():
     screen53.geometry("800x754")
 
 
-    fund_amount = IntVar()
+    fund_amount = StringVar()
     Label(screen53, text = "How much do you want to add to your account").pack()
     fund_amount_entry = Entry(screen53, textvariable = fund_amount)
     fund_amount_entry.pack()
@@ -988,10 +1019,22 @@ def funds_addition():
     global old_fund
     global fund_amount
 
-    fund = IntVar()
     old_fund = IntVar()
     new_fund = IntVar()
     fund = fund_amount.get()
+
+    fund = fund_amount.get()
+    try:
+        int(fund)
+    except ValueError:
+        str_fund = Label(screen53, text = "Enter integer value for funds")
+        str_fund.pack()
+        screen.after(3000, str_fund.destroy)
+        return
+    fund = int(fund)
+    
+    
+    
     print(fund)
     fund_read = open(username1, "r")
     data = fund_read.readlines()
@@ -2028,6 +2071,11 @@ def selection_screen():
         print("I really can't be asked to fix this issue")
 
 
+    if len(selected_product) == 0:
+        Label(screen17, text = "No product selected").pack()
+        return()
+
+
     print(selected_product)
     print(selected_directory)
     screen51 = Toplevel(screen)
@@ -2105,6 +2153,8 @@ def purchase_screen():
     f= open(username1)
     content = f.readlines()
 
+    Label(screen37, text = "Address Line 1:", font=('Helvetica', 13, 'bold')).pack()
+    Label(screen37, text = content[2]).pack()
     Label(screen37, text = "Address Line 2:", font=('Helvetica', 13, 'bold')).pack()
     Label(screen37, text = content[3]).pack()
 
@@ -2203,7 +2253,7 @@ def final_screen():
             os.chdir(purchasing_directory) # Line wasnt previously here
             quantity_write = open(purchasing_product, "w")
             quantity_write.writelines(content)
-            lucky = Label(screen6, text = "Item purchased, delivery is who knows when")
+            lucky = Label(screen6, text = "Item purchased, delivery is:")
             lucky.pack()
             screen.after(3000, lucky.destroy)
             print(username1)
@@ -2244,27 +2294,21 @@ def selling():
     Label(screen9, text = "Product name*").pack()
     product_entry = Entry(screen9)
     product_entry.pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "Price * ").pack()
     price_entry = Entry(screen9)
     price_entry.pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "Quantity").pack()
     quantity_entry = Entry(screen9)
     quantity_entry.pack()
-    Label(screen, text ="").pack() 
     Label(screen9, text = "Keyword 1:").pack()
     keyword1_entry = Entry(screen9)
     keyword1_entry.pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "Keyword 2:").pack()
     keyword2_entry = Entry(screen9)
     keyword2_entry.pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "Keyword 3:").pack()
     keyword3_entry = Entry(screen9)
     keyword3_entry.pack()
-    Label(screen9, text = "").pack()
     Label(screen9, text = "Description:").pack()
     description_entry = Text(screen9, height = 8, width = 60)
     description_entry.pack()
@@ -2284,7 +2328,7 @@ def selling():
     ]
 
     clicked = StringVar()
-    clicked.set(options[0])
+    
 
     str_out = StringVar()
     str_out.set("Output")
@@ -2388,6 +2432,8 @@ def store_products():
             print(keyword3)
             print(description)
 
+        
+
         if category1 == "Books":
             print(path_for_books)
             os.chdir(path_for_books)
@@ -2415,8 +2461,11 @@ def store_products():
         elif category1 == "Education":
             os.chdir(path_for_education)
         else:
-            print("Category not selected")
-            selling()
+            screen9.destroy()
+            no_category_entry = Label(screen6, text = "Category has not been entered, please enter again")
+            no_category_entry.pack()
+            screen.after(3000, no_category_entry.destroy)
+            return
 
         if len(product1) == 0:
             print("WORKS")
@@ -2439,7 +2488,7 @@ def store_products():
             return
         if len(keyword1) == 0:
             screen9.destroy()
-            no_keyword_1_entry = Label(screen6, text = "Keyword 1 has not been entered, please enter all information again")
+            no_keyword1_entry = Label(screen6, text = "Keyword 1 has not been entered, please enter all information again")
             no_keyword1_entry.pack()
             screen.after(3000, no_keyword1_entry.destroy)
             return
@@ -2461,6 +2510,7 @@ def store_products():
             no_description_entry.pack()
             screen.after(3000, no_description_entry.destroy)
             return
+
             
             
             
@@ -2529,9 +2579,9 @@ def review_write_select_user():
     screen40 = Toplevel(screen)
     screen40.title("Selecting the User")
     screen40.geometry("350x500")
-
     review_write_user_entry = Entry(screen40,)
     review_write_user_entry.pack()
+    Label(screen40, text = "Search for user:").pack()
 
     #create a list box
     user_list_write = Listbox(screen40)
@@ -2560,7 +2610,15 @@ def review_write():
     screen41 = Toplevel(screen)
     screen41.title("Leave a review")
     screen41.geometry("350x500")
-    Label(screen40, text = "Leaving a review").pack()
+    Label(screen41, text = "Leaving a review").pack()
+    selected_user = StringVar()
+    selected_user = review_write_user_entry.get()
+    if len(selected_user) == 0:
+        screen41.destroy()
+        no_user_select = Label(screen40, text = "Select a user")
+        no_user_select.pack()
+        screen.after(4000, no_user_select.destroy)
+        return
     
     review_entry = StringVar()
     header_entry = StringVar()
@@ -2571,8 +2629,7 @@ def review_write():
     Label(screen41, text = "Description of review").pack()
     review_entry = Text(screen41, height = 8, width = 60)
     review_entry.pack()
-    selected_user = StringVar()
-    selected_user = review_write_user_entry.get()
+    
     print(selected_user)
     Button(screen41, text = "Store values", command=review_write_store).pack()
 
@@ -2592,24 +2649,29 @@ def review_write_store():
 
     if len(header) == 0:
         screen41.destroy()
-        no_header_entry = Label(screen40, text = "No header has been inputted")
+        no_header_entry = Label(screen40, text = "No input for review header")
         no_header_entry.pack()
         screen.after(3000, no_header_entry.destroy)
         return
-    if len(review) == 0:
+    elif len(review) == 0:
         screen41.destroy()
         no_review_entry = Label(screen40, text = "Nothing has been entered for the review")
         no_review_entry.pack()
         screen.after(3000, no_review_entry.destroy)
         return
+    else:
+        os.chdir(path_for_reviews)
+        file=open(filename, "w")
+        file.write(header+"\n")
+        file.write(review+"\n")
+        file.close()
+        screen41.destroy()
+        successful_review = Label(screen40, text = "Review submitted")
+        successful_review.pack()
+        screen.after(3000, successful_review.destroy)
+        
     
-    os.chdir(path_for_reviews)
-    file=open(filename, "w")
-    file.write(header+"\n")
-    file.write(review+"\n")
-    file.close()
-    Label(screen41, text = "Review submitted").pack()
-    screen41.destroy()
+    
 
     
 def review_read_select_user():
@@ -2728,6 +2790,13 @@ def review_read_selection():
     selected_user = review_read_user_entry.get()
     print(selected_user)
     review_data_structure = []
+    if len(selected_user) == 0:
+        screen44.destroy()
+        no_user_select = Label(screen43, text = "Select a user")
+        no_user_select.pack()
+        screen.after(4000, no_user_select.destroy)
+        return
+        
     for file in os.listdir(path_for_reviews):
         if file.startswith(selected_user):
             file = file.replace(selected_user, '')
