@@ -702,7 +702,6 @@ def session():
     global forgotten_password_used
     global forgotten_username_entry
     global username1
-    print("Why even is there an else statement")
     screen6 = Toplevel(screen)
     screen6.title("Account Dashboard")
     screen6.geometry("350x500")
@@ -714,7 +713,7 @@ def session():
         username1 = forgotten_username_entry.get()
         print(username1)
     else:
-        print("WHY ARE YOU NOT FUCKING GOING TO THE CONDITIONAL STATEMENT")
+        print("Not working")
 
 
 
@@ -2068,7 +2067,7 @@ def selection_screen():
         selected_product = selected_education
         selected_directory = path_for_education
     else:
-        print("I really can't be asked to fix this issue")
+        print("Not working")
 
 
     if len(selected_product) == 0:
@@ -2265,7 +2264,7 @@ def final_screen():
             print(purchasing_product)
             z.write(purchasing_product + "\n")
         else:
-            print("Man broke")
+            print("No money")
             print("Purchase cancelled")
             
         
